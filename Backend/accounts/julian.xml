@@ -1,5 +1,11 @@
-<model.StorageAccount>
+<model.CloudAccount>
   <username>julian</username>
   <password>1234</password>
   <space>16384</space>
-</model.StorageAccount>
+  <cloud>
+    <root class="model.FileSystemDir">
+      <pathname>.\cloud\julian</pathname>
+      <nodes/>
+    </root>
+  </cloud>
+</model.CloudAccount>

@@ -2,6 +2,12 @@ package controller;
 
 public class Controller {
 
+    private AccountManager accountManager;
+
+    public Controller() throws Exception{
+        accountManager = new AccountManager();
+    }
+
     public String createDrive(String username, String password, Long space){
         return null;
     }

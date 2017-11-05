@@ -1,54 +1,51 @@
 package controller;
 
 import java.io.File;
+import java.nio.file.Paths;
 import model.Account;
-import model.StorageAccount;
+import model.CloudAccount;
+import model.IRoute;
+import util.IMessage;
+import util.IOFunction;
 import util.XmlStream;
 
-public class AccountManager {
-
-    private String accountsDir;
+public class AccountManager implements IMessage, IRoute {
 
     public AccountManager() throws Exception{
-        this.accountsDir = "./accounts/";
+        IOFunction.mkdirs(accountsDir);
     }
 
-    public AccountManager(String accountsDir) throws Exception {
-        File file = new File(accountsDir);
-        if(!file.isDirectory() && file.mkdirs())
-            throw new Exception("No se ha podido crear el directorio para administrar los usuarios");
-        this.accountsDir = accountsDir;
-    }
-
-    public Account createAccount(String username, String password, Long space) throws Exception{
-        Account account = new StorageAccount(username, password, space);
-        this.saveAccount(account);
+    public Account create(String username, String password, Long space) throws Exception{
+        if(exists(username))
+            throw new Exception(msgAccountAlreadyExists);
+        Account account = new CloudAccount(username, password, space);
+        save(account);
         return account;
     }
 
-    public Account loadAccount(String username, String password) throws Exception{
-        Account account = this.loadAccount(username);
+    public Account load(String username, String password) throws Exception{
+        Account account = load(username);
         if(!isValidPassword(account, password))
-            throw new Exception("Contraseña incorrecta");
+            throw new Exception(msgIncorrectPassword);
         return account;
     }
 
-    private Account loadAccount(String username) throws Exception{
-        if(!this.existsAccount(username))
-            throw new Exception("La cuenta no existe");
+    private Account load(String username) throws Exception{
+        if(!exists(username))
+            throw new Exception(msgAccountNotExists);
         XmlStream stream = new XmlStream();
-        String accountDir = this.accountsDir + username;
+        String accountDir = Paths.get(accountsDir, username).toString();
         return (Account) stream.load(accountDir);
     }
 
-    public void saveAccount(Account account) throws Exception{
+    public void save(Account account) throws Exception{
         XmlStream stream = new XmlStream();
-        String filename = this.accountsDir + account.getUsername();
+        String filename = Paths.get(accountsDir, account.getUsername()).toString();
         stream.save(filename, account);
     }
 
-    private boolean existsAccount(String username){
-        String accountDir = this.accountsDir + username;
+    private boolean exists(String username){
+        String accountDir = Paths.get(accountsDir, username).toString();
         File file = new File(accountDir);
         return file.exists();
     }
