@@ -1,13 +1,13 @@
+package model;
+
 public class Account {
 
     private String username;
     private String password;
-    private Drive drive;
 
-    public Account(String username, String password, Drive drive) {
+    public Account(String username, String password) {
         this.username = username;
         this.password = password;
-        this.drive = drive;
     }
 
     public String getUsername() {
@@ -24,14 +24,6 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Drive getDrive() {
-        return drive;
-    }
-
-    public void setDrive(Drive drive) {
-        this.drive = drive;
     }
 
     @Override
