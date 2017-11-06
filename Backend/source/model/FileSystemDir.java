@@ -2,43 +2,33 @@ package model;
 
 import java.util.*;
 
-public class FileSystemDir extends FileSystemNode {
+public class FileSystemDir extends FileSystemFile {
 
-    private List<FileSystemNode> nodes;
+    protected List<FileSystemFile> nodes;
 
-    public List<FileSystemNode> getNodes() {
+    public List<FileSystemFile> getNodes() {
         return nodes;
     }
 
     public FileSystemDir(String pathname) throws Exception {
+        super(pathname);
+        this.creationTime = new Date().getTime();
         this.pathname = pathname;
-        nodes = new ArrayList<>();
+        this.nodes = new ArrayList<>();
     }
 
-    public FileSystemNode create(String pathname){
-        for(FileSystemNode node: nodes)
-            if(node.getPathname().equals(pathname))
-                return node;
-        return null;
-    }
-
-    public FileSystemNode search(String pathname){
-        for(FileSystemNode node: nodes)
-            if(node.getPathname().equals(pathname))
-                return node;
-        return null;
-    }
-
-    public FileSystemNode add(FileSystemNode node){
+    public FileSystemFile add(FileSystemFile node){
         nodes.add(node);
         return node;
     }
 
-    public void remove(FileSystemNode node){
+    public FileSystemFile remove(FileSystemFile node){
         nodes.remove(node);
+        return node;
     }
 
-    public Boolean contains(FileSystemNode node){
+    public Boolean contains(FileSystemFile node){
         return nodes.contains(node);
     }
+
 }
