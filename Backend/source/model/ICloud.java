@@ -1,8 +1,8 @@
 package model;
 
-public interface IRoute {
+public interface ICloud extends IMessage{
 
-    String accountsDir = "./accounts/";
+    String indexName = "index.xml";
     String cloudDir = "./cloud/";
     String driveDir = "/drive/";
     String sharedDir = "/shared/";

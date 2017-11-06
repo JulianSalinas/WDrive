@@ -1,36 +1,41 @@
 package model;
 
-import java.io.File;
 import java.nio.file.Paths;
 
-public class CloudFileSystem extends FileSystem implements IRoute {
+public class CloudFileSystem extends FileSystem{
 
     private Long space;
-    private String sharedDirname;
-    private String driveDirname;
 
     public CloudFileSystem(String pathname, Long space) throws Exception{
         super(pathname);
         this.space = space;
-        createBaseDirs();
+        createDirs();
+        updateDirs();
     }
 
-    private void createBaseDirs() throws Exception{
+    private void createDirs() throws Exception{
         create(Paths.get(root.getPathname(), sharedDir).toString());
         create(Paths.get(root.getPathname(), driveDir).toString());
     }
 
-    public FileSystemNode search(String pathname){
-        return null;
+    public void updateDirs() throws Exception{
+        XmlStream stream = new XmlStream();
+        String pathname = Paths.get(root.getPathname(), indexName).toString();
+        stream.save(pathname, root);
     }
 
-    public Object create(String dirname) throws Exception {
-        File file = (File) super.create(dirname);
-        return file;
+    @Override
+    public FileSystemNode create(String dirname) throws Exception {
+        if(space > 0)
+            return super.create(dirname);
+        throw new Exception(msgNotEnoughSpace);
     }
 
-    public String create(String filename, Object content) {
-        return null;
+    @Override
+    public FileSystemNode create(String filename, String content) throws Exception{
+        if(space >= content.getBytes().length)
+            return super.create(filename, content);
+        throw new Exception(msgNotEnoughSpace);
     }
 
 }

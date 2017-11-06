@@ -1,6 +1,6 @@
 package model;
 
-public class Account implements IRoute {
+public class Account {
 
     protected String username;
     protected String password;

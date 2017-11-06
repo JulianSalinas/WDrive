@@ -2,7 +2,7 @@ package model;
 
 import java.nio.file.Paths;
 
-public class CloudAccount extends Account {
+public class CloudAccount extends Account implements ICloud {
 
     private CloudFileSystem cloud;
 
@@ -12,10 +12,10 @@ public class CloudAccount extends Account {
 
     public CloudAccount(String username, String password, Long space) throws Exception{
         super(username, password);
-        this.cloud = createCloudFileSystem(space);
+        this.cloud = createFileSystem(space);
     }
 
-    private CloudFileSystem createCloudFileSystem(Long space) throws Exception{
+    private CloudFileSystem createFileSystem(Long space) throws Exception{
         String root = Paths.get(cloudDir, username).toString();
         return new CloudFileSystem(root, space);
     }

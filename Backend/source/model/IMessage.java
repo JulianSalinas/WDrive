@@ -1,4 +1,4 @@
-package util;
+package model;
 
 public interface IMessage {
 
@@ -6,5 +6,6 @@ public interface IMessage {
     String msgAccountAlreadyExists = "La cuenta ya existe";
     String msgAccountNotExists = "La cuenta no existe";
     String msgIncorrectPassword = "Contraseña incorrecta";
+    String msgNotEnoughSpace = "Espacio insuficiente";
 
 }
