@@ -29,15 +29,16 @@ public class FileSystemDir extends FileSystemNode {
         return null;
     }
 
-    public void add(FileSystemFile file){
-        nodes.add(file);
+    public FileSystemNode add(FileSystemNode node){
+        nodes.add(node);
+        return node;
     }
 
-    public void remove(FileSystemFile file){
-        nodes.remove(file);
+    public void remove(FileSystemNode node){
+        nodes.remove(node);
     }
 
-    public Boolean contains(FileSystemFile file){
-        return nodes.contains(file);
+    public Boolean contains(FileSystemNode node){
+        return nodes.contains(node);
     }
 }

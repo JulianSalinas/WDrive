@@ -1,7 +1,7 @@
 package controller;
 
-import controller.AccountManager;
 import model.CloudAccount;
+import model.CloudFileSystem;
 
 public class Main {
 
@@ -10,11 +10,17 @@ public class Main {
         long space = 4096*4; //bytes
 
         try{
-            AccountManager accountManager = new AccountManager();
-            CloudAccount account = (CloudAccount) accountManager.create("julian", "1234", space);
+            CloudManager cloudManager = new CloudManager();
+            CloudAccount account = cloudManager.create("julian", "1234", space);
+            CloudFileSystem cloud = account.getCloud();
+            cloud.create("carpeta1");
+            cloud.create("carpeta1/archivo1.txt", "hola! =)");
+            cloud.create("carpeta2");
+            cloud.create("archivo2.txt", "miau!, ahora si es!");
         }
         catch (Exception e){
-            System.out.println("Error: " + e);
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Si la cuenta ya existe, borrela para volverla a crear");
         }
     }
 }

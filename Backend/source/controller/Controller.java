@@ -2,10 +2,10 @@ package controller;
 
 public class Controller {
 
-    private AccountManager accountManager;
+    private CloudManager cloudManager;
 
     public Controller() throws Exception{
-        accountManager = new AccountManager();
+        cloudManager = new CloudManager();
     }
 
     public String createDrive(String username, String password, Long space){

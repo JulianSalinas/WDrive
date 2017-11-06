@@ -2,13 +2,18 @@ package controller;
 
 import java.io.File;
 import java.nio.file.Paths;
-import model.Account;
 import model.CloudAccount;
 import model.ICloud;
 
-public class AccountManager implements ICloud {
+public class CloudManager implements ICloud {
 
-    public Account create(String username, String password, Long space) throws Exception{
+    public CloudManager() throws Exception {
+        File file = new File(cloudDir);
+        if (!file.isDirectory() && !file.mkdirs())
+            throw new Exception(msgDirNotCreated);
+    }
+
+    public CloudAccount create(String username, String password, Long space) throws Exception{
         if(exists(username))
             throw new Exception(msgAccountAlreadyExists);
         return new CloudAccount(username, password, space);

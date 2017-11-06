@@ -1,0 +1,31 @@
+<model.FileSystemDir>
+  <pathname>.\cloud\julian</pathname>
+  <nodes>
+    <model.FileSystemDir>
+      <pathname>.\cloud\julian\shared</pathname>
+      <nodes/>
+    </model.FileSystemDir>
+    <model.FileSystemDir>
+      <pathname>.\cloud\julian\drive</pathname>
+      <nodes>
+        <model.FileSystemDir>
+          <pathname>.\cloud\julian\drive\carpeta1</pathname>
+          <nodes>
+            <model.FileSystemDir>
+              <pathname>.\cloud\julian\drive\carpeta1\archivo1.txt</pathname>
+              <nodes/>
+            </model.FileSystemDir>
+          </nodes>
+        </model.FileSystemDir>
+        <model.FileSystemDir>
+          <pathname>.\cloud\julian\drive\carpeta2</pathname>
+          <nodes/>
+        </model.FileSystemDir>
+        <model.FileSystemDir>
+          <pathname>.\cloud\julian\drive\archivo2.txt</pathname>
+          <nodes/>
+        </model.FileSystemDir>
+      </nodes>
+    </model.FileSystemDir>
+  </nodes>
+</model.FileSystemDir>
