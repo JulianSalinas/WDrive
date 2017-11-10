@@ -10,7 +10,8 @@ public class FileSystemDir extends FileSystemFile {
     public FileSystemDir(String pathname) throws Exception{
         super(pathname);
         this.files = new ArrayList<>();
-        if(!filename.mkdir()) throw new IOException();
+        if(!filename.exists() && !filename.mkdir())
+            throw new IOException();
     }
 
     public List<FileSystemFile> getFiles() {

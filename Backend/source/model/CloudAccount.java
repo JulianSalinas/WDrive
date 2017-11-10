@@ -1,34 +1,22 @@
 package model;
 
-import java.nio.file.Paths;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class CloudAccount extends Account implements ICloud{
 
+    @XStreamOmitField
     private CloudFileSystem cloud;
 
     public CloudFileSystem getCloud() {
         return cloud;
     }
 
+    public void setCloud(CloudFileSystem cloud) {
+        this.cloud = cloud;
+    }
+
     public CloudAccount(String username, String password) throws Exception{
         super(username, password);
-        this.cloud = loadFileSystem();
-    }
-
-    public CloudAccount(String username, String password, Long space) throws Exception{
-        super(username, password);
-        this.cloud = createFileSystem(space);
-    }
-
-    private CloudFileSystem createFileSystem(Long space) throws Exception{
-        String root = Paths.get(cloudDirname, username).toString();
-        return new CloudFileSystem(root, space);
-    }
-
-    private CloudFileSystem loadFileSystem() throws Exception{
-        XmlStream stream = new XmlStream();
-        String pathname = Paths.get(cloudDirname, username, indexFilename).toString();
-        return (CloudFileSystem) stream.load(pathname);
     }
 
 }

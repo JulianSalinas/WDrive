@@ -2,9 +2,8 @@ package controller;
 
 import java.io.File;
 import java.nio.file.Paths;
-import model.CloudAccount;
-import model.ICloud;
-import model.XmlStream;
+
+import model.*;
 
 public class CloudManager implements ICloud {
 
@@ -14,26 +13,15 @@ public class CloudManager implements ICloud {
             throw new Exception(msgDirNotCreated);
     }
 
-    public CloudAccount create(String username, String password, Long space) throws Exception{
-        if(exists(username))
-            throw new Exception(msgAccountAlreadyExists);
-        return new CloudAccount(username, password, space);
+    public CloudFileSystem create(String username, Long space) throws Exception{
+        String root = Paths.get(cloudDirname, username).toString();
+        return new CloudFileSystem(root, space);
     }
 
-    public CloudAccount load(String username, String password) throws Exception{
-        if(!exists(username))
-            throw new Exception(msgAccountNotExists);
-        return new CloudAccount(username, password);
-    }
-
-    private boolean exists(String username){
-        String dir = Paths.get(cloudDirname, username).toString();
-        File file = new File(dir);
-        return file.exists();
-    }
-
-    private boolean isValidPassword(CloudAccount account, String password){
-        return password.equals(account.getPassword());
+    public CloudFileSystem load(String username) throws Exception{
+        XmlStream stream = new XmlStream();
+        String pathname = Paths.get(cloudDirname, username, indexFilename).toString();
+        return (CloudFileSystem) stream.load(pathname);
     }
 
 }

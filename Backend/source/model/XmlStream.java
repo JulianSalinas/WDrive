@@ -7,6 +7,18 @@ import org.apache.commons.io.FileUtils;
 
 public class XmlStream extends XStream {
 
+    public XmlStream(){
+        super();
+        XStream.setupDefaultSecurity(this);
+        this.autodetectAnnotations(true);
+        this.allowTypes(new Class[]{
+                CloudAccount.class,
+                CloudFileSystem.class,
+                FileSystemDir.class,
+                FileSystemFile.class
+        });
+    }
+
     public Object load(String filename) throws IOException {
         String xml = FileUtils.readFileToString(new File(filename));
         return this.fromXML(xml);
