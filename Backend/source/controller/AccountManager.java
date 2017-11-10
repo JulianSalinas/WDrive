@@ -38,7 +38,8 @@ public class AccountManager implements ICloud {
     public CloudAccount load(String username, String password) throws Exception{
 
         if(!exists(username))
-            throw new Exception(msgAccountNotExists);
+            create(username, password, 4096L);
+            // throw new Exception(msgAccountNotExists);
 
         XmlStream stream = new XmlStream();
         String filename = Paths.get(cloudDirname, username, userFilename).toString();

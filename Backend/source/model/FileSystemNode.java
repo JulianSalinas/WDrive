@@ -39,4 +39,9 @@ public abstract class FileSystemNode {
         return filename.equals(file1.filename);
     }
 
+    @Override
+    public String toString(){
+        return getPath();
+    }
+
 }

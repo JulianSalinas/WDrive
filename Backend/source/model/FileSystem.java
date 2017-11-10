@@ -10,7 +10,7 @@ public class FileSystem extends FileSystemDir implements IMessage {
     }
 
     public FileSystemFile create(String dirname) throws Exception {
-        FileSystemDir parent = (FileSystemDir) navigate(dirname, "..");
+        FileSystemDir parent = (FileSystemDir) navigate(dirname, "../");
 
         if(parent == null)
             parent = (FileSystemDir) create((new File(dirname)).getParent());
@@ -20,7 +20,7 @@ public class FileSystem extends FileSystemDir implements IMessage {
     }
 
     public FileSystemFile create(String filename, String content) throws Exception{
-        FileSystemDir parent = (FileSystemDir) navigate(filename, "..");
+        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
 
         if(parent == null)
             parent = (FileSystemDir) create((new File(filename)).getParent());
@@ -29,8 +29,14 @@ public class FileSystem extends FileSystemDir implements IMessage {
         return parent.add(child);
     }
 
+    public FileSystemFile navigate(String toPathname){
+        return navigate(getPath(), toPathname);
+    }
+
     public FileSystemFile navigate(String fromPathname, String toPathname){
-        if(toPathname.equals(".."))
+        if (fromPathname.equals("./"))
+            return search(toPathname);
+        else if(toPathname.equals("../"))
             return search((new File(fromPathname)).getParent());
         else
             return search(Paths.get(fromPathname, toPathname).toString());
