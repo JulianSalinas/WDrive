@@ -24,6 +24,12 @@ public class CloudFileSystem extends FileSystem implements ICloud{
         updateDirs(this);
     }
 
+    public String mapPath(String basename, String filename) throws Exception{
+        if(!Paths.get(filename).startsWith(basename))
+            return Paths.get(basename, filename).toString();
+        return filename;
+    }
+
     public FileSystemFile updateDirs(FileSystemFile file) throws Exception{
         space -= file.update().getSize();
         XmlStream stream = new XmlStream();
@@ -33,7 +39,7 @@ public class CloudFileSystem extends FileSystem implements ICloud{
 
     @Override
     public FileSystemFile create(String dirname) throws Exception {
-        dirname = Paths.get(driveDirname, dirname).toString();
+        dirname = mapPath(driveDirname, dirname);
         if(space > 0)
             return updateDirs(super.create(dirname));
         throw new Exception(msgNotEnoughSpace);
@@ -41,7 +47,7 @@ public class CloudFileSystem extends FileSystem implements ICloud{
 
     @Override
     public FileSystemFile create(String filename, String content) throws Exception{
-        filename = Paths.get(driveDirname, filename).toString();
+        filename = mapPath(driveDirname, filename);
         if(space >= content.getBytes().length)
             return updateDirs(super.create(filename, content));
         throw new Exception(msgNotEnoughSpace);

@@ -1,102 +1,92 @@
 <model.CloudFileSystem>
   <filename>.\cloud\aquiles</filename>
-  <creationTime>1510335146029</creationTime>
-  <lastModifiedTime>1510335146762</lastModifiedTime>
-  <size>162</size>
+  <creationTime>1510337024698</creationTime>
+  <lastModifiedTime>1510337025418</lastModifiedTime>
+  <size>131</size>
   <files>
     <model.FileSystemDir>
       <filename>.\cloud\aquiles\drive</filename>
-      <creationTime>1510335146031</creationTime>
-      <lastModifiedTime>1510335146031</lastModifiedTime>
-      <size>162</size>
+      <creationTime>1510337024700</creationTime>
+      <lastModifiedTime>1510337024700</lastModifiedTime>
+      <size>131</size>
       <files>
         <model.FileSystemDir>
           <filename>.\cloud\aquiles\drive\carpeta1</filename>
-          <creationTime>1510335146763</creationTime>
-          <lastModifiedTime>1510335146764</lastModifiedTime>
-          <size>162</size>
+          <creationTime>1510337025420</creationTime>
+          <lastModifiedTime>1510337025420</lastModifiedTime>
+          <size>108</size>
           <files>
-            <model.FileSystemFile>
-              <filename>.\cloud\aquiles\drive\carpeta1\archivo1.txt</filename>
-              <creationTime>1510335146779</creationTime>
-              <lastModifiedTime>1510335146781</lastModifiedTime>
-              <size>9</size>
-            </model.FileSystemFile>
+            <model.FileSystemDir>
+              <filename>.\cloud\aquiles\drive\carpeta1\carpeta2</filename>
+              <creationTime>1510337025442</creationTime>
+              <lastModifiedTime>1510337025442</lastModifiedTime>
+              <size>18</size>
+              <files>
+                <model.FileSystemFile>
+                  <filename>.\cloud\aquiles\drive\carpeta1\carpeta2\archivo1.txt</filename>
+                  <creationTime>1510337025462</creationTime>
+                  <lastModifiedTime>1510337025463</lastModifiedTime>
+                  <size>9</size>
+                </model.FileSystemFile>
+                <model.FileSystemFile>
+                  <filename>.\cloud\aquiles\drive\carpeta1\carpeta2\archivo1.txt</filename>
+                  <creationTime>1510337103582</creationTime>
+                  <lastModifiedTime>1510337103583</lastModifiedTime>
+                  <size>9</size>
+                </model.FileSystemFile>
+              </files>
+            </model.FileSystemDir>
             <model.FileSystemFile>
               <filename>.\cloud\aquiles\drive\carpeta1\archivo2.txt</filename>
-              <creationTime>1510335146809</creationTime>
-              <lastModifiedTime>1510335146818</lastModifiedTime>
+              <creationTime>1510337025484</creationTime>
+              <lastModifiedTime>1510337025485</lastModifiedTime>
               <size>19</size>
             </model.FileSystemFile>
             <model.FileSystemFile>
               <filename>.\cloud\aquiles\drive\carpeta1\archivo3.txt</filename>
-              <creationTime>1510335146840</creationTime>
-              <lastModifiedTime>1510335146842</lastModifiedTime>
+              <creationTime>1510337025502</creationTime>
+              <lastModifiedTime>1510337025504</lastModifiedTime>
               <size>26</size>
             </model.FileSystemFile>
             <model.FileSystemFile>
-              <filename>.\cloud\aquiles\drive\carpeta1\archivo1.txt</filename>
-              <creationTime>1510335292827</creationTime>
-              <lastModifiedTime>1510335292828</lastModifiedTime>
-              <size>9</size>
-            </model.FileSystemFile>
-            <model.FileSystemFile>
               <filename>.\cloud\aquiles\drive\carpeta1\archivo2.txt</filename>
-              <creationTime>1510335292847</creationTime>
-              <lastModifiedTime>1510335292847</lastModifiedTime>
+              <creationTime>1510337103623</creationTime>
+              <lastModifiedTime>1510337103623</lastModifiedTime>
               <size>19</size>
             </model.FileSystemFile>
             <model.FileSystemFile>
               <filename>.\cloud\aquiles\drive\carpeta1\archivo3.txt</filename>
-              <creationTime>1510335292865</creationTime>
-              <lastModifiedTime>1510335292865</lastModifiedTime>
-              <size>26</size>
-            </model.FileSystemFile>
-            <model.FileSystemFile>
-              <filename>.\cloud\aquiles\drive\carpeta1\archivo1.txt</filename>
-              <creationTime>1510335402646</creationTime>
-              <lastModifiedTime>1510335402647</lastModifiedTime>
-              <size>9</size>
-            </model.FileSystemFile>
-            <model.FileSystemFile>
-              <filename>.\cloud\aquiles\drive\carpeta1\archivo2.txt</filename>
-              <creationTime>1510335402666</creationTime>
-              <lastModifiedTime>1510335402667</lastModifiedTime>
-              <size>19</size>
-            </model.FileSystemFile>
-            <model.FileSystemFile>
-              <filename>.\cloud\aquiles\drive\carpeta1\archivo3.txt</filename>
-              <creationTime>1510335402688</creationTime>
-              <lastModifiedTime>1510335402689</lastModifiedTime>
+              <creationTime>1510337103643</creationTime>
+              <lastModifiedTime>1510337103644</lastModifiedTime>
               <size>26</size>
             </model.FileSystemFile>
           </files>
         </model.FileSystemDir>
         <model.FileSystemDir>
-          <filename>.\cloud\aquiles\drive\carpeta1</filename>
-          <creationTime>1510335292791</creationTime>
-          <lastModifiedTime>1510335146841</lastModifiedTime>
-          <size>0</size>
-          <files/>
-        </model.FileSystemDir>
-        <model.FileSystemDir>
-          <filename>.\cloud\aquiles\drive\carpeta1</filename>
-          <creationTime>1510335402589</creationTime>
-          <lastModifiedTime>1510335146841</lastModifiedTime>
-          <size>0</size>
-          <files/>
+          <filename>.\cloud\aquiles\drive\carpeta2</filename>
+          <creationTime>1510337103664</creationTime>
+          <lastModifiedTime>1510337103664</lastModifiedTime>
+          <size>23</size>
+          <files>
+            <model.FileSystemFile>
+              <filename>.\cloud\aquiles\drive\carpeta2\archivo4.txt</filename>
+              <creationTime>1510337103682</creationTime>
+              <lastModifiedTime>1510337103683</lastModifiedTime>
+              <size>23</size>
+            </model.FileSystemFile>
+          </files>
         </model.FileSystemDir>
       </files>
     </model.FileSystemDir>
     <model.FileSystemDir>
       <filename>.\cloud\aquiles\shared</filename>
-      <creationTime>1510335146033</creationTime>
-      <lastModifiedTime>1510335146033</lastModifiedTime>
+      <creationTime>1510337024701</creationTime>
+      <lastModifiedTime>1510337024701</lastModifiedTime>
       <size>0</size>
       <files/>
     </model.FileSystemDir>
   </files>
-  <space>20318</space>
+  <space>20349</space>
   <driveDirname>.\cloud\aquiles\drive</driveDirname>
   <sharedDirname>.\cloud\aquiles\shared</sharedDirname>
   <indexFilename>.\cloud\aquiles\index.xml</indexFilename>

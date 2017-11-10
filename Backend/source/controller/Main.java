@@ -14,10 +14,10 @@ public class Main {
             CloudAccount account = accountManager.load("aquiles", "1234");
 //            CloudAccount account = accountManager.create("aquiles", "1234", space);
             CloudFileSystem cloud = account.getCloud();
-            cloud.create("carpeta1");
-            cloud.create("carpeta1/archivo1.txt", "hola!! =)");
+            cloud.create("carpeta1/carpeta2/archivo1.txt", "hola!! =)");
             cloud.create("carpeta1/archivo2.txt", "miau!, ahora si es!");
             cloud.create("carpeta1/archivo3.txt", "Despues de crear la cuenta");
+            cloud.create("carpeta2/archivo4.txt", "Contenido del archivo 4");
         }
         catch (Exception e){
             System.out.println("Error: " + e.getMessage());
