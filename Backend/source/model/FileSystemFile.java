@@ -2,51 +2,30 @@ package model;
 
 import java.io.File;
 import java.util.Date;
+import org.apache.commons.io.FileUtils;
 
-public class FileSystemFile {
+public class FileSystemFile extends FileSystemNode{
 
-    protected String pathname;
-    protected FileSystemFile parent;
-
-    protected Long size;
-    protected Long creationTime;
-    protected Long lastModifiedTime;
-
-    public String getPathname() {
-        return pathname;
+    public FileSystemFile(String pathname) {
+        this.filename = new File(pathname);
+        this.creationTime = new Date().getTime();
+        this.lastModifiedTime = creationTime;
+        this.size = 0L;
     }
 
-    public FileSystemFile getParent() {
-        return parent;
+    public FileSystemFile(String pathname, String content) throws Exception{
+        this(pathname);
+        FileUtils.writeStringToFile(filename, content);
     }
 
     public Long getSize() {
-        File file = new File(pathname);
-        size = file.length();
-        return size;
+        return filename.length();
     }
 
-    public Long getCreationTime() {
-        return creationTime;
-    }
-
-    public Long getLastModifiedTime() {
-        File file = new File(pathname);
-        lastModifiedTime = file.lastModified();
-        return lastModifiedTime;
-    }
-
-    public FileSystemFile(String pathname) throws Exception{
-        this.creationTime = new Date().getTime();
-        this.pathname = pathname;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FileSystemFile)) return false;
-        FileSystemFile that = (FileSystemFile) o;
-        return pathname.equals(that.pathname);
+    public FileSystemFile update(){
+        this.lastModifiedTime = getLastModifiedTime();
+        this.size = getSize();
+        return this;
     }
 
 }

@@ -1,34 +1,57 @@
 package model;
 
+import java.io.IOException;
 import java.util.*;
 
 public class FileSystemDir extends FileSystemFile {
 
-    protected List<FileSystemFile> nodes;
+    protected List<FileSystemFile> files;
 
-    public List<FileSystemFile> getNodes() {
-        return nodes;
-    }
-
-    public FileSystemDir(String pathname) throws Exception {
+    public FileSystemDir(String pathname) throws Exception{
         super(pathname);
-        this.creationTime = new Date().getTime();
-        this.pathname = pathname;
-        this.nodes = new ArrayList<>();
+        this.files = new ArrayList<>();
+        if(!filename.mkdir()) throw new IOException();
     }
 
-    public FileSystemFile add(FileSystemFile node){
-        nodes.add(node);
-        return node;
+    public List<FileSystemFile> getFiles() {
+        return files;
     }
 
-    public FileSystemFile remove(FileSystemFile node){
-        nodes.remove(node);
-        return node;
+    @Override
+    public Long getSize() {
+        size = 0L;
+        for(FileSystemFile file : files)
+            size += file.getSize();
+        return size;
     }
 
-    public Boolean contains(FileSystemFile node){
-        return nodes.contains(node);
+    public FileSystemFile add(FileSystemFile file){
+        files.add(file);
+        return file;
+    }
+
+    public FileSystemFile remove(FileSystemFile file){
+        files.remove(file);
+        return file;
+    }
+
+    public FileSystemFile search(String pathname){
+        return search(pathname, (FileSystemFile) this);
+    }
+
+    public FileSystemFile search(String pathname, FileSystemFile file){
+        if(file.getPath().equals(pathname))
+            return file;
+        else if(!(file instanceof FileSystemDir))
+            return null;
+        return search(pathname, (FileSystemDir) file);
+    }
+
+    public FileSystemFile search(String pathname, FileSystemDir dir){
+        for(FileSystemFile child : dir.getFiles()){
+            FileSystemFile node = search(pathname, child);
+            if(node != null) return node;
+        }   return null;
     }
 
 }

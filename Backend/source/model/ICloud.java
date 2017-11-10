@@ -2,9 +2,9 @@ package model;
 
 public interface ICloud extends IMessage{
 
-    String indexName = "index.xml";
-    String cloudDir = "./cloud/";
-    String driveDir = "/drive/";
-    String sharedDir = "/shared/";
+    String indexFilename = "index.xml";
+    String cloudDirname = "./cloud/";
+    String driveDirname = "/drive/";
+    String sharedDirname = "/shared/";
 
 }
