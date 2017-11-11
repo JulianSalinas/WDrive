@@ -22,6 +22,11 @@ public class FileSystemFile extends FileSystemNode{
         return filename.length();
     }
 
+    public FileSystemFile delete() throws Exception{
+        filename.delete();
+        return this;
+    }
+
     public FileSystemFile update(){
         this.lastModifiedTime = getLastModifiedTime();
         this.size = getSize();

@@ -1,7 +1,8 @@
 package model;
 
-import java.io.IOException;
 import java.util.*;
+import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 
 public class FileSystemDir extends FileSystemFile {
 
@@ -26,13 +27,21 @@ public class FileSystemDir extends FileSystemFile {
         return size;
     }
 
+    @Override
+    public FileSystemFile delete() throws Exception{
+        FileUtils.deleteDirectory(filename);
+        return this;
+    }
+
     public FileSystemFile add(FileSystemFile file){
-        files.add(file);
+        if(search(file.getPath()) == null)
+            files.add(file.update());
         return file;
     }
 
-    public FileSystemFile remove(FileSystemFile file){
-        files.remove(file);
+    public FileSystemFile remove(FileSystemFile file) throws Exception{
+        if(search(file.getPath()) != null)
+            files.remove(file.delete());
         return file;
     }
 

@@ -1,6 +1,5 @@
 package model;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class CloudFileSystem extends FileSystem implements ICloud{
@@ -61,6 +60,12 @@ public class CloudFileSystem extends FileSystem implements ICloud{
     public FileSystemFile navigate(String fromPathname, String toPathname) {
         fromPathname = mapPath(getPath(), fromPathname);
         return super.navigate(fromPathname, toPathname);
+    }
+
+    @Override
+    public FileSystemFile delete(String filename) throws Exception{
+        filename = mapPath(driveDirname, filename);
+        return updateDirs(super.delete(filename));
     }
 
 }

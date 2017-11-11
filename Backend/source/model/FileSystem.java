@@ -9,26 +9,6 @@ public class FileSystem extends FileSystemDir implements IMessage {
         super(pathname);
     }
 
-    public FileSystemFile create(String dirname) throws Exception {
-        FileSystemDir parent = (FileSystemDir) navigate(dirname, "../");
-
-        if(parent == null)
-            parent = (FileSystemDir) create((new File(dirname)).getParent());
-
-        FileSystemDir child = new FileSystemDir(dirname);
-        return parent.add(child);
-    }
-
-    public FileSystemFile create(String filename, String content) throws Exception{
-        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
-
-        if(parent == null)
-            parent = (FileSystemDir) create((new File(filename)).getParent());
-
-        FileSystemFile child = new FileSystemFile(filename, content);
-        return parent.add(child);
-    }
-
     public FileSystemFile navigate(String toPathname){
         return navigate(getPath(), toPathname);
     }
@@ -40,6 +20,30 @@ public class FileSystem extends FileSystemDir implements IMessage {
             return search((new File(fromPathname)).getParent());
         else
             return search(Paths.get(fromPathname, toPathname).toString());
+    }
+
+    public FileSystemFile create(String dirname) throws Exception {
+        FileSystemDir parent = (FileSystemDir) navigate(dirname, "../");
+        if(parent == null)
+            parent = (FileSystemDir) create((new File(dirname)).getParent());
+        FileSystemDir child = new FileSystemDir(dirname);
+        return parent.add(child);
+    }
+
+    public FileSystemFile create(String filename, String content) throws Exception{
+        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
+        if(parent == null)
+            parent = (FileSystemDir) create((new File(filename)).getParent());
+        FileSystemFile child = new FileSystemFile(filename, content);
+        return parent.add(child);
+    }
+
+    public FileSystemFile delete(String filename) throws Exception{
+        FileSystemFile child = search(filename);
+        if(child == null)
+            throw new Exception(msgDirNotExists);
+        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
+        return parent.remove(child);
     }
 
 }

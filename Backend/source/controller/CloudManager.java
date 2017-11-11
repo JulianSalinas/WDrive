@@ -1,9 +1,8 @@
 package controller;
 
+import model.*;
 import java.io.File;
 import java.nio.file.Paths;
-
-import model.*;
 
 public class CloudManager implements ICloud {
 

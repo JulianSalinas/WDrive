@@ -1,12 +1,8 @@
 package controller;
 
+import model.*;
 import java.io.File;
 import java.nio.file.Paths;
-
-import model.CloudFileSystem;
-import model.ICloud;
-import model.CloudAccount;
-import model.XmlStream;
 
 public class AccountManager implements ICloud {
 
