@@ -56,20 +56,9 @@ public class FileSystem extends FileSystemDir implements IMessage {
     }
 
     public FileSystemFile move(String filename, String dirname) throws Exception{
-        FileSystemFile file = search(filename);
-        if(file == null)
-            throw new Exception(msgFileNotExists);
-
-        FileSystemFile newDir = search(dirname);
-        if(!(newDir instanceof FileSystemDir))
-            throw new Exception(msgNotDir);
-
-        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
-        if(parent == null)
-            parent = (FileSystemDir) create((new File(dirname)).getParent());
-
-        FileSystemDir oldDir = (FileSystemDir) navigate(dirname, "../");
-        return ((FileSystemDir) newDir).add(oldDir.remove(file));
+        FileSystemFile file = copy(filename, dirname);
+        delete(filename);
+        return file;
     }
 
 }

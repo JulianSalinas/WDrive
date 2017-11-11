@@ -83,4 +83,11 @@ public class CloudFileSystem extends FileSystem implements ICloud{
         throw new Exception(msgNotEnoughSpace);
     }
 
+    @Override
+    public FileSystemFile move(String filename, String dirname) throws Exception{
+        filename = mapPath(driveDirname, filename);
+        dirname = mapPath(driveDirname, dirname);
+        return updateDirs(super.move(filename, dirname));
+    }
+
 }

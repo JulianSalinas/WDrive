@@ -20,10 +20,10 @@ public class Main {
 
             /* Creación del filesytem */
             CloudFileSystem cloud = account.getCloud();
-            cloud.create("archivo1.txt", "hola!! =)");
-            cloud.create("archivo2.txt", "miau!, ahora si es!");
-            cloud.create("carpeta1/archivo3.txt", "Despues de crear la cuenta");
-            cloud.create("carpeta2");
+            System.out.println(cloud.create("archivo1.txt", "hola!! =)"));
+            System.out.println(cloud.create("archivo2.txt", "miau!, ahora si es!"));
+            System.out.println(cloud.create("carpeta1/archivo3.txt", "Despues de crear la cuenta"));
+            System.out.println(cloud.create("carpeta2"));
 
             /* Navegación */
             System.out.println(cloud.navigate("drive/archivo1.txt", "../"));
@@ -32,13 +32,16 @@ public class Main {
             System.out.println(FileUtils.readFileToString(new File(file.getPath())));
 
             /* Borrado */
-            cloud.delete("archivo2.txt");
-            cloud.delete("carpeta2");
+            System.out.println(cloud.delete("archivo2.txt"));
+            System.out.println(cloud.delete("carpeta2"));
 
             /* Copiar */
-            cloud.copy("archivo1.txt", "carpeta1");
-            cloud.copy("carpeta1", "carpeta2");
+            System.out.println(cloud.copy("archivo1.txt", "carpeta1"));
+            System.out.println(cloud.copy("carpeta1", "carpeta2"));
 
+            /* Mover */
+            System.out.println(cloud.move("archivo1.txt", "carpeta3"));
+            System.out.println(cloud.move("carpeta1", "carpeta3"));
 
         }
 

@@ -39,7 +39,7 @@ public class FileSystemDir extends FileSystemFile {
         String newDirname = Paths.get(dir.getPath(), getName()).toString();
         FileSystemDir newDir = (FileSystemDir) dir.add(new FileSystemDir(newDirname));
         for(FileSystemFile file: files) file.copy(newDir);
-        return dir;
+        return newDir;
     }
 
     @Override
