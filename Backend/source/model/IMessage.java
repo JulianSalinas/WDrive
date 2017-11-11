@@ -2,6 +2,7 @@ package model;
 
 public interface IMessage {
 
+    String msgNotDir = "El nombre del directorio es inválido";
     String msgFileNotExists = "El archivo no existe";
     String msgDirNotExists = "El directorio no existe";
     String msgDirNotCreated = "No se ha podido crear el directorio";

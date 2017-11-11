@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.util.Date;
+import java.nio.file.Paths;
 import org.apache.commons.io.FileUtils;
 
 public class FileSystemFile extends FileSystemNode{
@@ -25,6 +26,13 @@ public class FileSystemFile extends FileSystemNode{
     public FileSystemFile delete() throws Exception{
         filename.delete();
         return this;
+    }
+
+    public FileSystemFile copy(FileSystemDir dir) throws Exception{
+        String newFilename = Paths.get(dir.getPath(), getName()).toString();
+        String content = FileUtils.readFileToString(filename);
+        FileSystemFile newfile =  new FileSystemFile(newFilename, content);
+        return dir.add(newfile);
     }
 
     public FileSystemFile update(){

@@ -1,5 +1,8 @@
 package model;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
 import java.nio.file.Paths;
 
 public class CloudFileSystem extends FileSystem implements ICloud{
@@ -66,6 +69,18 @@ public class CloudFileSystem extends FileSystem implements ICloud{
     public FileSystemFile delete(String filename) throws Exception{
         filename = mapPath(driveDirname, filename);
         return updateDirs(super.delete(filename));
+    }
+
+    @Override
+    public FileSystemFile copy(String filename, String dirname) throws Exception{
+        filename = mapPath(driveDirname, filename);
+        dirname = mapPath(driveDirname, dirname);
+        FileSystemFile file = search(filename);
+        if(file == null)
+            throw new Exception(msgFileNotExists);
+        if(availableSpace >=  file.getSize())
+            return updateDirs(super.copy(filename, dirname));
+        throw new Exception(msgNotEnoughSpace);
     }
 
 }

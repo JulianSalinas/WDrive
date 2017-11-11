@@ -1,5 +1,6 @@
 package model;
 
+import java.nio.file.Paths;
 import java.util.*;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
@@ -33,15 +34,32 @@ public class FileSystemDir extends FileSystemFile {
         return this;
     }
 
+    @Override
+    public FileSystemFile copy(FileSystemDir dir) throws Exception{
+        String newDirname = Paths.get(dir.getPath(), getName()).toString();
+        FileSystemDir newDir = (FileSystemDir) dir.add(new FileSystemDir(newDirname));
+        for(FileSystemFile file: files) file.copy(newDir);
+        return dir;
+    }
+
+    @Override
+    public FileSystemFile update(){
+        for(FileSystemFile file: files)
+            file.update();
+        this.lastModifiedTime = getLastModifiedTime();
+        this.size = getSize();
+        return this;
+    }
+
     public FileSystemFile add(FileSystemFile file){
         if(search(file.getPath()) == null)
-            files.add(file.update());
+            files.add(file);
         return file;
     }
 
     public FileSystemFile remove(FileSystemFile file) throws Exception{
         if(search(file.getPath()) != null)
-            files.remove(file.delete());
+            files.remove(file);
         return file;
     }
 

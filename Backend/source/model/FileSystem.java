@@ -1,5 +1,7 @@
 package model;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.nio.file.Paths;
 
@@ -43,7 +45,31 @@ public class FileSystem extends FileSystemDir implements IMessage {
         if(child == null)
             throw new Exception(msgDirNotExists);
         FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
-        return parent.remove(child);
+        return parent.remove(child).delete();
+    }
+
+    public FileSystemFile copy(String filename, String dirname) throws Exception{
+        FileSystemFile file = search(filename);
+        FileSystemDir newDir = (FileSystemDir) search(dirname);
+        if(newDir == null) newDir = (FileSystemDir) create(dirname);
+        return file.copy(newDir);
+    }
+
+    public FileSystemFile move(String filename, String dirname) throws Exception{
+        FileSystemFile file = search(filename);
+        if(file == null)
+            throw new Exception(msgFileNotExists);
+
+        FileSystemFile newDir = search(dirname);
+        if(!(newDir instanceof FileSystemDir))
+            throw new Exception(msgNotDir);
+
+        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
+        if(parent == null)
+            parent = (FileSystemDir) create((new File(dirname)).getParent());
+
+        FileSystemDir oldDir = (FileSystemDir) navigate(dirname, "../");
+        return ((FileSystemDir) newDir).add(oldDir.remove(file));
     }
 
 }

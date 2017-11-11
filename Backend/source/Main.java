@@ -22,7 +22,8 @@ public class Main {
             CloudFileSystem cloud = account.getCloud();
             cloud.create("archivo1.txt", "hola!! =)");
             cloud.create("archivo2.txt", "miau!, ahora si es!");
-            cloud.create("carpeta2/archivo3.txt", "Despues de crear la cuenta");
+            cloud.create("carpeta1/archivo3.txt", "Despues de crear la cuenta");
+            cloud.create("carpeta2");
 
             /* Navegación */
             System.out.println(cloud.navigate("drive/archivo1.txt", "../"));
@@ -33,6 +34,11 @@ public class Main {
             /* Borrado */
             cloud.delete("archivo2.txt");
             cloud.delete("carpeta2");
+
+            /* Copiar */
+            cloud.copy("archivo1.txt", "carpeta1");
+            cloud.copy("carpeta1", "carpeta2");
+
 
         }
 
