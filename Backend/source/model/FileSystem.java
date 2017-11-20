@@ -61,7 +61,7 @@ public class FileSystem extends FileSystemDir implements IMessage {
 
     public Boolean exists(String filename) throws Exception{
         FileSystemFile file = search(filename);
-        return filename != null;
+        return file != null;
     }
 
 }

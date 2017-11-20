@@ -88,6 +88,13 @@ public class CloudFileSystem extends FileSystem implements ICloud{
         return updateDirs(super.move(filename, dirname));
     }
 
+
+    @Override
+    public Boolean exists(String filename) throws Exception{
+        filename = mapPath(driveDirname, filename);
+        return super.exists(filename);
+    }
+
     public FileSystemFile share(String filename, CloudFileSystem target) throws Exception{
         filename = mapPath(driveDirname, filename);
         FileSystemFile file = search(filename);
