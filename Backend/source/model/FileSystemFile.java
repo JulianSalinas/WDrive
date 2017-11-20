@@ -1,9 +1,10 @@
 package model;
 
-import java.io.File;
-import java.util.Date;
-import java.nio.file.Paths;
 import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.Date;
 
 public class FileSystemFile extends FileSystemNode{
 

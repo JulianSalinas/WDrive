@@ -1,8 +1,5 @@
 package model;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
 import java.nio.file.Paths;
 
 public class CloudFileSystem extends FileSystem implements ICloud{
@@ -26,7 +23,7 @@ public class CloudFileSystem extends FileSystem implements ICloud{
 
     private void createDirs() throws Exception{
         super.create(driveDirname);
-        super.create(sharedDirname);
+        add(new FileSystemDir(sharedDirname, true));
         updateDirs(this);
     }
 
@@ -37,7 +34,8 @@ public class CloudFileSystem extends FileSystem implements ICloud{
     }
 
     public FileSystemFile updateDirs(FileSystemFile file) throws Exception{
-        availableSpace = totalSpace - getSize();
+        FileSystemDir driveDir = (FileSystemDir) search(driveDirname);
+        availableSpace = totalSpace - driveDir.getSize();
         XmlStream stream = new XmlStream();
         stream.save(indexFilename, this.update());
         return file;
@@ -88,6 +86,15 @@ public class CloudFileSystem extends FileSystem implements ICloud{
         filename = mapPath(driveDirname, filename);
         dirname = mapPath(driveDirname, dirname);
         return updateDirs(super.move(filename, dirname));
+    }
+
+    public FileSystemFile share(String filename, CloudFileSystem target) throws Exception{
+        filename = mapPath(driveDirname, filename);
+        FileSystemFile file = search(filename);
+        if(file == null)
+            throw new Exception(msgFileNotExists);
+        FileSystemDir sharedDir = (FileSystemDir) target.search(target.sharedDirname);
+        return target.updateDirs(sharedDir.add(file));
     }
 
 }

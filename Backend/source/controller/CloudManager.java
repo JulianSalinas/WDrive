@@ -6,7 +6,10 @@ import java.nio.file.Paths;
 
 public class CloudManager implements ICloud {
 
+    XmlStream stream;
+
     public CloudManager() throws Exception {
+        stream = new XmlStream();
         File file = new File(cloudDirname);
         if (!file.isDirectory() && !file.mkdirs())
             throw new Exception(msgDirNotCreated);
@@ -18,7 +21,6 @@ public class CloudManager implements ICloud {
     }
 
     public CloudFileSystem load(String username) throws Exception{
-        XmlStream stream = new XmlStream();
         String pathname = Paths.get(cloudDirname, username, indexFilename).toString();
         return (CloudFileSystem) stream.load(pathname);
     }

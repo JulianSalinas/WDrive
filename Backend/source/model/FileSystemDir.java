@@ -10,10 +10,14 @@ public class FileSystemDir extends FileSystemFile {
     protected List<FileSystemFile> files;
 
     public FileSystemDir(String pathname) throws Exception{
+        this(pathname, false);
+    }
+
+    public FileSystemDir(String pathname, boolean isVirtual) throws Exception{
         super(pathname);
-        this.files = new ArrayList<>();
-        if(!filename.exists() && !filename.mkdir())
+        if(!isVirtual && !filename.exists() && !filename.mkdir())
             throw new IOException();
+        this.files = new ArrayList<>();
     }
 
     public List<FileSystemFile> getFiles() {

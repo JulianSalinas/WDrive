@@ -15,8 +15,9 @@ public class CloudAccount extends Account implements ICloud{
         this.cloud = cloud;
     }
 
-    public CloudAccount(String username, String password) throws Exception{
+    public CloudAccount(String username, String password, CloudFileSystem cloud) {
         super(username, password);
+        this.cloud = cloud;
     }
 
 }

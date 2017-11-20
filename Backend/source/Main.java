@@ -1,9 +1,10 @@
-import model.*;
-import controller.*;
+import controller.AccountManager;
+import model.CloudAccount;
+import model.CloudFileSystem;
+import model.FileSystemFile;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.lang.System;
-import org.apache.commons.io.FileUtils;
 
 public class Main {
 
@@ -16,6 +17,7 @@ public class Main {
             /* Creación de la cuente */
             AccountManager accountManager = new AccountManager();
             CloudAccount account = accountManager.load("aquiles", "1234");
+            CloudAccount account2 = accountManager.load("julian", "1234");
 //            CloudAccount account = accountManager.create("aquiles", "1234", space);
 
             /* Creación del filesytem */
@@ -42,6 +44,10 @@ public class Main {
             /* Mover */
             System.out.println(cloud.move("archivo1.txt", "carpeta3"));
             System.out.println(cloud.move("carpeta1", "carpeta3"));
+
+            /* Compartir */
+            cloud.share("carpeta3/archivo1.txt", account2.getCloud());
+            cloud.share("carpeta2", account2.getCloud());
 
         }
 
