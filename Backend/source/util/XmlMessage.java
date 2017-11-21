@@ -6,17 +6,17 @@ public class XmlMessage {
     public static String ERROR ="ERROR";
 
     private String status;
-    private String content;
+    private Object content;
 
     public String getStatus() {
         return status;
     }
 
-    public String getContent() {
+    public Object getContent() {
         return content;
     }
 
-    public XmlMessage(String status, String content){
+    public XmlMessage(String status, Object content){
         this.status = status;
         this.content = content;
     }

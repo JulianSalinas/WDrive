@@ -1,6 +1,6 @@
 package api;
 
-import controller.WDriveTest;
+import controller.WDriveManager;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -13,7 +13,7 @@ public class WDriveApp extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         HashSet hashSet = new HashSet<Class<?>>();
-        hashSet.add( WDriveTest.class );
+        hashSet.add( WDriveManager.class );
         return hashSet;
     }
 

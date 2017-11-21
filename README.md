@@ -17,6 +17,5 @@ diferentes clientes dentro de sus respectivos espacios.
     * Framework Angular, Bootstrap
     * IDE Jetbrains WebStorm
     
-Nota: Con IntelliJ solo se abre la carpeta Backend. Al darle run por primera
-vez se abre una ventana, en esa se tiene que colocar una opción en 
-'use classpath of module'
+Usar la dirección: http://localhost:8080/WDrive/WDriveApiService?wsdl
+para poder agregar la referencia en Visual
