@@ -1,13 +1,19 @@
 package model;
 
-import java.nio.file.Paths;
-import java.util.*;
-import java.io.IOException;
 import org.apache.commons.io.FileUtils;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileSystemDir extends FileSystemFile {
 
     protected List<FileSystemFile> files;
+
+    public List<FileSystemFile> getFiles() {
+        return files;
+    }
 
     public FileSystemDir(String pathname) throws Exception{
         this(pathname, false);
@@ -18,10 +24,6 @@ public class FileSystemDir extends FileSystemFile {
         if(!isVirtual && !filename.exists() && !filename.mkdir())
             throw new IOException();
         this.files = new ArrayList<>();
-    }
-
-    public List<FileSystemFile> getFiles() {
-        return files;
     }
 
     @Override

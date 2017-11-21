@@ -1,8 +1,8 @@
 package controller;
 
-import model.CloudAccount;
-import model.CloudFileSystem;
 import model.ICloud;
+import model.WAccount;
+import model.WFileSystem;
 import util.XmlSerializer;
 
 import java.io.File;
@@ -17,6 +17,10 @@ public class AccountManager implements ICloud {
     public AccountManager() throws Exception {
         serializer = new XmlSerializer();
         fileSystemManager = new FileSystemManager();
+        createDirs();
+    }
+
+    private void createDirs() throws Exception{
         File file = new File(cloudDirname);
         if (!file.isDirectory() && !file.mkdirs())
             throw new Exception(msgDirNotCreated);
@@ -27,22 +31,24 @@ public class AccountManager implements ICloud {
         return path;
     }
 
-    public CloudAccount create(String username, String password, Long space) throws Exception{
+    public WAccount create(String username, String password, Long space) throws Exception{
         if(exists(username))
             throw new Exception(msgAccountAlreadyExists);
 
-        CloudFileSystem cloud = fileSystemManager.create(username, space);
-        CloudAccount account = new CloudAccount(username, password, cloud);
+        WFileSystem cloud = fileSystemManager.create(username, space);
+        WAccount account = new WAccount(username, password, cloud);
         serializer.save(userInfoFilename(username), account);
+
         return account;
     }
 
-    public CloudAccount load(String username, String password) throws Exception {
+    public WAccount load(String username, String password) throws Exception {
         if (!exists(username))
-            create(username, password, 4096L); // throw new Exception(msgAccountNotExists);
+            create(username, password, 4096L);
+//            throw new Exception(msgAccountNotExists);
 
-        CloudFileSystem cloud = fileSystemManager.load(username);
-        CloudAccount account = (CloudAccount) serializer.load(userInfoFilename(username));
+        WFileSystem cloud = fileSystemManager.load(username);
+        WAccount account = (WAccount) serializer.load(userInfoFilename(username));
         account.setCloud(cloud);
 
         if(!isValidPassword(account, password))
@@ -56,7 +62,7 @@ public class AccountManager implements ICloud {
         return path.toFile().exists();
     }
 
-    private boolean isValidPassword(CloudAccount account, String password){
+    private boolean isValidPassword(WAccount account, String password){
         return password.equals(account.getPassword());
     }
 

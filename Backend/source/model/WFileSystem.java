@@ -4,7 +4,7 @@ import util.XmlSerializer;
 
 import java.nio.file.Paths;
 
-public class CloudFileSystem extends FileSystem implements ICloud{
+public class WFileSystem extends FileSystem implements ICloud {
 
     private Long totalSpace;
     private Long availableSpace;
@@ -13,7 +13,7 @@ public class CloudFileSystem extends FileSystem implements ICloud{
     private String sharedDirname;
     private String indexFilename;
 
-    public CloudFileSystem(String pathname, Long space) throws Exception{
+    public WFileSystem(String pathname, Long space) throws Exception{
         super(pathname);
         this.totalSpace = space;
         this.availableSpace = totalSpace;
@@ -97,7 +97,7 @@ public class CloudFileSystem extends FileSystem implements ICloud{
         return super.exists(filename);
     }
 
-    public FileSystemFile share(String filename, CloudFileSystem target) throws Exception{
+    public FileSystemFile share(String filename, WFileSystem target) throws Exception{
         filename = mapPath(driveDirname, filename);
         FileSystemFile file = search(filename);
         if(file == null)

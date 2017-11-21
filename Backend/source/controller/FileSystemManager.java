@@ -1,6 +1,7 @@
 package controller;
 
-import model.*;
+import model.ICloud;
+import model.WFileSystem;
 import util.XmlSerializer;
 
 import java.io.File;
@@ -17,14 +18,14 @@ public class FileSystemManager implements ICloud {
             throw new Exception(msgDirNotCreated);
     }
 
-    public CloudFileSystem create(String username, Long space) throws Exception{
+    public WFileSystem create(String username, Long space) throws Exception{
         String root = Paths.get(cloudDirname, username).toString();
-        return new CloudFileSystem(root, space);
+        return new WFileSystem(root, space);
     }
 
-    public CloudFileSystem load(String username) throws Exception{
+    public WFileSystem load(String username) throws Exception{
         String pathname = Paths.get(cloudDirname, username, indexFilename).toString();
-        return (CloudFileSystem) serializer.load(pathname);
+        return (WFileSystem) serializer.load(pathname);
     }
 
 }

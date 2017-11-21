@@ -1,50 +1,50 @@
-<model.CloudFileSystem>
+<model.WFileSystem>
   <filename>.\cloud\julian</filename>
-  <creationTime>1511138319505</creationTime>
-  <lastModifiedTime>1511250340746</lastModifiedTime>
+  <creationTime>1511236946268</creationTime>
+  <lastModifiedTime>1511236946298</lastModifiedTime>
   <size>44</size>
   <files>
     <model.FileSystemDir>
       <filename>.\cloud\julian\drive</filename>
-      <creationTime>1511138319506</creationTime>
-      <lastModifiedTime>0</lastModifiedTime>
+      <creationTime>1511236946269</creationTime>
+      <lastModifiedTime>1511236946269</lastModifiedTime>
       <size>0</size>
       <files/>
     </model.FileSystemDir>
     <model.FileSystemDir>
       <filename>.\cloud\julian\shared</filename>
-      <creationTime>1511138319507</creationTime>
+      <creationTime>1511236946269</creationTime>
       <lastModifiedTime>0</lastModifiedTime>
       <size>44</size>
       <files>
         <model.FileSystemFile>
           <filename>.\cloud\aquiles\drive\carpeta3\archivo1.txt</filename>
-          <creationTime>1511139782385</creationTime>
-          <lastModifiedTime>1511251017432</lastModifiedTime>
+          <creationTime>1511236946536</creationTime>
+          <lastModifiedTime>1511236946536</lastModifiedTime>
           <size>9</size>
         </model.FileSystemFile>
         <model.FileSystemDir>
           <filename>.\cloud\aquiles\drive\carpeta2</filename>
-          <creationTime>1511141090108</creationTime>
-          <lastModifiedTime>1511251017401</lastModifiedTime>
+          <creationTime>1511236946474</creationTime>
+          <lastModifiedTime>1511236946495</lastModifiedTime>
           <size>35</size>
           <files>
             <model.FileSystemDir>
               <filename>.\cloud\aquiles\drive\carpeta2\carpeta1</filename>
-              <creationTime>1511141090126</creationTime>
-              <lastModifiedTime>1511251017404</lastModifiedTime>
+              <creationTime>1511236946495</creationTime>
+              <lastModifiedTime>1511236946498</lastModifiedTime>
               <size>35</size>
               <files>
                 <model.FileSystemFile>
                   <filename>.\cloud\aquiles\drive\carpeta2\carpeta1\archivo3.txt</filename>
-                  <creationTime>1511141090127</creationTime>
-                  <lastModifiedTime>1511251017403</lastModifiedTime>
+                  <creationTime>1511236946496</creationTime>
+                  <lastModifiedTime>1511236946497</lastModifiedTime>
                   <size>26</size>
                 </model.FileSystemFile>
                 <model.FileSystemFile>
                   <filename>.\cloud\aquiles\drive\carpeta2\carpeta1\archivo1.txt</filename>
-                  <creationTime>1511141090128</creationTime>
-                  <lastModifiedTime>1511251017404</lastModifiedTime>
+                  <creationTime>1511236946497</creationTime>
+                  <lastModifiedTime>1511236946498</lastModifiedTime>
                   <size>9</size>
                 </model.FileSystemFile>
               </files>
@@ -59,4 +59,4 @@
   <driveDirname>.\cloud\julian\drive</driveDirname>
   <sharedDirname>.\cloud\julian\shared</sharedDirname>
   <indexFilename>.\cloud\julian\index.xml</indexFilename>
-</model.CloudFileSystem>
+</model.WFileSystem>

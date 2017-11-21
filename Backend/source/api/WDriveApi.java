@@ -1,18 +1,16 @@
-package controller;
+package api;
 
-import javax.annotation.Resource;
+import controller.WDriveManager;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.xml.ws.WebServiceContext;
 
 @WebService
-public class WDriveWebService  extends CloudManager {
-
-    @Resource
-    private WebServiceContext context;
+public class WDriveApi extends WDriveManager {
 
     private String message = new String("Hola, ");
 
+    @WebMethod
     public String Hello() {
         return "Esto es un nuevo hola";
     }

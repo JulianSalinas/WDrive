@@ -1,8 +1,8 @@
 package util;
 
 import com.thoughtworks.xstream.XStream;
-import model.CloudAccount;
-import model.CloudFileSystem;
+import model.WAccount;
+import model.WFileSystem;
 import model.FileSystemDir;
 import model.FileSystemFile;
 import org.apache.commons.io.FileUtils;
@@ -18,8 +18,8 @@ public class XmlSerializer extends XStream {
         XStream.setupDefaultSecurity(this);
         this.autodetectAnnotations(true);
         this.allowTypes(new Class[]{
-                CloudAccount.class,
-                CloudFileSystem.class,
+                WAccount.class,
+                WFileSystem.class,
                 FileSystemDir.class,
                 FileSystemFile.class
         });
