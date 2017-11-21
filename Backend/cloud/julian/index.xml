@@ -1,13 +1,13 @@
 <model.CloudFileSystem>
   <filename>.\cloud\julian</filename>
   <creationTime>1511138319505</creationTime>
-  <lastModifiedTime>1511138319542</lastModifiedTime>
+  <lastModifiedTime>1511250340746</lastModifiedTime>
   <size>44</size>
   <files>
     <model.FileSystemDir>
       <filename>.\cloud\julian\drive</filename>
       <creationTime>1511138319506</creationTime>
-      <lastModifiedTime>1511138316100</lastModifiedTime>
+      <lastModifiedTime>0</lastModifiedTime>
       <size>0</size>
       <files/>
     </model.FileSystemDir>
@@ -20,31 +20,31 @@
         <model.FileSystemFile>
           <filename>.\cloud\aquiles\drive\carpeta3\archivo1.txt</filename>
           <creationTime>1511139782385</creationTime>
-          <lastModifiedTime>1511144369042</lastModifiedTime>
+          <lastModifiedTime>1511251017432</lastModifiedTime>
           <size>9</size>
         </model.FileSystemFile>
         <model.FileSystemDir>
           <filename>.\cloud\aquiles\drive\carpeta2</filename>
           <creationTime>1511141090108</creationTime>
-          <lastModifiedTime>1511144369006</lastModifiedTime>
+          <lastModifiedTime>1511251017401</lastModifiedTime>
           <size>35</size>
           <files>
             <model.FileSystemDir>
               <filename>.\cloud\aquiles\drive\carpeta2\carpeta1</filename>
               <creationTime>1511141090126</creationTime>
-              <lastModifiedTime>1511144369009</lastModifiedTime>
+              <lastModifiedTime>1511251017404</lastModifiedTime>
               <size>35</size>
               <files>
                 <model.FileSystemFile>
                   <filename>.\cloud\aquiles\drive\carpeta2\carpeta1\archivo3.txt</filename>
                   <creationTime>1511141090127</creationTime>
-                  <lastModifiedTime>1511144369008</lastModifiedTime>
+                  <lastModifiedTime>1511251017403</lastModifiedTime>
                   <size>26</size>
                 </model.FileSystemFile>
                 <model.FileSystemFile>
                   <filename>.\cloud\aquiles\drive\carpeta2\carpeta1\archivo1.txt</filename>
                   <creationTime>1511141090128</creationTime>
-                  <lastModifiedTime>1511144369022</lastModifiedTime>
+                  <lastModifiedTime>1511251017404</lastModifiedTime>
                   <size>9</size>
                 </model.FileSystemFile>
               </files>

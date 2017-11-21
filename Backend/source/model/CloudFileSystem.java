@@ -1,5 +1,7 @@
 package model;
 
+import util.XmlSerializer;
+
 import java.nio.file.Paths;
 
 public class CloudFileSystem extends FileSystem implements ICloud{
@@ -36,7 +38,7 @@ public class CloudFileSystem extends FileSystem implements ICloud{
     public FileSystemFile updateDirs(FileSystemFile file) throws Exception{
         FileSystemDir driveDir = (FileSystemDir) search(driveDirname);
         availableSpace = totalSpace - driveDir.getSize();
-        XmlStream stream = new XmlStream();
+        XmlSerializer stream = new XmlSerializer();
         stream.save(indexFilename, this.update());
         return file;
     }

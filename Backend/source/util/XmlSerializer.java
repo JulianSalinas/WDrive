@@ -1,15 +1,19 @@
-package model;
+package util;
 
 import com.thoughtworks.xstream.XStream;
+import model.CloudAccount;
+import model.CloudFileSystem;
+import model.FileSystemDir;
+import model.FileSystemFile;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class XmlStream extends XStream {
+public class XmlSerializer extends XStream {
 
-    public XmlStream(){
+    public XmlSerializer(){
         super();
         XStream.setupDefaultSecurity(this);
         this.autodetectAnnotations(true);
