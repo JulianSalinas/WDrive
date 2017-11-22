@@ -8,10 +8,7 @@ public class Main {
 
         try{
             WDriveApi api = new WDriveApi();
-            System.out.println(api.createAccount("julian", "1233", 100L));
-
-
-
+//            System.out.println(api.createAccount("julian", "1233", 100L));
 
 //            /* Creación de la cuente */
 //            AccountManager accountManager = new AccountManager();
