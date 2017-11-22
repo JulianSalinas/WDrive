@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://api/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="WDriveApiService" targetNamespace="http://api/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://localhost:8080/WDrive/WDriveApiService?xsd=1" namespace="http://api/" />
+    </xsd:schema>
+  </types>
+  <message name="Hello">
+    <part name="parameters" element="tns:Hello" />
+  </message>
+  <message name="HelloResponse">
+    <part name="parameters" element="tns:HelloResponse" />
+  </message>
+  <message name="sayHello">
+    <part name="parameters" element="tns:sayHello" />
+  </message>
+  <message name="sayHelloResponse">
+    <part name="parameters" element="tns:sayHelloResponse" />
+  </message>
+  <portType name="WDriveApi">
+    <operation name="Hello">
+      <input wsam:Action="http://api/WDriveApi/HelloRequest" message="tns:Hello" />
+      <output wsam:Action="http://api/WDriveApi/HelloResponse" message="tns:HelloResponse" />
+    </operation>
+    <operation name="sayHello">
+      <input wsam:Action="http://api/WDriveApi/sayHelloRequest" message="tns:sayHello" />
+      <output wsam:Action="http://api/WDriveApi/sayHelloResponse" message="tns:sayHelloResponse" />
+    </operation>
+  </portType>
+  <binding name="WDriveApiPortBinding" type="tns:WDriveApi">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Hello">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="sayHello">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WDriveApiService">
+    <port name="WDriveApiPort" binding="tns:WDriveApiPortBinding">
+      <soap:address location="http://localhost:8080/WDrive/WDriveApiService" />
+    </port>
+  </service>
+</definitions>
