@@ -12,8 +12,9 @@ import java.util.regex.Pattern;
 
 public class WDriveManager implements ICloud {
 
-    private String currentDirname;
+    private Boolean cutFlag;
     private String clipboard;
+    private String currentDirname;
 
     protected XmlSerializer serializer;
     protected AccountManager accountManager;
@@ -25,18 +26,24 @@ public class WDriveManager implements ICloud {
     }
 
     private void initComponents() throws Exception{
-        this.currentDirname = null;
-        this.serializer = new XmlSerializer();
-        this.accountManager = new AccountManager();
-        this.fileSystemManager = new FileSystemManager();
+        cutFlag = false;
+        serializer = new XmlSerializer();
+        accountManager = new AccountManager();
+        fileSystemManager = new FileSystemManager();
     }
 
     public String getCurrentDirname() {
         return currentDirname;
     }
 
-    public void setCurrentDirname(String currentDirname) {
-        this.currentDirname = currentDirname;
+    public Long getTotalSpace() throws Exception{
+        WFileSystem fs = searchFileSystem(currentDirname);
+        return fs.getTotalSpace();
+    }
+
+    public Long getAvailableSpace() throws Exception{
+        WFileSystem fs = searchFileSystem(currentDirname);
+        return fs.getAvailableSpace();
     }
 
     private void exitOnException(Exception e){
@@ -125,7 +132,16 @@ public class WDriveManager implements ICloud {
 
     public WDriveFile pasteFile() throws Exception {
         WFileSystem fs = searchFileSystem(currentDirname);
-        return new WDriveFile(fs.copy(clipboard, currentDirname));
+        FileSystemFile file = cutFlag ?
+                fs.move(clipboard, currentDirname):
+                fs.copy(clipboard, currentDirname);
+        cutFlag = false;
+        return new WDriveFile(file);
+    }
+
+    public WDriveFile cutFile(String filename) throws Exception {
+        cutFlag = true;
+        return copyFile(filename);
     }
 
 }

@@ -51,6 +51,16 @@ public class Main {
         api.accessDir("videos");
         System.out.println("\n" + api.pasteFile());
 
+        // Se va a mover el archivo pegado a la carpeta musica
+        api.cutFile("tarea1.txt");
+        api.accessDir("..");
+        api.accessDir("musica");
+        System.out.println("\n" + api.pasteFile());
+
+        // Obtenemos el espacio total y el espacio disponible de el filesystem
+        System.out.println("\n" + api.getTotalSpace());
+        System.out.println("\n" + api.getAvailableSpace());
+
         // En este momemnto quedan pocos bytes libres, por tanto, con el siguiente archivo se
         // mostra un error de espacio insuficiente
         System.out.println("\n" + api.createFile("video1",

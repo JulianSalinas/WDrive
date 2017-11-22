@@ -37,6 +37,14 @@ public class WFileSystem extends FileSystem implements ICloud {
         return sharedDirname;
     }
 
+    public Long getTotalSpace() {
+        return totalSpace;
+    }
+
+    public Long getAvailableSpace() {
+        return availableSpace;
+    }
+
     public String mapPath(String basename, String filename) {
         if(!Paths.get(filename).startsWith(basename))
             return Paths.get(basename, filename).toString();

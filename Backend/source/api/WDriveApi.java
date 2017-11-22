@@ -22,6 +22,16 @@ public class WDriveApi {
     }
 
     @WebMethod
+    public String getTotalSpace() {
+        return response(app.getTotalSpace());
+    }
+
+    @WebMethod
+    public String getAvailableSpace() {
+        return response(app.getAvailableSpace());
+    }
+
+    @WebMethod
     public String searchFile(
             @WebParam(name="filename") String filename){
         return response(app.searchFile(filename));
@@ -81,6 +91,12 @@ public class WDriveApi {
     @WebMethod
     public String pasteFile() {
         return response(app.pasteFile());
+    }
+
+    @WebMethod
+    public String cutFile(
+            @WebParam(name="filename") String filename) {
+        return response(app.cutFile(filename));
     }
 
 }

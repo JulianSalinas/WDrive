@@ -22,6 +22,14 @@ public class WDriveApp extends Application {
         return hashSet;
     }
 
+    private WDriveMessage onSuccessMessage(Object object){
+        return new WDriveMessage(WDriveMessage.OK, object);
+    }
+
+    private WDriveMessage onErrorMessage(Exception exception){
+        return new WDriveMessage(WDriveMessage.ERROR, exception.getMessage());
+    }
+
     public String getCurrentDirname() {
         Pattern pattern = Pattern.compile(".cloud.(\\w+).*");
         Matcher matcher = pattern.matcher(drive.getCurrentDirname());
@@ -30,12 +38,14 @@ public class WDriveApp extends Application {
         return dirname.replace("\\cloud", "");
     }
 
-    private WDriveMessage onSuccessMessage(Object object){
-        return new WDriveMessage(WDriveMessage.OK, object);
+    public WDriveMessage getTotalSpace() {
+        try{ return onSuccessMessage(drive.getTotalSpace()); }
+        catch (Exception exception){ return onErrorMessage(exception); }
     }
 
-    private WDriveMessage onErrorMessage(Exception exception){
-        return new WDriveMessage(WDriveMessage.ERROR, exception.getMessage());
+    public WDriveMessage getAvailableSpace() {
+        try{ return onSuccessMessage(drive.getAvailableSpace()); }
+        catch (Exception exception){ return onErrorMessage(exception); }
     }
 
     public WDriveMessage searchFile(String filename) {
@@ -88,4 +98,8 @@ public class WDriveApp extends Application {
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 
+    public WDriveMessage cutFile(String filename) {
+        try{ return onSuccessMessage(drive.cutFile(filename)); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
 }
