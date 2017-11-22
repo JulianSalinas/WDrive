@@ -24,11 +24,17 @@ public class Main {
         System.out.println("\n" + api.fileExists("tarea1.txt"));
 
         // Se crean 2 archivos dentro de documentos
-        System.out.println("\n" + api.createFile("tarea1.txt", "Cóntenido de la tarea 1"));
-        System.out.println("\n" + api.createFile("tarea2.txt", "Cóntenido de la tarea 2"));
+        System.out.println("\n" + api.createFile("tarea1.txt", "Contenido de la tarea 1"));
+        System.out.println("\n" + api.createFile("tarea2.txt", "Contenido de la tarea 2"));
 
         // Ahora debe mostrar que si existe
         System.out.println("\n" + api.fileExists("tarea1.txt"));
+
+        // Obtenemos un archivo que no existe
+        System.out.println("\n" + api.searchFile("tarea3.txt"));
+
+        // Obtenemos un archivo que si existe
+        System.out.println("\n" + api.searchFile("tarea1.txt"));
 
         // Se muestran los archivos dentro del directorio actual, es decir, en documentos
         System.out.println("\n" + api.listFiles());
@@ -37,6 +43,21 @@ public class Main {
         System.out.println("\n" + api.accessDir(".."));
         System.out.println("\n" + api.getCurrentDirname());
 
+        // Ingresamos a la carpeta documentos, copiamos un archivo, salimos de la carpeta,
+        // Se ingresa a la carpeta videos y luego se pega el archivo
+        api.accessDir("documentos");
+        api.copyFile("tarea1.txt");
+        api.accessDir("..");
+        api.accessDir("videos");
+        System.out.println("\n" + api.pasteFile());
+
+        // En este momemnto quedan pocos bytes libres, por tanto, con el siguiente archivo se
+        // mostra un error de espacio insuficiente
+        System.out.println("\n" + api.createFile("video1",
+                "Cuenta la historia de un mago\n" +
+                "Que un día en su bosque encantado lloró\n" +
+                "Porque a pesar de su magia\n" +
+                "No había podido encontrar el amor… "));
 
     }
 }

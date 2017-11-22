@@ -43,33 +43,44 @@ public class WDriveApi {
     }
 
     @WebMethod
-    public Object fileExists(
+    public String fileExists(
         @WebParam(name="filename") String filename){
         return response(app.fileExists(filename));
     }
 
     @WebMethod
-    public Object createDir(
+    public String createDir(
             @WebParam(name="dirname") String dirname){
         return response(app.createDir(dirname));
     }
 
     @WebMethod
-    public Object createFile(
+    public String createFile(
             @WebParam(name="filename") String filename,
             @WebParam(name="content") String content){
         return response(app.createFile(filename, content));
     }
 
     @WebMethod
-    public Object accessDir(
+    public String accessDir(
             @WebParam(name="dirname") String dirname){
         return response(app.accessDir(dirname));
     }
 
     @WebMethod
-    public Object listFiles(){
+    public String listFiles(){
         return response(app.listFiles());
+    }
+
+    @WebMethod
+    public String copyFile(
+            @WebParam(name="filename") String filename) {
+        return response(app.copyFile(filename));
+    }
+
+    @WebMethod
+    public String pasteFile() {
+        return response(app.pasteFile());
     }
 
 }

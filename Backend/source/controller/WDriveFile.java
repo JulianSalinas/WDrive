@@ -5,11 +5,31 @@ import util.TimeConverter;
 
 public class WDriveFile {
 
-    protected String name;
-    protected String filename;
-    protected String creationTime;
-    protected String lastModifiedTime;
-    protected long size;
+    private String name;
+    private String filename;
+    private String creationTime;
+    private String lastModifiedTime;
+    private long size;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public String getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public long getSize() {
+        return size;
+    }
 
     public WDriveFile(FileSystemFile file){
         name = file.getName();

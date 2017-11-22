@@ -76,4 +76,14 @@ public class WDriveApp extends Application {
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 
+    public WDriveMessage copyFile(String filename) {
+        try{ return onSuccessMessage(drive.copyFile(filename)); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
+
+    public WDriveMessage pasteFile() {
+        try{ return onSuccessMessage(drive.pasteFile()); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
+
 }

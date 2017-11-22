@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 public class WDriveManager implements ICloud {
 
     private String currentDirname;
+    private String clipboard;
+
     protected XmlSerializer serializer;
     protected AccountManager accountManager;
     protected FileSystemManager fileSystemManager;
@@ -64,7 +66,7 @@ public class WDriveManager implements ICloud {
         WFileSystem fs = searchFileSystem(currentDirname);
         filename = Paths.get(currentDirname, filename).toString();
         FileSystemFile file = fs.search(filename);
-        if(file == null) return null;
+        throwExceptionOnNull(file, msgFileNotExists);
         return new WDriveFile(file);
     }
 
@@ -113,6 +115,17 @@ public class WDriveManager implements ICloud {
         ArrayList<WDriveFile> files = new ArrayList<>();
         dir.getFiles().forEach(file -> files.add(new WDriveFile(file)));
         return files;
+    }
+
+    public WDriveFile copyFile(String filename) throws Exception {
+        WDriveFile file = searchFile(filename);
+        clipboard = file.getFilename();
+        return file;
+    }
+
+    public WDriveFile pasteFile() throws Exception {
+        WFileSystem fs = searchFileSystem(currentDirname);
+        return new WDriveFile(fs.copy(clipboard, currentDirname));
     }
 
 }
