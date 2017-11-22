@@ -47,7 +47,7 @@
                     <div class="col-md-10">
                         <asp:TextBox runat="server" ID="ByteAmount" TextMode="Number" CssClass="form-control" />
                         <asp:RegularExpressionValidator runat="server" ControlToValidate="ByteAmount"
-                            ValidationExpression="^[1-9]+$"
+                            ValidationExpression="^[0-9]+$"
                             CssClass="text-danger" ErrorMessage="Se requiere un número entero positivo." />
                     </div>
                 </div>

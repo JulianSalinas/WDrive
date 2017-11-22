@@ -5,31 +5,121 @@
       <xsd:import schemaLocation="http://localhost:8080/WDrive/WDriveApiService?xsd=1" namespace="http://api/" />
     </xsd:schema>
   </types>
-  <message name="Hello">
-    <part name="parameters" element="tns:Hello" />
+  <message name="listFiles">
+    <part name="parameters" element="tns:listFiles" />
   </message>
-  <message name="HelloResponse">
-    <part name="parameters" element="tns:HelloResponse" />
+  <message name="listFilesResponse">
+    <part name="parameters" element="tns:listFilesResponse" />
   </message>
-  <message name="sayHello">
-    <part name="parameters" element="tns:sayHello" />
+  <message name="copyFile">
+    <part name="parameters" element="tns:copyFile" />
   </message>
-  <message name="sayHelloResponse">
-    <part name="parameters" element="tns:sayHelloResponse" />
+  <message name="copyFileResponse">
+    <part name="parameters" element="tns:copyFileResponse" />
+  </message>
+  <message name="fileExists">
+    <part name="parameters" element="tns:fileExists" />
+  </message>
+  <message name="fileExistsResponse">
+    <part name="parameters" element="tns:fileExistsResponse" />
+  </message>
+  <message name="createFile">
+    <part name="parameters" element="tns:createFile" />
+  </message>
+  <message name="createFileResponse">
+    <part name="parameters" element="tns:createFileResponse" />
+  </message>
+  <message name="loadAccount">
+    <part name="parameters" element="tns:loadAccount" />
+  </message>
+  <message name="loadAccountResponse">
+    <part name="parameters" element="tns:loadAccountResponse" />
+  </message>
+  <message name="createDir">
+    <part name="parameters" element="tns:createDir" />
+  </message>
+  <message name="createDirResponse">
+    <part name="parameters" element="tns:createDirResponse" />
+  </message>
+  <message name="accessDir">
+    <part name="parameters" element="tns:accessDir" />
+  </message>
+  <message name="accessDirResponse">
+    <part name="parameters" element="tns:accessDirResponse" />
+  </message>
+  <message name="searchFile">
+    <part name="parameters" element="tns:searchFile" />
+  </message>
+  <message name="searchFileResponse">
+    <part name="parameters" element="tns:searchFileResponse" />
+  </message>
+  <message name="pasteFile">
+    <part name="parameters" element="tns:pasteFile" />
+  </message>
+  <message name="pasteFileResponse">
+    <part name="parameters" element="tns:pasteFileResponse" />
+  </message>
+  <message name="createAccount">
+    <part name="parameters" element="tns:createAccount" />
+  </message>
+  <message name="createAccountResponse">
+    <part name="parameters" element="tns:createAccountResponse" />
+  </message>
+  <message name="getCurrentDirname">
+    <part name="parameters" element="tns:getCurrentDirname" />
+  </message>
+  <message name="getCurrentDirnameResponse">
+    <part name="parameters" element="tns:getCurrentDirnameResponse" />
   </message>
   <portType name="WDriveApi">
-    <operation name="Hello">
-      <input wsam:Action="http://api/WDriveApi/HelloRequest" message="tns:Hello" />
-      <output wsam:Action="http://api/WDriveApi/HelloResponse" message="tns:HelloResponse" />
+    <operation name="listFiles">
+      <input wsam:Action="http://api/WDriveApi/listFilesRequest" message="tns:listFiles" />
+      <output wsam:Action="http://api/WDriveApi/listFilesResponse" message="tns:listFilesResponse" />
     </operation>
-    <operation name="sayHello">
-      <input wsam:Action="http://api/WDriveApi/sayHelloRequest" message="tns:sayHello" />
-      <output wsam:Action="http://api/WDriveApi/sayHelloResponse" message="tns:sayHelloResponse" />
+    <operation name="copyFile">
+      <input wsam:Action="http://api/WDriveApi/copyFileRequest" message="tns:copyFile" />
+      <output wsam:Action="http://api/WDriveApi/copyFileResponse" message="tns:copyFileResponse" />
+    </operation>
+    <operation name="fileExists">
+      <input wsam:Action="http://api/WDriveApi/fileExistsRequest" message="tns:fileExists" />
+      <output wsam:Action="http://api/WDriveApi/fileExistsResponse" message="tns:fileExistsResponse" />
+    </operation>
+    <operation name="createFile">
+      <input wsam:Action="http://api/WDriveApi/createFileRequest" message="tns:createFile" />
+      <output wsam:Action="http://api/WDriveApi/createFileResponse" message="tns:createFileResponse" />
+    </operation>
+    <operation name="loadAccount">
+      <input wsam:Action="http://api/WDriveApi/loadAccountRequest" message="tns:loadAccount" />
+      <output wsam:Action="http://api/WDriveApi/loadAccountResponse" message="tns:loadAccountResponse" />
+    </operation>
+    <operation name="createDir">
+      <input wsam:Action="http://api/WDriveApi/createDirRequest" message="tns:createDir" />
+      <output wsam:Action="http://api/WDriveApi/createDirResponse" message="tns:createDirResponse" />
+    </operation>
+    <operation name="accessDir">
+      <input wsam:Action="http://api/WDriveApi/accessDirRequest" message="tns:accessDir" />
+      <output wsam:Action="http://api/WDriveApi/accessDirResponse" message="tns:accessDirResponse" />
+    </operation>
+    <operation name="searchFile">
+      <input wsam:Action="http://api/WDriveApi/searchFileRequest" message="tns:searchFile" />
+      <output wsam:Action="http://api/WDriveApi/searchFileResponse" message="tns:searchFileResponse" />
+    </operation>
+    <operation name="pasteFile">
+      <input wsam:Action="http://api/WDriveApi/pasteFileRequest" message="tns:pasteFile" />
+      <output wsam:Action="http://api/WDriveApi/pasteFileResponse" message="tns:pasteFileResponse" />
+    </operation>
+    <operation name="createAccount">
+      <input wsam:Action="http://api/WDriveApi/createAccountRequest" message="tns:createAccount" />
+      <output wsam:Action="http://api/WDriveApi/createAccountResponse" message="tns:createAccountResponse" />
+    </operation>
+    <operation name="getCurrentDirname">
+      <input wsam:Action="http://api/WDriveApi/getCurrentDirnameRequest" message="tns:getCurrentDirname" />
+      <output wsam:Action="http://api/WDriveApi/getCurrentDirnameResponse" message="tns:getCurrentDirnameResponse" />
     </operation>
   </portType>
   <binding name="WDriveApiPortBinding" type="tns:WDriveApi">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <operation name="Hello">
+    <operation name="listFiles">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />
@@ -38,7 +128,88 @@
         <soap:body use="literal" />
       </output>
     </operation>
-    <operation name="sayHello">
+    <operation name="copyFile">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="fileExists">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="createFile">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="loadAccount">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="createDir">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="accessDir">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="searchFile">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="pasteFile">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="createAccount">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getCurrentDirname">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

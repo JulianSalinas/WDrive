@@ -2,27 +2,41 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using WDrive;
+using System.Xml;
+using API;
 
-public partial class Account_Login : Page
-{
-        protected void Page_Load(object sender, EventArgs e)
+public partial class Account_Login : Page {
+    
+    private void displayAlert(string alert)
+    {
+        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atención!", "alert('" + alert + "')", true);
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    { 
+        
+    }
+
+    protected void LogIn(object sender, EventArgs e)
+    {
+        if (IsValid)
         {
-            RegisterHyperLink.NavigateUrl = "Register";
-            OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
-            var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            if (!String.IsNullOrEmpty(returnUrl))
+            if (UserName.Text.Equals(""))
             {
-                RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
+                displayAlert("El nombre de usuario no puede estar vacío.");
+                return;
             }
+
+            string stringResponse = APIHandler.loadAccount(UserName.Text, Password.Text);
+
+            XmlDocument xmlResponse = new XmlDocument();
+            xmlResponse.LoadXml( stringResponse );
+
+            APIHandler.generartxt(stringResponse);
+
+
+            
         }
 
-        protected void LogIn(object sender, EventArgs e)
-        {
-            if (IsValid)
-            {
-                WDriveApiService api = new WDriveApiService();
-                
-            }
-        }
+    }
 }
