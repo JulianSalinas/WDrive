@@ -56,16 +56,20 @@ public class WDriveApi {
 
     @WebMethod
     public Object createFile(
-            @WebParam(name="parentDirname") String parentDirname,
             @WebParam(name="filename") String filename,
             @WebParam(name="content") String content){
-        return response(app.createFile(parentDirname, filename, content));
+        return response(app.createFile(filename, content));
     }
 
     @WebMethod
-    public Object listFiles(
+    public Object accessDir(
             @WebParam(name="dirname") String dirname){
-        return response(app.listFiles(dirname));
+        return response(app.accessDir(dirname));
+    }
+
+    @WebMethod
+    public Object listFiles(){
+        return response(app.listFiles());
     }
 
 }

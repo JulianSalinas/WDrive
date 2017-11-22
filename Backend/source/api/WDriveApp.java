@@ -61,13 +61,18 @@ public class WDriveApp extends Application {
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 
-    public WDriveMessage createFile(String parentDirname, String filename, String content) {
-        try{ return onSuccessMessage(drive.createFile(parentDirname, filename, content)); }
+    public WDriveMessage createFile(String filename, String content) {
+        try{ return onSuccessMessage(drive.createFile(filename, content)); }
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 
-    public WDriveMessage listFiles(String dirname) {
-        try{ return onSuccessMessage(drive.listFiles(dirname)); }
+    public WDriveMessage accessDir(String dirname) {
+        try{ return onSuccessMessage(drive.accessDir(dirname)); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
+
+    public WDriveMessage listFiles() {
+        try{ return onSuccessMessage(drive.listFiles()); }
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 

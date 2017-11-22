@@ -47,16 +47,16 @@ public class WDriveManager implements ICloud {
             throw new Exception(message);
     }
 
-    private String extractUsername() throws Exception{
+    private String extractUsername(String filename) throws Exception{
         Pattern pattern = Pattern.compile(".+cloud.(\\w+)");
-        Matcher matcher = pattern.matcher(currentDirname);
+        Matcher matcher = pattern.matcher(filename);
         if (matcher.find())
             return new File(matcher.group(1)).getName();
         else throw new Exception(msgDirNotExists);
     }
 
     private WFileSystem searchFileSystem(String filename) throws Exception{
-        String username = extractUsername();
+        String username = extractUsername(filename);
         return fileSystemManager.load(username);
     }
 
@@ -70,13 +70,13 @@ public class WDriveManager implements ICloud {
     public List<WDriveFile> createAccount(String username, String password, Long space) throws Exception{
         WAccount account = accountManager.create(username, password, space);
         currentDirname = account.getCloud().getDriveDirname();
-        return listFiles(currentDirname);
+        return listFiles();
     }
 
     public List<WDriveFile> loadAccount(String username, String password) throws Exception {
         WAccount account = accountManager.load(username, password);
         currentDirname = account.getCloud().getDriveDirname();
-        return listFiles(currentDirname);
+        return listFiles();
     }
 
     public Boolean fileExists(String filename) throws Exception{
@@ -86,22 +86,28 @@ public class WDriveManager implements ICloud {
     }
 
     public WDriveFile createDir(String dirname) throws Exception{
-        WFileSystem fs = searchFileSystem(dirname);
+        WFileSystem fs = searchFileSystem(currentDirname);
         dirname = Paths.get(currentDirname, dirname).toString();
         return new WDriveFile(fs.create(dirname));
     }
 
-    public WDriveFile createFile(String parentDirname, String filename, String content) throws Exception{
-        WFileSystem fs = searchFileSystem(filename);
-        FileSystemDir parent = (FileSystemDir) fs.search(parentDirname);
-        throwExceptionOnNull(parent, msgDirNotExists);
-        filename = Paths.get(parentDirname, filename).toString();
+    public WDriveFile createFile(String filename, String content) throws Exception{
+        WFileSystem fs = searchFileSystem(currentDirname);
+        filename = Paths.get(currentDirname, filename).toString();
         return new WDriveFile(fs.create(filename, content));
     }
 
-    public List<WDriveFile> listFiles(String dirname) throws Exception {
-        WFileSystem fs = searchFileSystem(dirname);
-        FileSystemDir dir = (FileSystemDir) fs.search(dirname);
+    public List<WDriveFile> accessDir(String dirname) throws Exception {
+        if (dirname.equals(".."))
+            currentDirname = new File(currentDirname).getParent();
+        else
+            currentDirname = Paths.get(currentDirname, dirname).toString();
+        return listFiles();
+    }
+
+    public List<WDriveFile> listFiles() throws Exception {
+        WFileSystem fs = searchFileSystem(currentDirname);
+        FileSystemDir dir = (FileSystemDir) fs.search(currentDirname);
         throwExceptionOnNull(dir, msgDirNotExists);
         ArrayList<WDriveFile> files = new ArrayList<>();
         dir.getFiles().forEach(file -> files.add(new WDriveFile(file)));
