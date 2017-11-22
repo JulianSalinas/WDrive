@@ -4,6 +4,7 @@ import java.io.File;
 
 public abstract class FileSystemNode {
 
+    protected String name;
     protected File filename;
     protected Long creationTime;
     protected Long lastModifiedTime;

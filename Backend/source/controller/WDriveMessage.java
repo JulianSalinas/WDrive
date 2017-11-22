@@ -1,6 +1,6 @@
-package util;
+package controller;
 
-public class XmlMessage {
+public class WDriveMessage {
 
     public static String OK = "OK";
     public static String ERROR ="ERROR";
@@ -16,7 +16,7 @@ public class XmlMessage {
         return content;
     }
 
-    public XmlMessage(String status, Object content){
+    public WDriveMessage(String status, Object content){
         this.status = status;
         this.content = content;
     }

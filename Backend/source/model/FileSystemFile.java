@@ -10,6 +10,7 @@ public class FileSystemFile extends FileSystemNode{
 
     public FileSystemFile(String pathname) {
         this.filename = new File(pathname);
+        this.name = filename.getName();
         this.creationTime = new Date().getTime();
         this.lastModifiedTime = creationTime;
         this.size = 0L;
