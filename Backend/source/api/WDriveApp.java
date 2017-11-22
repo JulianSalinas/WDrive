@@ -7,6 +7,8 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @ApplicationPath("/")
 public class WDriveApp extends Application {
@@ -21,11 +23,11 @@ public class WDriveApp extends Application {
     }
 
     public String getCurrentDirname() {
-        return drive.getCurrentDirname();
-    }
-
-    public void setCurrentDirname(String currentDirname) {
-        drive.setCurrentDirname(currentDirname);
+        Pattern pattern = Pattern.compile(".cloud.(\\w+).*");
+        Matcher matcher = pattern.matcher(drive.getCurrentDirname());
+        matcher.find();
+        String dirname = matcher.group(0);
+        return dirname.replace("\\cloud", "");
     }
 
     private WDriveMessage onSuccessMessage(Object object){
