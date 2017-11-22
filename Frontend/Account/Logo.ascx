@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="OpenAuthProviders.ascx.cs" Inherits="OpenAuthProviders" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Logo.ascx.cs" Inherits="OpenAuthProviders" %>
 
 <div id="socialLoginList">
     <hr />
