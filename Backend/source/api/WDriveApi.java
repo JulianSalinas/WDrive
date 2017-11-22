@@ -1,6 +1,5 @@
 package api;
 
-import controller.WDriveManager;
 import util.XmlSerializer;
 
 import javax.jws.WebMethod;
@@ -10,12 +9,17 @@ import javax.jws.WebService;
 @WebService
 public class WDriveApi {
 
+    private WDriveApp app = new WDriveApp();
     private XmlSerializer serializer = new XmlSerializer();
-    private WDriveManager wDrive = new WDriveManager();
+
+    private String response(Object object){
+        return serializer.toXML(object);
+    }
 
     @WebMethod
-    public String sayHello(String name) {
-        return "Hola " + name + "!";
+    public String searchFile(
+            @WebParam(name="filename") String filename){
+        return response(app.searchFile(filename));
     }
 
     @WebMethod
@@ -23,20 +27,27 @@ public class WDriveApi {
             @WebParam(name="username") String username,
             @WebParam(name="password") String password,
             @WebParam(name="space") long space){
-        return serializer.toXML(wDrive.createAccount(username, password, space));
+        return response(app.createAccount(username, password, space));
     }
 
     @WebMethod
     public String loadAccount(
             @WebParam(name="username") String username,
             @WebParam(name="password") String password){
-        return serializer.toXML(wDrive.loadAccount(username, password));
+        return response(app.loadAccount(username, password));
     }
 
     @WebMethod
     public Object fileExists(
         @WebParam(name="filename") String filename){
-        return serializer.toXML(wDrive.fileExists(filename));
+        return response(app.fileExists(filename));
+    }
+
+    @WebMethod
+    public Object createDir(
+            @WebParam(name="parentDirname") String parentDirname,
+            @WebParam(name="dirname") String dirname){
+        return response(app.createDir(parentDirname, dirname));
     }
 
     @WebMethod
@@ -44,19 +55,13 @@ public class WDriveApi {
             @WebParam(name="parentDirname") String parentDirname,
             @WebParam(name="filename") String filename,
             @WebParam(name="content") String content){
-        return serializer.toXML(wDrive.createFile(parentDirname, filename, content));
+        return response(app.createFile(parentDirname, filename, content));
     }
 
     @WebMethod
     public Object listFiles(
             @WebParam(name="dirname") String dirname){
-        return serializer.toXML(wDrive.listFiles(dirname));
-    }
-
-    @WebMethod
-    public Object fileProperties(
-            @WebParam(name="filename") String filename){
-        return serializer.toXML(wDrive.fileProperties(filename));
+        return response(app.listFiles(dirname));
     }
 
 }

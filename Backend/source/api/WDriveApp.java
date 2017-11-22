@@ -28,7 +28,7 @@ public class WDriveApp extends Application {
         return new WDriveMessage(WDriveMessage.ERROR, exception.getMessage());
     }
 
-    private WDriveMessage searchFile(String filename) throws Exception{
+    public WDriveMessage searchFile(String filename) {
         try{ return onSuccessMessage(drive.searchFile(filename)); }
         catch (Exception exception){ return onErrorMessage(exception); }
     }
