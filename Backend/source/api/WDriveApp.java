@@ -102,4 +102,14 @@ public class WDriveApp extends Application {
         try{ return onSuccessMessage(drive.cutFile(filename)); }
         catch (Exception exception){ return onErrorMessage(exception); }
     }
+
+    public WDriveMessage deleteFile(String filename) {
+        try{ return onSuccessMessage(drive.deleteFile(filename)); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
+
+    public WDriveMessage shareFile(String filename, String username) {
+        try{ return onSuccessMessage(drive.shareFile(filename, username)); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
 }

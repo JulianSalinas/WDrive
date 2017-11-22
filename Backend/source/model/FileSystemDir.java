@@ -57,6 +57,14 @@ public class FileSystemDir extends FileSystemFile {
         return this;
     }
 
+    public FileSystemFile getFile(String filename) throws Exception{
+        for (FileSystemFile file : getFiles()){
+            if (file.getName().equals(filename))
+                return file;
+        }
+        return null;
+    }
+
     public FileSystemFile add(FileSystemFile file){
         if(search(file.getPath()) == null)
             files.add(file);

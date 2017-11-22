@@ -7,7 +7,7 @@ public class Main {
         WDriveApi api = new WDriveApi();
 
         // Si es la primera vez que se corre, se debe descomentar la primera linea
-        // System.out.println(api.createAccount("julian", "1233", 100L));
+        System.out.println(api.createAccount("julian", "1233", 100L));
         System.out.println("\n" + api.loadAccount("julian", "1233"));
         System.out.println("\n" + api.getCurrentDirname());
 
@@ -68,6 +68,10 @@ public class Main {
                 "Que un día en su bosque encantado lloró\n" +
                 "Porque a pesar de su magia\n" +
                 "No había podido encontrar el amor… "));
+
+        // Eliminamos el archivo la carpeta musica con el archivo adentro
+        api.accessDir("..");
+        System.out.println("\n" + api.deleteFile("musica"));
 
     }
 }

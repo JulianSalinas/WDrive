@@ -99,4 +99,17 @@ public class WDriveApi {
         return response(app.cutFile(filename));
     }
 
+    @WebMethod
+    public String deleteFile(
+            @WebParam(name="filename") String filename) {
+        return response(app.deleteFile(filename));
+    }
+
+    @WebMethod
+    public String shareFile(
+            @WebParam(name="filename") String filename,
+            @WebParam(name="filename") String username) {
+        return response(app.shareFile(filename, username));
+    }
+
 }

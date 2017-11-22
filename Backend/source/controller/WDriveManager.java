@@ -110,7 +110,7 @@ public class WDriveManager implements ICloud {
     public List<WDriveFile> accessDir(String dirname) throws Exception {
         if (dirname.equals(".."))
             currentDirname = new File(currentDirname).getParent();
-        else
+        else //TODO cambio aqui
             currentDirname = Paths.get(currentDirname, dirname).toString();
         return listFiles();
     }
@@ -142,6 +142,19 @@ public class WDriveManager implements ICloud {
     public WDriveFile cutFile(String filename) throws Exception {
         cutFlag = true;
         return copyFile(filename);
+    }
+
+    public List<WDriveFile> deleteFile(String filename) throws Exception{
+        WFileSystem fs = searchFileSystem(currentDirname);
+        fs.delete(filename);
+        return listFiles();
+    }
+
+    public WDriveFile shareFile(String filename, String username) throws Exception{
+        WFileSystem from = searchFileSystem(currentDirname);
+        WFileSystem to = fileSystemManager.load(username);
+        FileSystemFile file = from.share(filename, to);
+        return new WDriveFile(file);
     }
 
 }
