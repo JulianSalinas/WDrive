@@ -17,13 +17,13 @@
                         </p>
                     </asp:PlaceHolder>
                     <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="UserName" CssClass="col-md-2 control-label">Nombre de usuario</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="UserName" CssClass="col-md-2 control-label">Username</asp:Label>
                         <div class="col-md-10">
                             <asp:TextBox runat="server" ID="UserName" CssClass="form-control" />
                             <asp:RegularExpressionValidator runat="server" ControlToValidate="UserName"
                                 CssClass="text-danger" 
-                                ValidationExpression="^[a-zA-Z][a-zA-Z1-9]*$"
-                                ErrorMessage="Nombre de usuario inválido." />
+                                ValidationExpression="^[a-zA-Z]+[a-zA-Z0-9]{3,}$"
+                                ErrorMessage="Nombre de usuario inválido. Debe ser alfanumérico y al menos 4 carácteres." />
 
                         </div>
                     </div>
