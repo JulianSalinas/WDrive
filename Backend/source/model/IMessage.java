@@ -10,5 +10,6 @@ public interface IMessage {
     String msgAccountNotExists = "La cuenta no existe";
     String msgIncorrectPassword = "Contraseña incorrecta";
     String msgNotEnoughSpace = "Espacio insuficiente";
+    String msgNotSigned = "No se ha iniciado sesión";
 
 }

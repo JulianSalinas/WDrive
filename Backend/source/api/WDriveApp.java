@@ -20,6 +20,14 @@ public class WDriveApp extends Application {
         return hashSet;
     }
 
+    public String getCurrentDirname() {
+        return drive.getCurrentDirname();
+    }
+
+    public void setCurrentDirname(String currentDirname) {
+        drive.setCurrentDirname(currentDirname);
+    }
+
     private WDriveMessage onSuccessMessage(Object object){
         return new WDriveMessage(WDriveMessage.OK, object);
     }
@@ -48,8 +56,8 @@ public class WDriveApp extends Application {
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 
-    public WDriveMessage createDir(String parentDirname, String dirname) {
-        try{ return onSuccessMessage(drive.createDir(parentDirname, dirname)); }
+    public WDriveMessage createDir(String dirname) {
+        try{ return onSuccessMessage(drive.createDir(dirname)); }
         catch (Exception exception){ return onErrorMessage(exception); }
     }
 

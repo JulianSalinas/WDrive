@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 public class WDriveManager implements ICloud {
 
+    private String currentDirname;
     protected XmlSerializer serializer;
     protected AccountManager accountManager;
     protected FileSystemManager fileSystemManager;
@@ -22,9 +23,18 @@ public class WDriveManager implements ICloud {
     }
 
     private void initComponents() throws Exception{
+        this.currentDirname = null;
         this.serializer = new XmlSerializer();
         this.accountManager = new AccountManager();
         this.fileSystemManager = new FileSystemManager();
+    }
+
+    public String getCurrentDirname() {
+        return currentDirname;
+    }
+
+    public void setCurrentDirname(String currentDirname) {
+        this.currentDirname = currentDirname;
     }
 
     private void exitOnException(Exception e){
@@ -37,16 +47,16 @@ public class WDriveManager implements ICloud {
             throw new Exception(message);
     }
 
-    private String extractUsername(String pathname) throws Exception{
+    private String extractUsername() throws Exception{
         Pattern pattern = Pattern.compile(".+cloud.(\\w+)");
-        Matcher matcher = pattern.matcher(pathname);
+        Matcher matcher = pattern.matcher(currentDirname);
         if (matcher.find())
             return new File(matcher.group(1)).getName();
         else throw new Exception(msgDirNotExists);
     }
 
     private WFileSystem searchFileSystem(String filename) throws Exception{
-        String username = extractUsername(filename);
+        String username = extractUsername();
         return fileSystemManager.load(username);
     }
 
@@ -59,12 +69,14 @@ public class WDriveManager implements ICloud {
 
     public List<WDriveFile> createAccount(String username, String password, Long space) throws Exception{
         WAccount account = accountManager.create(username, password, space);
-        return listFiles(account.getCloud().getAbsolutePath());
+        currentDirname = account.getCloud().getDriveDirname();
+        return listFiles(currentDirname);
     }
 
-    public List<WDriveFile>  loadAccount(String username, String password) throws Exception {
+    public List<WDriveFile> loadAccount(String username, String password) throws Exception {
         WAccount account = accountManager.load(username, password);
-        return listFiles(account.getCloud().getAbsolutePath());
+        currentDirname = account.getCloud().getDriveDirname();
+        return listFiles(currentDirname);
     }
 
     public Boolean fileExists(String filename) throws Exception{
@@ -73,16 +85,14 @@ public class WDriveManager implements ICloud {
         else return true;
     }
 
-    public WDriveFile createDir(String parentDirname, String dirname) throws Exception{
-        FileSystem fs = searchFileSystem(dirname);
-        FileSystemDir parent = (FileSystemDir) fs.search(parentDirname);
-        throwExceptionOnNull(parent, msgDirNotExists);
-        dirname = Paths.get(parentDirname, dirname).toString();
+    public WDriveFile createDir(String dirname) throws Exception{
+        WFileSystem fs = searchFileSystem(dirname);
+        dirname = Paths.get(currentDirname, dirname).toString();
         return new WDriveFile(fs.create(dirname));
     }
 
     public WDriveFile createFile(String parentDirname, String filename, String content) throws Exception{
-        FileSystem fs = searchFileSystem(filename);
+        WFileSystem fs = searchFileSystem(filename);
         FileSystemDir parent = (FileSystemDir) fs.search(parentDirname);
         throwExceptionOnNull(parent, msgDirNotExists);
         filename = Paths.get(parentDirname, filename).toString();

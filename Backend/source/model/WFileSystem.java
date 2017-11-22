@@ -29,6 +29,14 @@ public class WFileSystem extends FileSystem implements ICloud {
         updateDirs(this);
     }
 
+    public String getDriveDirname() {
+        return driveDirname;
+    }
+
+    public String getSharedDirname() {
+        return sharedDirname;
+    }
+
     public String mapPath(String basename, String filename) {
         if(!Paths.get(filename).startsWith(basename))
             return Paths.get(basename, filename).toString();
@@ -45,7 +53,6 @@ public class WFileSystem extends FileSystem implements ICloud {
 
     @Override
     public FileSystemFile create(String dirname) throws Exception {
-        dirname = mapPath(driveDirname, dirname);
         if(availableSpace > 0)
             return updateDirs(super.create(dirname));
         throw new Exception(msgNotEnoughSpace);

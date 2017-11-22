@@ -17,6 +17,11 @@ public class WDriveApi {
     }
 
     @WebMethod
+    public String getCurrentDirname() {
+        return app.getCurrentDirname();
+    }
+
+    @WebMethod
     public String searchFile(
             @WebParam(name="filename") String filename){
         return response(app.searchFile(filename));
@@ -45,9 +50,8 @@ public class WDriveApi {
 
     @WebMethod
     public Object createDir(
-            @WebParam(name="parentDirname") String parentDirname,
             @WebParam(name="dirname") String dirname){
-        return response(app.createDir(parentDirname, dirname));
+        return response(app.createDir(dirname));
     }
 
     @WebMethod

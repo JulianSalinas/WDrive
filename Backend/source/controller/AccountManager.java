@@ -44,8 +44,7 @@ public class AccountManager implements ICloud {
 
     public WAccount load(String username, String password) throws Exception {
         if (!exists(username))
-            create(username, password, 4096L);
-//            throw new Exception(msgAccountNotExists);
+            throw new Exception(msgAccountNotExists);
 
         WFileSystem cloud = fileSystemManager.load(username);
         WAccount account = (WAccount) serializer.load(userInfoFilename(username));
