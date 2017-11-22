@@ -61,10 +61,11 @@ public class WDriveManager implements ICloud {
     }
 
     public WDriveFile searchFile(String filename) throws Exception{
-        WFileSystem fs = searchFileSystem(filename);
+        WFileSystem fs = searchFileSystem(currentDirname);
+        filename = Paths.get(currentDirname, filename).toString();
         FileSystemFile file = fs.search(filename);
         if(file == null) return null;
-        return new WDriveFile(fs.search(filename));
+        return new WDriveFile(file);
     }
 
     public List<WDriveFile> createAccount(String username, String password, Long space) throws Exception{
