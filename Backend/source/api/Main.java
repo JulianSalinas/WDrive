@@ -73,5 +73,18 @@ public class Main {
         api.accessDir("..");
         System.out.println("\n" + api.deleteFile("musica"));
 
+        // Se va a crear un nuevo usuario con el se va a compartir la carpeta documentos
+        WDriveApi apiNuevoUsuario = new WDriveApi();
+        apiNuevoUsuario.createAccount("aquiles", "1233", 50);
+        apiNuevoUsuario.loadAccount("aquiles", "1233");
+        api.shareFile("documentos", "aquiles");
+
+        // Se confirma que ;a carpeta este dentro de la carpeta compartida del usuario nuevo
+        // Como por defecto el directorio actual es drive se debe ingresar a la raiz y luego al directorio shared
+        apiNuevoUsuario.accessDir("..");
+        System.out.println("\n" + apiNuevoUsuario.listFiles());
+        System.out.println("\n" + apiNuevoUsuario.accessDir("shared"));
+        System.out.println("\n" + apiNuevoUsuario.accessDir("documentos"));
+
     }
 }

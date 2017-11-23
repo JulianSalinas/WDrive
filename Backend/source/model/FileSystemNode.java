@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.util.Date;
 
 public abstract class FileSystemNode {
 
@@ -28,6 +29,14 @@ public abstract class FileSystemNode {
 
     public Long getLastModifiedTime() {
         return filename.lastModified();
+    }
+
+    public FileSystemNode(String pathname) {
+        this.filename = new File(pathname).getAbsoluteFile();
+        this.name = filename.getName();
+        this.creationTime = new Date().getTime();
+        this.lastModifiedTime = creationTime;
+        this.size = 0L;
     }
 
     @Override

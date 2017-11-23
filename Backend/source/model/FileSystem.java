@@ -1,67 +1,61 @@
 package model;
 
-import java.io.File;
 import java.nio.file.Paths;
 
-public class FileSystem extends FileSystemDir implements IMessage {
+public abstract class FileSystem extends FileSystemDir implements IMessage {
 
-    public FileSystem(String pathname) throws Exception{
+    protected Long totalSpace;
+    protected Long availableSpace;
+
+    public Long getTotalSpace() {
+        return totalSpace;
+    }
+
+    public Long getAvailableSpace() {
+        return availableSpace;
+    }
+
+    public FileSystem(String pathname, Long space) throws Exception{
         super(pathname);
+        this.totalSpace = space;
+        this.availableSpace = totalSpace;
     }
 
-    public FileSystemFile navigate(String toPathname){
-        return navigate(getPath(), toPathname);
+    private String mapName(FileSystemDir currentDir, String dirname){
+        String base = currentDir.getAbsolutePath();
+        return Paths.get(base, dirname).toString();
     }
 
-    public FileSystemFile navigate(String fromPathname, String toPathname){
-        if (fromPathname.equals("./"))
-            return search(toPathname);
-        else if(toPathname.equals("../"))
-            return search((new File(fromPathname)).getParent());
-        else
-            return search(Paths.get(fromPathname, toPathname).toString());
+    public FileSystemDir create(FileSystemDir currentDir, String dirname) throws Exception{
+        if(availableSpace > 0)
+            return currentDir.create(dirname);
+
+        throw new Exception(msgNotEnoughSpace);
     }
 
-    public FileSystemFile create(String dirname) throws Exception {
-        FileSystemDir parent = (FileSystemDir) navigate(dirname, "../");
-        if(parent == null)
-            parent = (FileSystemDir) create((new File(dirname)).getParent());
-        FileSystemDir child = new FileSystemDir(dirname);
-        return parent.add(child);
+    public FileSystemFile create(FileSystemDir currentDir, String filename, String content) throws Exception{
+        if(availableSpace >= content.getBytes().length)
+            return currentDir.create(filename, content);
+        throw new Exception(msgNotEnoughSpace);
     }
 
-    public FileSystemFile create(String filename, String content) throws Exception{
-        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
-        if(parent == null)
-            parent = (FileSystemDir) create((new File(filename)).getParent());
-        FileSystemFile child = new FileSystemFile(filename, content);
-        return parent.add(child);
+    public FileSystemFile delete(FileSystemDir currentDir, String filename) throws Exception{
+        FileSystemFile file = currentDir.getFile(filename);
+        return currentDir.remove(file).delete();
     }
 
-    public FileSystemFile delete(String filename) throws Exception{
-        FileSystemFile child = search(filename);
-        if(child == null)
-            throw new Exception(msgDirNotExists);
-        FileSystemDir parent = (FileSystemDir) navigate(filename, "../");
-        return parent.remove(child).delete();
+    public FileSystemFile copy(FileSystemFile clipboard, FileSystemDir targetDir) throws Exception{
+        if(availableSpace >=  clipboard.getSize()){
+            targetDir.add(clipboard);
+            return clipboard.copy(targetDir);
+        }
+        throw new Exception(msgNotEnoughSpace);
     }
 
-    public FileSystemFile copy(String filename, String dirname) throws Exception{
-        FileSystemFile file = search(filename);
-        FileSystemDir newDir = (FileSystemDir) search(dirname);
-        if(newDir == null) newDir = (FileSystemDir) create(dirname);
-        return file.copy(newDir);
-    }
-
-    public FileSystemFile move(String filename, String dirname) throws Exception{
-        FileSystemFile file = copy(filename, dirname);
-        delete(filename);
-        return file;
-    }
-
-    public Boolean exists(String filename) throws Exception{
-        FileSystemFile file = search(filename);
-        return file != null;
+    public FileSystemFile move(FileSystemFile clipboard, FileSystemDir sourceDir, FileSystemDir targetDir) throws Exception{
+        sourceDir.remove(clipboard);
+        clipboard = clipboard.move(targetDir);
+        return clipboard.copy(targetDir);
     }
 
 }

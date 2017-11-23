@@ -108,7 +108,7 @@ public class WDriveApi {
     @WebMethod
     public String shareFile(
             @WebParam(name="filename") String filename,
-            @WebParam(name="filename") String username) {
+            @WebParam(name="username") String username) {
         return response(app.shareFile(filename, username));
     }
 

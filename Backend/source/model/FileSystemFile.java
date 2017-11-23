@@ -2,18 +2,14 @@ package model;
 
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.Date;
+import java.nio.file.Files;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class FileSystemFile extends FileSystemNode{
 
     public FileSystemFile(String pathname) {
-        this.filename = new File(pathname);
-        this.name = filename.getName();
-        this.creationTime = new Date().getTime();
-        this.lastModifiedTime = creationTime;
-        this.size = 0L;
+        super(pathname);
     }
 
     public FileSystemFile(String pathname, String content) throws Exception{
@@ -25,16 +21,25 @@ public class FileSystemFile extends FileSystemNode{
         return filename.length();
     }
 
-    public FileSystemFile delete() throws Exception{
-        filename.delete();
+    public FileSystemFile copy(FileSystemFile toDir) throws Exception{
+        filename = Files.copy(
+                filename.toPath(),
+                toDir.filename.toPath(),
+                REPLACE_EXISTING).toFile();
         return this;
     }
 
-    public FileSystemFile copy(FileSystemDir dir) throws Exception{
-        String newFilename = Paths.get(dir.getPath(), getName()).toString();
-        String content = FileUtils.readFileToString(filename);
-        FileSystemFile newfile =  new FileSystemFile(newFilename, content);
-        return dir.add(newfile);
+    public FileSystemFile move(FileSystemFile toDir) throws Exception{
+        filename = Files.move(
+                filename.toPath(),
+                toDir.filename.toPath(),
+                REPLACE_EXISTING).toFile();
+        return this;
+    }
+
+    public FileSystemFile delete() throws Exception{
+        filename.delete();
+        return this;
     }
 
     public FileSystemFile update(){

@@ -1,160 +1,108 @@
 package controller;
 
 import model.*;
-import util.XmlSerializer;
 
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Stack;
 
-public class WDriveManager implements ICloud {
+public class WDriveManager extends WDriveHelper {
 
     private Boolean cutFlag;
-    private String clipboard;
-    private String currentDirname;
+    private FileSystemDir cutboard;
+    private FileSystemFile clipboard;
+    private Stack<FileSystemDir> dirStack;
 
-    protected XmlSerializer serializer;
-    protected AccountManager accountManager;
-    protected FileSystemManager fileSystemManager;
 
     public WDriveManager() {
-        try { initComponents(); }
-        catch (Exception e){ exitOnException(e); }
-    }
-
-    private void initComponents() throws Exception{
+        super();
         cutFlag = false;
-        serializer = new XmlSerializer();
-        accountManager = new AccountManager();
-        fileSystemManager = new FileSystemManager();
     }
 
-    public String getCurrentDirname() {
-        return currentDirname;
-    }
-
-    public Long getTotalSpace() throws Exception{
-        WFileSystem fs = searchFileSystem(currentDirname);
-        return fs.getTotalSpace();
-    }
-
-    public Long getAvailableSpace() throws Exception{
-        WFileSystem fs = searchFileSystem(currentDirname);
-        return fs.getAvailableSpace();
-    }
-
-    private void exitOnException(Exception e){
-        e.printStackTrace();
-        System.exit(1);
-    }
-
-    private void throwExceptionOnNull(Object obj, String message) throws Exception{
-        if(obj == null)
-            throw new Exception(message);
-    }
-
-    private String extractUsername(String filename) throws Exception{
-        Pattern pattern = Pattern.compile(".+cloud.(\\w+)");
-        Matcher matcher = pattern.matcher(filename);
-        if (matcher.find())
-            return new File(matcher.group(1)).getName();
-        else throw new Exception(msgDirNotExists);
-    }
-
-    private WFileSystem searchFileSystem(String filename) throws Exception{
-        String username = extractUsername(filename);
-        return fileSystemManager.load(username);
+    private List<WDriveFile> startSession() throws Exception{
+        fileSystem = account.getCloud();
+        currentDir = (FileSystemDir) fileSystem.getFile("drive");
+        virtualDirname = currentDir.getAbsolutePath();
+        dirStack = new Stack<>();
+        dirStack.push(fileSystem);
+        return listFiles();
     }
 
     public WDriveFile searchFile(String filename) throws Exception{
-        WFileSystem fs = searchFileSystem(currentDirname);
-        filename = Paths.get(currentDirname, filename).toString();
-        FileSystemFile file = fs.search(filename);
-        throwExceptionOnNull(file, msgFileNotExists);
+        FileSystemFile file = currentDir.getFile(filename);
+        checkNull(file, msgFileNotExists);
         return new WDriveFile(file);
     }
 
     public List<WDriveFile> createAccount(String username, String password, Long space) throws Exception{
-        WAccount account = accountManager.create(username, password, space);
-        currentDirname = account.getCloud().getDriveDirname();
-        return listFiles();
+        account = accountManager.create(username, password, space);
+        return startSession();
     }
 
     public List<WDriveFile> loadAccount(String username, String password) throws Exception {
-        WAccount account = accountManager.load(username, password);
-        currentDirname = account.getCloud().getDriveDirname();
-        return listFiles();
+        account = accountManager.load(username, password);
+        return startSession();
     }
 
     public Boolean fileExists(String filename) throws Exception{
-        WDriveFile file = searchFile(filename);
-        if(file == null) return false;
-        else return true;
+        try { searchFile(filename); return true; }
+        catch (Exception e){ return false;}
     }
 
     public WDriveFile createDir(String dirname) throws Exception{
-        WFileSystem fs = searchFileSystem(currentDirname);
-        dirname = Paths.get(currentDirname, dirname).toString();
-        return new WDriveFile(fs.create(dirname));
+        FileSystemFile file = fileSystem.create(currentDir, dirname);
+        return new WDriveFile(file);
     }
 
     public WDriveFile createFile(String filename, String content) throws Exception{
-        WFileSystem fs = searchFileSystem(currentDirname);
-        filename = Paths.get(currentDirname, filename).toString();
-        return new WDriveFile(fs.create(filename, content));
+        FileSystemFile file = fileSystem.create(currentDir, filename, content);
+        return new WDriveFile(file);
     }
 
     public List<WDriveFile> accessDir(String dirname) throws Exception {
-        if (dirname.equals(".."))
-            currentDirname = new File(currentDirname).getParent();
-        else //TODO cambio aqui
-            currentDirname = Paths.get(currentDirname, dirname).toString();
+        if (dirname.equals("..")) currentDir = dirStack.pop();
+        else {
+            dirStack.push(currentDir);
+            currentDir = (FileSystemDir) currentDir.getFile(dirname);
+        }
         return listFiles();
     }
 
     public List<WDriveFile> listFiles() throws Exception {
-        WFileSystem fs = searchFileSystem(currentDirname);
-        FileSystemDir dir = (FileSystemDir) fs.search(currentDirname);
-        throwExceptionOnNull(dir, msgDirNotExists);
         ArrayList<WDriveFile> files = new ArrayList<>();
-        dir.getFiles().forEach(file -> files.add(new WDriveFile(file)));
+        currentDir.getFiles().forEach(file -> files.add(new WDriveFile(file)));
         return files;
     }
 
     public WDriveFile copyFile(String filename) throws Exception {
-        WDriveFile file = searchFile(filename);
-        clipboard = file.getFilename();
-        return file;
+        clipboard = currentDir.getFile(filename);
+        return new WDriveFile(clipboard);
     }
 
     public WDriveFile pasteFile() throws Exception {
-        WFileSystem fs = searchFileSystem(currentDirname);
         FileSystemFile file = cutFlag ?
-                fs.move(clipboard, currentDirname):
-                fs.copy(clipboard, currentDirname);
+                fileSystem.move(clipboard, cutboard, currentDir):
+                fileSystem.copy(clipboard, currentDir);
         cutFlag = false;
         return new WDriveFile(file);
     }
 
     public WDriveFile cutFile(String filename) throws Exception {
         cutFlag = true;
+        cutboard = currentDir;
         return copyFile(filename);
     }
 
     public List<WDriveFile> deleteFile(String filename) throws Exception{
-        WFileSystem fs = searchFileSystem(currentDirname);
-        fs.delete(filename);
+        fileSystem.delete(currentDir, filename);
         return listFiles();
     }
 
-    public WDriveFile shareFile(String filename, String username) throws Exception{
-        WFileSystem from = searchFileSystem(currentDirname);
-        WFileSystem to = fileSystemManager.load(username);
-        FileSystemFile file = from.share(filename, to);
-        return new WDriveFile(file);
+    public List<WDriveFile> shareFile(String filename, String username) throws Exception{
+        FileSystemFile file = currentDir.getFile(filename);
+        WFileSystem target = fileSystemManager.load(username);
+        fileSystem.share(file, target);
+        return listFiles();
     }
 
 }

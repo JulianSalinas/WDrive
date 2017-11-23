@@ -3,17 +3,12 @@ package model;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileSystemDir extends FileSystemFile {
 
     protected List<FileSystemFile> files;
-
-    public List<FileSystemFile> getFiles() {
-        return files;
-    }
 
     public FileSystemDir(String pathname) throws Exception{
         this(pathname, false);
@@ -26,6 +21,30 @@ public class FileSystemDir extends FileSystemFile {
         this.files = new ArrayList<>();
     }
 
+    public List<FileSystemFile> getFiles() {
+        return files;
+    }
+
+    public FileSystemFile add(FileSystemFile file){
+        files.add(file);
+        return file;
+    }
+
+    public FileSystemFile remove(FileSystemFile file) throws Exception{
+        files.remove(file);
+        return file;
+    }
+
+    public FileSystemFile create(String filename, String content) throws Exception{
+        FileSystemFile child = new FileSystemFile(filename, content);
+        return add(child);
+    }
+
+    public FileSystemDir create(String dirname) throws Exception {
+        FileSystemDir child = new FileSystemDir(dirname);
+        return (FileSystemDir) add(child);
+    }
+
     @Override
     public Long getSize() {
         size = 0L;
@@ -35,17 +54,25 @@ public class FileSystemDir extends FileSystemFile {
     }
 
     @Override
-    public FileSystemFile delete() throws Exception{
-        FileUtils.deleteDirectory(filename);
+    public FileSystemFile copy(FileSystemFile toDir) throws Exception{
+        super.copy(toDir);
+        for (FileSystemFile file : files)
+            file.copy(this);
         return this;
     }
 
     @Override
-    public FileSystemFile copy(FileSystemDir dir) throws Exception{
-        String newDirname = Paths.get(dir.getPath(), getName()).toString();
-        FileSystemDir newDir = (FileSystemDir) dir.add(new FileSystemDir(newDirname));
-        for(FileSystemFile file: files) file.copy(newDir);
-        return newDir;
+    public FileSystemFile move(FileSystemFile toDir) throws Exception{
+        super.move(toDir);
+        for (FileSystemFile file : files)
+            file.move(this);
+        return this;
+    }
+
+    @Override
+    public FileSystemFile delete() throws Exception{
+        FileUtils.deleteDirectory(filename);
+        return this;
     }
 
     @Override
@@ -63,37 +90,6 @@ public class FileSystemDir extends FileSystemFile {
                 return file;
         }
         return null;
-    }
-
-    public FileSystemFile add(FileSystemFile file){
-        if(search(file.getPath()) == null)
-            files.add(file);
-        return file;
-    }
-
-    public FileSystemFile remove(FileSystemFile file) throws Exception{
-        if(search(file.getPath()) != null)
-            files.remove(file);
-        return file;
-    }
-
-    public FileSystemFile search(String pathname){
-        return search(pathname, (FileSystemFile) this);
-    }
-
-    public FileSystemFile search(String pathname, FileSystemFile file){
-        if(file.getPath().equals(pathname))
-            return file;
-        else if(!(file instanceof FileSystemDir))
-            return null;
-        return search(pathname, (FileSystemDir) file);
-    }
-
-    public FileSystemFile search(String pathname, FileSystemDir dir){
-        for(FileSystemFile child : dir.getFiles()){
-            FileSystemFile node = search(pathname, child);
-            if(node != null) return node;
-        }   return null;
     }
 
 }
