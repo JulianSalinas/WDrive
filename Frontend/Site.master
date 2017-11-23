@@ -59,7 +59,7 @@
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/Account/Register">Registrar nuevo drive</a></li>
-                                <li><a runat="server" href="~/Account/Login">Cerrar sesión</a></li>
+                                <li><a runat="server" href="~/Account/Login">Cambiar usuario</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>

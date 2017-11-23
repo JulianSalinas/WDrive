@@ -3,6 +3,7 @@ using System;
 using System.Web.UI;
 using API;
 using System.Xml;
+using XMLHndlr;
 
 public partial class Account_Register : Page
 {
@@ -10,12 +11,14 @@ public partial class Account_Register : Page
 
     private void displayAlert(string alert)
     {
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atención!", "alert('" + alert + "')", true);
+        ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "Atención!", "alert('" + alert + "')", true);
     }
+
+    APIHandler api;
 
     protected void CreateUser_Click(object sender, EventArgs e)
     {
-        if(Page.IsValid)
+        if (Page.IsValid)
         {
             if (UserName.Text.Equals(""))
             {
@@ -23,15 +26,23 @@ public partial class Account_Register : Page
                 return;
             }
 
-            string stringResponse = APIHandler.createAccount(UserName.Text, Password.Text, 
-                Int32.Parse(ByteAmount.Text) );
+            string stringResponse = api.createAccount(UserName.Text, Password.Text,
+                Int32.Parse(ByteAmount.Text));
 
             XmlDocument xmlResponse = new XmlDocument();
             xmlResponse.LoadXml(stringResponse);
 
-            APIHandler.generartxt(stringResponse);
-
+            string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+            if (msg.Equals("OK"))
+                Response.Redirect("~/Account/Login");
+            else
+                displayAlert(msg);
 
         }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        api = new APIHandler();
     }
 }

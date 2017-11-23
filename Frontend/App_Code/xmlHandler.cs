@@ -13,12 +13,12 @@ namespace XMLHndlr
             string xpath_status = "controller.WDriveMessage/status";
             string xpath_error = "controller.WDriveMessage/content";
 
-            string status = xml.SelectSingleNode(xpath_status).Value;
+            string status = xml.SelectSingleNode(xpath_status).InnerText;
 
             if (status.Equals("OK"))
                 return status;
             else
-                return xml.SelectSingleNode(xpath_error).Value;
+                return xml.SelectSingleNode(xpath_error).InnerText;
         }
     }
 }
