@@ -11,5 +11,6 @@ public interface IMessage {
     String msgIncorrectPassword = "Contraseña incorrecta";
     String msgNotEnoughSpace = "No existe espacio suficiente";
     String msgNotSigned = "No se ha iniciado sesión";
+    String msgNotFile= "Debe especificar un archivo no un directorio";
 
 }

@@ -3,6 +3,7 @@ package controller;
 import model.FileSystemDir;
 import model.FileSystemFile;
 import model.WFileSystem;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -41,7 +42,7 @@ public class WDriveManager extends WDriveHelper {
     }
 
     private void refreshFileSystem() throws Exception{
-        fileSystem = searchFileSystem(currentDir.toString());
+        fileSystem = fileSystemManager.load(account.getUsername());
         currentDir = refreshDir(dirnames);
     }
 
@@ -137,7 +138,9 @@ public class WDriveManager extends WDriveHelper {
     }
 
     public List<WDriveFile> deleteFile(String filename) throws Exception{
-        fileSystem.delete(getCurrentDir(), filename);
+        FileSystemFile file = currentDir.getFile(filename);
+        Boolean virtual = !account.getUsername().equals(extractUsername(file.getAbsolutePath()));
+        fileSystem.delete(getCurrentDir(), filename, virtual);
         return listFiles();
     }
 
@@ -146,6 +149,15 @@ public class WDriveManager extends WDriveHelper {
         WFileSystem target = fileSystemManager.load(username);
         fileSystem.share(file, target);
         return listFiles();
+    }
+
+    public String openFile(String filename) throws Exception{
+        FileSystemFile file = getCurrentDir().getFile(filename);
+        if(file == null)
+            throw new Exception(msgFileNotExists);
+        if(file instanceof FileSystemDir)
+            throw new Exception(msgNotFile);
+        return FileUtils.readFileToString(new File(file.getAbsolutePath()));
     }
 
 }

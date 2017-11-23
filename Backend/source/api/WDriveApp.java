@@ -112,4 +112,9 @@ public class WDriveApp extends Application {
         try{ return onSuccessMessage(drive.shareFile(filename, username)); }
         catch (Exception exception){ return onErrorMessage(exception); }
     }
+
+    public WDriveMessage openFile(String filename) {
+        try{ return onSuccessMessage(drive.openFile(filename)); }
+        catch (Exception exception){ return onErrorMessage(exception); }
+    }
 }

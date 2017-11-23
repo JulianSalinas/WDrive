@@ -1,7 +1,5 @@
 package model;
 
-import java.nio.file.Paths;
-
 public abstract class FileSystem extends FileSystemDir implements IMessage {
 
     protected Long totalSpace;
@@ -21,15 +19,9 @@ public abstract class FileSystem extends FileSystemDir implements IMessage {
         this.availableSpace = totalSpace;
     }
 
-    private String mapName(FileSystemDir currentDir, String dirname){
-        String base = currentDir.getAbsolutePath();
-        return Paths.get(base, dirname).toString();
-    }
-
     public FileSystemDir create(FileSystemDir currentDir, String dirname) throws Exception{
         if(availableSpace > 0)
             return currentDir.create(dirname);
-
         throw new Exception(msgNotEnoughSpace);
     }
 
@@ -39,8 +31,10 @@ public abstract class FileSystem extends FileSystemDir implements IMessage {
         throw new Exception(msgNotEnoughSpace);
     }
 
-    public FileSystemFile delete(FileSystemDir currentDir, String filename) throws Exception{
+    public FileSystemFile delete(FileSystemDir currentDir, String filename, Boolean virtual) throws Exception{
         FileSystemFile file = currentDir.getFile(filename);
+        if(virtual)
+            return currentDir.remove(file);
         return currentDir.remove(file).delete();
     }
 

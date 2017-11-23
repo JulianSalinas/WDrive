@@ -85,7 +85,15 @@ public class Main {
         // Como por defecto el directorio actual es drive se debe ingresar a la raiz y luego al directorio shared
         System.out.println("\n" + apiNuevoUsuario.accessDir("shared"));
         System.out.println("\n" + apiNuevoUsuario.accessDir("documentos"));
-        System.out.println("\n" + apiNuevoUsuario.listFiles());
+
+        // Leer el contenido de un archivo, en este caso se encuentra en la carpeta compartida
+        System.out.println("\n" + apiNuevoUsuario.openFile("tarea1.txt"));
+
+        // Ahora se borra una carpeta que este en la carpeta shared
+        apiNuevoUsuario.accessDir("..");
+        System.out.println("\n" + apiNuevoUsuario.getCurrentDirname());
+        apiNuevoUsuario.deleteFile("documentos");
+
     }
 
 }

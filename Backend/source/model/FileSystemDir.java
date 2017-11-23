@@ -28,12 +28,14 @@ public class FileSystemDir extends FileSystemFile {
     }
 
     public FileSystemFile add(FileSystemFile file){
-        files.add(file);
+        if(!files.contains(file))
+            files.add(file);
         return file;
     }
 
     public FileSystemFile remove(FileSystemFile file) throws Exception{
-        files.remove(file);
+        if(files.contains(file))
+            files.remove(file);
         return file;
     }
 

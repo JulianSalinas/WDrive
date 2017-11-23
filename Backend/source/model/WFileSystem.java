@@ -49,8 +49,8 @@ public class WFileSystem extends FileSystem implements ICloud {
     }
 
     @Override
-    public FileSystemFile delete(FileSystemDir currentDir, String filename) throws Exception{
-        return updateDirs(super.delete(currentDir, filename));
+    public FileSystemFile delete(FileSystemDir currentDir, String filename, Boolean virtual) throws Exception{
+        return updateDirs(super.delete(currentDir, filename, virtual));
     }
 
     @Override

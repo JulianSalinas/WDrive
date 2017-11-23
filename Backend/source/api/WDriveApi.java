@@ -112,4 +112,10 @@ public class WDriveApi {
         return response(app.shareFile(filename, username));
     }
 
+    @WebMethod
+    public String openFile(
+            @WebParam(name="filename") String filename) {
+        return response(app.openFile(filename));
+    }
+
 }
