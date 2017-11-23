@@ -13,8 +13,10 @@ import java.util.Stack;
 public class WDriveManager extends WDriveHelper {
 
     private Boolean cutFlag;
-    private FileSystemDir cutboard;
+    private List<String> cutboard;
     private FileSystemFile clipboard;
+
+    private List<String> dirnames;
     private Stack<FileSystemDir> dirStack;
 
 
@@ -27,13 +29,36 @@ public class WDriveManager extends WDriveHelper {
         fileSystem = account.getCloud();
         currentDir = (FileSystemDir) fileSystem.getFile("drive");
         virtualDirname = currentDir.getAbsolutePath();
-        dirStack = new Stack<>();
-        dirStack.push(fileSystem);
+        startStacks();
         return listFiles();
     }
 
+    private void startStacks(){
+        dirStack = new Stack<>();
+        dirStack.push(fileSystem);
+        dirnames = new ArrayList<>();
+        dirnames.add("drive");
+    }
+
+    private void refreshFileSystem() throws Exception{
+        fileSystem = searchFileSystem(currentDir.toString());
+        currentDir = refreshDir(dirnames);
+    }
+
+    public FileSystemDir refreshDir(List<String> dirnames) throws Exception{
+        FileSystemDir dir = fileSystem;
+        for(String dirname : dirnames)
+            dir = (FileSystemDir) dir.getFile(dirname);
+        return dir;
+    }
+
+    private FileSystemDir getCurrentDir() throws Exception{
+        currentDir = refreshDir(dirnames);
+        return currentDir;
+    }
+
     public WDriveFile searchFile(String filename) throws Exception{
-        FileSystemFile file = currentDir.getFile(filename);
+        FileSystemFile file = getCurrentDir().getFile(filename);
         checkNull(file, msgFileNotExists);
         return new WDriveFile(file);
     }
@@ -54,17 +79,17 @@ public class WDriveManager extends WDriveHelper {
     }
 
     public WDriveFile createDir(String dirname) throws Exception{
-        FileSystemFile file = fileSystem.create(currentDir, dirname);
+        FileSystemFile file = fileSystem.create(getCurrentDir(), dirname);
         return new WDriveFile(file);
     }
 
     public WDriveFile createFile(String filename, String content) throws Exception{
-        FileSystemFile file = fileSystem.create(currentDir, filename, content);
+        FileSystemFile file = fileSystem.create(getCurrentDir(), filename, content);
         return new WDriveFile(file);
     }
 
     public List<WDriveFile> accessDir(String dirname) throws Exception {
-        fileSystem = searchFileSystem(currentDir.getAbsolutePath());
+        refreshFileSystem();
         if (dirname.equals(".."))
             return accessParent();
         else
@@ -72,50 +97,52 @@ public class WDriveManager extends WDriveHelper {
     }
 
     private List<WDriveFile> accessParent() throws Exception {
+        dirnames.remove(dirnames.size()-1);
         currentDir = dirStack.pop();
         virtualDirname = new File(virtualDirname).getParent();
         return listFiles();
     }
 
     private List<WDriveFile> accessChild(String dirname) throws Exception {
+        dirnames.add(dirname);
         dirStack.push(currentDir);
-        currentDir = (FileSystemDir) currentDir.getFile(dirname);
+        currentDir = (FileSystemDir) getCurrentDir().getFile(dirname);
         virtualDirname = Paths.get(virtualDirname, dirname).toString();
         return listFiles();
     }
 
     public List<WDriveFile> listFiles() throws Exception {
         ArrayList<WDriveFile> files = new ArrayList<>();
-        currentDir.getFiles().forEach(file -> files.add(new WDriveFile(file)));
+        getCurrentDir().getFiles().forEach(file -> files.add(new WDriveFile(file)));
         return files;
     }
 
     public WDriveFile copyFile(String filename) throws Exception {
-        clipboard = currentDir.getFile(filename);
+        clipboard = getCurrentDir().getFile(filename);
         return new WDriveFile(clipboard);
     }
 
     public WDriveFile pasteFile() throws Exception {
         FileSystemFile file = cutFlag ?
-                fileSystem.move(clipboard, cutboard, currentDir):
-                fileSystem.copy(clipboard, currentDir);
+                fileSystem.move(clipboard, refreshDir(cutboard), currentDir):
+                fileSystem.copy(clipboard, getCurrentDir());
         cutFlag = false;
         return new WDriveFile(file);
     }
 
     public WDriveFile cutFile(String filename) throws Exception {
         cutFlag = true;
-        cutboard = currentDir;
+        cutboard = new ArrayList<>(dirnames);
         return copyFile(filename);
     }
 
     public List<WDriveFile> deleteFile(String filename) throws Exception{
-        fileSystem.delete(currentDir, filename);
+        fileSystem.delete(getCurrentDir(), filename);
         return listFiles();
     }
 
     public List<WDriveFile> shareFile(String filename, String username) throws Exception{
-        FileSystemFile file = currentDir.getFile(filename);
+        FileSystemFile file = getCurrentDir().getFile(filename);
         WFileSystem target = fileSystemManager.load(username);
         fileSystem.share(file, target);
         return listFiles();
