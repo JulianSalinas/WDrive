@@ -4,6 +4,8 @@ using System.Web;
 using System.Web.UI;
 using System.Xml;
 using API;
+using APIT;
+using XMLHndlr;
 
 public partial class Account_Login : Page {
     
@@ -12,14 +14,17 @@ public partial class Account_Login : Page {
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atención!", "alert('" + alert + "')", true);
     }
 
+    APIHandler api;
+
     protected void Page_Load(object sender, EventArgs e)
-    { 
-        
+    {
+        APIHandler api = new APIHandler();
+        api.currentlyLogged = false;
     }
 
     protected void LogIn(object sender, EventArgs e)
     {
-        if (IsValid)
+        if (Page.IsValid)
         {
             if (UserName.Text.Equals(""))
             {
@@ -27,14 +32,20 @@ public partial class Account_Login : Page {
                 return;
             }
 
-            string stringResponse = APIHandler.loadAccount(UserName.Text, Password.Text);
+            string stringResponse = api.loadAccount(UserName.Text, Password.Text);
 
             XmlDocument xmlResponse = new XmlDocument();
             xmlResponse.LoadXml( stringResponse );
 
-            APIHandler.generartxt(stringResponse);
-
-
+            string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+            if (msg.Equals("OK"))
+            {
+                api.currentlyLogged = true;
+                APITransfer.api = api;
+                Response.Redirect("~/Principal");
+            }
+            else
+                displayAlert(msg);
             
         }
 

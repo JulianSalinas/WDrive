@@ -5,32 +5,25 @@ using WDrive;
 
 namespace API
 {
-    public static class APIHandler
+    public class APIHandler
     {
 
-        private static WDriveApiService _api;
+        private WDriveApiService api;
+        public bool currentlyLogged = false;
 
-        private static WDriveApiService getApi()
+        public APIHandler() { api = new WDriveApiService(); }
+
+        public string loadAccount(string UserName, string Password)
         {
-            if (_api != null)
-                return _api;
-            else
-                _api = new WDriveApiService();
-
-            return _api;
+            return api.loadAccount(UserName, Password);
         }
 
-        public static string loadAccount(string UserName, string Password)
+        public string createAccount(string UserName, string Password, int bytes)
         {
-            return getApi().loadAccount(UserName, Password);
+            return api.createAccount(UserName, Password, (long) bytes);
         }
 
-        public static string createAccount(string UserName, string Password, int bytes)
-        {
-            return getApi().createAccount(UserName, Password, (long) bytes);
-        }
-
-        public static void generartxt(string msg)
+        public void generartxt(string msg)
         {
             string[] lines = { msg };
 
@@ -45,5 +38,11 @@ namespace API
                     outputFile.WriteLine(line);
             }
         }
+
+        public string getactual()
+        {
+            return api.getCurrentDirname();
+        }
+
     }
 }
