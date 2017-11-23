@@ -1,7 +1,11 @@
 package controller;
 
-import model.*;
+import model.FileSystemDir;
+import model.FileSystemFile;
+import model.WFileSystem;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -60,11 +64,23 @@ public class WDriveManager extends WDriveHelper {
     }
 
     public List<WDriveFile> accessDir(String dirname) throws Exception {
-        if (dirname.equals("..")) currentDir = dirStack.pop();
-        else {
-            dirStack.push(currentDir);
-            currentDir = (FileSystemDir) currentDir.getFile(dirname);
-        }
+        fileSystem = searchFileSystem(currentDir.getAbsolutePath());
+        if (dirname.equals(".."))
+            return accessParent();
+        else
+            return accessChild(dirname);
+    }
+
+    private List<WDriveFile> accessParent() throws Exception {
+        currentDir = dirStack.pop();
+        virtualDirname = new File(virtualDirname).getParent();
+        return listFiles();
+    }
+
+    private List<WDriveFile> accessChild(String dirname) throws Exception {
+        dirStack.push(currentDir);
+        currentDir = (FileSystemDir) currentDir.getFile(dirname);
+        virtualDirname = Paths.get(virtualDirname, dirname).toString();
         return listFiles();
     }
 

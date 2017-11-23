@@ -2,9 +2,8 @@ package model;
 
 import org.apache.commons.io.FileUtils;
 
-import java.nio.file.Files;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.io.File;
+import java.nio.file.Paths;
 
 public class FileSystemFile extends FileSystemNode{
 
@@ -22,18 +21,15 @@ public class FileSystemFile extends FileSystemNode{
     }
 
     public FileSystemFile copy(FileSystemFile toDir) throws Exception{
-        filename = Files.copy(
-                filename.toPath(),
-                toDir.filename.toPath(),
-                REPLACE_EXISTING).toFile();
-        return this;
+        File file = Paths.get(toDir.getAbsolutePath(), getName()).toFile();
+        String content = FileUtils.readFileToString(filename);
+        FileUtils.copyFileToDirectory(filename, toDir.filename,true);
+        return new FileSystemFile(file.getAbsolutePath(), content);
     }
 
     public FileSystemFile move(FileSystemFile toDir) throws Exception{
-        filename = Files.move(
-                filename.toPath(),
-                toDir.filename.toPath(),
-                REPLACE_EXISTING).toFile();
+        FileUtils.moveFileToDirectory(filename, toDir.filename, true);
+        filename = Paths.get(toDir.getAbsolutePath(), getName()).toFile();
         return this;
     }
 

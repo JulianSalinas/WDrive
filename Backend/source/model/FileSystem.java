@@ -46,8 +46,8 @@ public abstract class FileSystem extends FileSystemDir implements IMessage {
 
     public FileSystemFile copy(FileSystemFile clipboard, FileSystemDir targetDir) throws Exception{
         if(availableSpace >=  clipboard.getSize()){
-            targetDir.add(clipboard);
-            return clipboard.copy(targetDir);
+            FileSystemFile file = clipboard.copy(targetDir);
+            return targetDir.add(file);
         }
         throw new Exception(msgNotEnoughSpace);
     }
@@ -55,7 +55,7 @@ public abstract class FileSystem extends FileSystemDir implements IMessage {
     public FileSystemFile move(FileSystemFile clipboard, FileSystemDir sourceDir, FileSystemDir targetDir) throws Exception{
         sourceDir.remove(clipboard);
         clipboard = clipboard.move(targetDir);
-        return clipboard.copy(targetDir);
+        return targetDir.add(clipboard);
     }
 
 }
