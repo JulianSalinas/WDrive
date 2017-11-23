@@ -14,8 +14,6 @@ public partial class Account_Register : Page
         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "Atención!", "alert('" + alert + "')", true);
     }
 
-    APIHandler api;
-
     protected void CreateUser_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
@@ -26,7 +24,7 @@ public partial class Account_Register : Page
                 return;
             }
 
-            string stringResponse = api.createAccount(UserName.Text, Password.Text,
+            string stringResponse = APIHandler.createAccount(UserName.Text, Password.Text,
                 Int32.Parse(ByteAmount.Text));
 
             XmlDocument xmlResponse = new XmlDocument();
@@ -43,6 +41,6 @@ public partial class Account_Register : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        api = new APIHandler();
+
     }
 }

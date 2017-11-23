@@ -6,7 +6,7 @@
         <hr />        
         <div class="text-info">   
             <h4> 
-                <asp:Literal runat="server" Text="\\ "/> 
+                <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" />
                 <asp:Literal runat="server" ID="literalRuta" Text="Ejemplo de ruta"/> 
             </h4>
         </div>
@@ -16,18 +16,13 @@
 
     <div class="row">
         <div class="col-md-8">
-            <asp:GridView ID="tablaExplorador" CssClass="table-striped" runat="server">
-                <Columns>
-                    <asp:BoundField ApplyFormatInEditMode="True" HeaderText="Ruta" NullDisplayText="No disponible" />
-                    <asp:BoundField HeaderText="Info" />
-                    <asp:CheckBoxField HeaderText="Check" />
-                </Columns>
+            <asp:GridView ID="tablaExplorador" CssClass="table table-striped table-hover" runat="server">
             </asp:GridView>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <asp:Button ID="btnNuevo" CssClass="btn btn-rounded btn-customWidth" 
-                    runat="server" Text="Nuevo" />
+                <asp:Button ID="btnNuevo" CssClass="btn btn-rounded btn-customWidth"
+                    runat="server" Text="Nuevo" OnClick="btnNuevo_Click" />
             </div>
             <div class="form-group">
                 <asp:Button ID="btnEditar" CssClass="btn btn-rounded btn-customWidth" 

@@ -5,25 +5,23 @@ using WDrive;
 
 namespace API
 {
-    public class APIHandler
+    public static class APIHandler
     {
 
-        private WDriveApiService api;
-        public bool currentlyLogged = false;
+        private static WDriveApiService api = new WDriveApiService();
+        public static bool currentlyLogged = false;
 
-        public APIHandler() { api = new WDriveApiService(); }
-
-        public string loadAccount(string UserName, string Password)
+        public static string loadAccount(string UserName, string Password)
         {
             return api.loadAccount(UserName, Password);
         }
 
-        public string createAccount(string UserName, string Password, int bytes)
+        public static string createAccount(string UserName, string Password, int bytes)
         {
             return api.createAccount(UserName, Password, (long) bytes);
         }
 
-        public void generartxt(string msg)
+        public static void generartxt(string msg)
         {
             string[] lines = { msg };
 
@@ -39,10 +37,22 @@ namespace API
             }
         }
 
-        public string getactual()
+        public static string getCurrentDir()
         {
             return api.getCurrentDirname();
         }
 
+        public static void backDir()
+        {
+            if (!getCurrentDir().EndsWith(@"\drive"))
+            {
+                api.accessDir("..");
+            }
+        }
+
+        public static string listFiles()
+        {
+            return api.listFiles();
+        }
     }
 }

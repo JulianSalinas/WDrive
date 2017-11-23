@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using WDrive;
 using API;
+using XMLHndlr;
+using System.Xml;
 
 public partial class _Default : Page
 {
-
-    APIHandler api;
 
     private void displayAlert(string alert)
     {
@@ -19,7 +15,31 @@ public partial class _Default : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        api = new APIHandler();
-        displayAlert(api.getactual());
+        literalRuta.Text = APIHandler.getCurrentDir();
+        fillExplorer();
+    }
+
+    private void fillExplorer()
+    {
+        string stringResponse = APIHandler.listFiles();
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
+        {
+            DataTable data = xmlHandler.handle_FileList(xmlResponse);
+            tablaExplorador.DataSource = data;
+            tablaExplorador.DataBind();
+        }
+        else
+            displayAlert(msg);
+
+    }
+
+    protected void btnNuevo_Click(object sender, EventArgs e)
+    {
+        
     }
 }
