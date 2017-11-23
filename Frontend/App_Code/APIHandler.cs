@@ -11,6 +11,11 @@ namespace API
         private static WDriveApiService api = new WDriveApiService();
         public static bool currentlyLogged = false;
 
+        public static string accessDir(string dirname)
+        {
+            return api.accessDir(dirname);
+        }
+
         public static string loadAccount(string UserName, string Password)
         {
             return api.loadAccount(UserName, Password);

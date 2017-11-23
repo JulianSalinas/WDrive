@@ -6,7 +6,7 @@
         <hr />        
         <div class="text-info">   
             <h4> 
-                <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" />
+                <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
                 <asp:Literal runat="server" ID="literalRuta" Text="Ejemplo de ruta"/> 
             </h4>
         </div>
@@ -15,10 +15,6 @@
     <hr />
 
     <div class="row">
-        <div class="col-md-8">
-            <asp:GridView ID="tablaExplorador" CssClass="table table-striped table-hover" runat="server">
-            </asp:GridView>
-        </div>
         <div class="col-md-4">
             <div class="form-group">
                 <asp:Button ID="btnNuevo" CssClass="btn btn-rounded btn-customWidth"
@@ -40,6 +36,14 @@
                 <asp:Button ID="btnCompartir" CssClass="btn btn-rounded btn-customWidth" 
                     runat="server" Text="Compartir seleccionados" />
             </div>
+        </div>
+        <div class="col-md-8">
+            <asp:GridView ID="tablaExplorador" CssClass="table table-hover" runat="server" EmptyDataText="Sin archivos..." HorizontalAlign="Center" ShowHeaderWhenEmpty="True" OnSelectedIndexChanged="tablaExplorador_SelectedIndexChanged" OnRowCommand="tablaExplorador_RowCommand">
+                <Columns>
+                    <asp:CommandField HeaderText=".." SelectText="Marcar" ShowCancelButton="False" ShowSelectButton="True" />
+                    <asp:ButtonField CommandName="Abrir" HeaderText=".." Text="Abrir" />
+                </Columns>
+            </asp:GridView>
         </div>
     </div>
 </asp:Content>
