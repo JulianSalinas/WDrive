@@ -10,24 +10,56 @@
   <xs:element name="createDirResponse" type="tns:createDirResponse" />
   <xs:element name="createFile" type="tns:createFile" />
   <xs:element name="createFileResponse" type="tns:createFileResponse" />
+  <xs:element name="cutFile" type="tns:cutFile" />
+  <xs:element name="cutFileResponse" type="tns:cutFileResponse" />
+  <xs:element name="deleteFile" type="tns:deleteFile" />
+  <xs:element name="deleteFileResponse" type="tns:deleteFileResponse" />
   <xs:element name="fileExists" type="tns:fileExists" />
   <xs:element name="fileExistsResponse" type="tns:fileExistsResponse" />
+  <xs:element name="getAvailableSpace" type="tns:getAvailableSpace" />
+  <xs:element name="getAvailableSpaceResponse" type="tns:getAvailableSpaceResponse" />
   <xs:element name="getCurrentDirname" type="tns:getCurrentDirname" />
   <xs:element name="getCurrentDirnameResponse" type="tns:getCurrentDirnameResponse" />
+  <xs:element name="getTotalSpace" type="tns:getTotalSpace" />
+  <xs:element name="getTotalSpaceResponse" type="tns:getTotalSpaceResponse" />
   <xs:element name="listFiles" type="tns:listFiles" />
   <xs:element name="listFilesResponse" type="tns:listFilesResponse" />
   <xs:element name="loadAccount" type="tns:loadAccount" />
   <xs:element name="loadAccountResponse" type="tns:loadAccountResponse" />
+  <xs:element name="openFile" type="tns:openFile" />
+  <xs:element name="openFileResponse" type="tns:openFileResponse" />
   <xs:element name="pasteFile" type="tns:pasteFile" />
   <xs:element name="pasteFileResponse" type="tns:pasteFileResponse" />
   <xs:element name="searchFile" type="tns:searchFile" />
   <xs:element name="searchFileResponse" type="tns:searchFileResponse" />
+  <xs:element name="shareFile" type="tns:shareFile" />
+  <xs:element name="shareFileResponse" type="tns:shareFileResponse" />
+  <xs:complexType name="openFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filename" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="openFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="copyFile">
     <xs:sequence>
       <xs:element minOccurs="0" name="filename" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="copyFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deleteFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filename" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deleteFileResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>
@@ -42,6 +74,16 @@
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="searchFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filename" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="loadAccount">
     <xs:sequence>
       <xs:element minOccurs="0" name="username" type="xs:string" />
@@ -49,16 +91,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="loadAccountResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="searchFile">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="filename" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="searchFileResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>
@@ -85,6 +117,54 @@
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="createFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filename" type="xs:string" />
+      <xs:element minOccurs="0" name="content" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="createFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cutFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filename" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cutFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getAvailableSpace">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getAvailableSpaceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTotalSpace">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getTotalSpaceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="shareFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filename" type="xs:string" />
+      <xs:element minOccurs="0" name="username" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="shareFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="createDir">
     <xs:sequence>
       <xs:element minOccurs="0" name="dirname" type="xs:string" />
@@ -99,17 +179,6 @@
     <xs:sequence />
   </xs:complexType>
   <xs:complexType name="getCurrentDirnameResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="createFile">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="filename" type="xs:string" />
-      <xs:element minOccurs="0" name="content" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="createFileResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>

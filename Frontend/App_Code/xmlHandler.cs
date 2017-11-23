@@ -22,9 +22,10 @@ namespace XMLHndlr
         public static DataTable handle_FileList(XmlDocument xml)
         {
             DataTable data = new DataTable();
-            data.Columns.AddRange(new DataColumn[3]
+            data.Columns.AddRange(new DataColumn[4]
             {
                 new DataColumn("Nombre", typeof(string)),
+                new DataColumn("Fecha de creación", typeof(string)),
                 new DataColumn("Fecha de modificación", typeof(string)),
                 new DataColumn("Tamaño", typeof(string))
             });
@@ -40,6 +41,7 @@ namespace XMLHndlr
                     nombre += @"\";
 
                 data.Rows.Add(nombre,
+                    archivo.SelectSingleNode("creationTime").InnerText,
                     archivo.SelectSingleNode("lastModifiedTime").InnerText,
                     archivo.SelectSingleNode("size").InnerText + " Bytes"
                     );
@@ -47,34 +49,6 @@ namespace XMLHndlr
 
             return data;
         }
-
-        /*public static DataTable handle_FileInfo(XmlDocument xml)
-        {
-            DataTable data = new DataTable();
-            data.Columns.AddRange(new DataColumn[3]
-            {
-                new DataColumn("Nombre", typeof(string)),
-                new DataColumn("Fecha de modificación", typeof(string)),
-                new DataColumn("Tamaño", typeof(string))
-            });
-
-            string xpath = "controller.WDriveMessage/content/controller.WDriveFile";
-
-            var archivos = xml.SelectNodes(xpath);
-
-            foreach (XmlNode archivo in archivos)
-            {
-                string nombre = archivo.SelectSingleNode("name").InnerText;
-                if (!nombre.EndsWith(".txt"))
-                    nombre += @"\";
-
-                data.Rows.Add(nombre,
-                    archivo.SelectSingleNode("lastModifiedTime").InnerText,
-                    archivo.SelectSingleNode("size").InnerText + " Bytes"
-                    );
-            }
-
-            return data;
-        }*/
+        
     }
 }

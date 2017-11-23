@@ -25,6 +25,12 @@ public partial class _Default : Page
 
         if(!IsPostBack)
             fillExplorer();
+
+        if (APIHandler.pastebinFull)
+            btnPegar.Visible = true;
+        else
+            btnPegar.Visible = false;
+
     }
 
     private void fillExplorer()
@@ -93,12 +99,12 @@ public partial class _Default : Page
         if (marca.Text.Equals("Marcar"))
         {
             marca.Text = "Desmarcar";
-            tablaExplorador.SelectedRow.BackColor = System.Drawing.Color.PaleTurquoise;
+            tablaExplorador.SelectedRow.BackColor = System.Drawing.Color.PowderBlue;
         }
         else
         {
             marca.Text = "Marcar";
-            tablaExplorador.SelectedRow.BackColor = System.Drawing.Color.White;
+            tablaExplorador.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
         }
     }
 
@@ -118,4 +124,74 @@ public partial class _Default : Page
     }
 
     private void page_refresh() { Response.Redirect(Request.Url.ToString()); }
+
+    protected void enviar_a_portapapeles(object sender, EventArgs e)
+    {
+        var selectedIndex = -1;
+
+        for (int i = 0; i < tablaExplorador.Rows.Count; i++)
+        {
+            var marca = (LinkButton) tablaExplorador.Rows[i].Cells[0].Controls[0];
+            if (marca.Text.Equals("Desmarcar"))
+            {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        if (selectedIndex == -1)
+        {
+            displayAlert("No se seleccionó un archivo.");
+            return;
+        }
+
+        string filename = fileData.Rows[selectedIndex].Field<string>("Nombre");
+
+        string stringResponse = "";
+
+        if (((Button)sender).ID.Equals("btnCortar"))
+            stringResponse = APIHandler.cutFile(filename);
+
+        else if (((Button)sender).ID.Equals("btnCopiar"))
+            stringResponse = APIHandler.copyFile(filename);
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
+        {
+            APIHandler.pastebinFull = true;
+            displayAlert("Archivo movido a portapapeles");                   
+        }
+        else
+            displayAlert(msg);
+
+        if (((Button)sender).ID.Equals("btnCortar"))
+            page_refresh();
+    }
+
+    protected void btnPegar_Click(object sender, EventArgs e)
+    {
+        if (!APIHandler.pastebinFull)
+        {
+            displayAlert("No hay archivos para pegar.");
+            return;
+        }
+
+        string stringResponse = APIHandler.pasteFile();
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
+        {
+            displayAlert("Archivo pegado con éxito.");
+        }
+        else
+            displayAlert(msg);
+
+        page_refresh();
+    }
 }

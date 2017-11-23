@@ -25,8 +25,16 @@
                     runat="server" Text="Editar seleccionado" />
             </div>
             <div class="form-group">
-                <asp:Button ID="btnMover" CssClass="btn btn-rounded btn-customWidth" 
-                    runat="server" Text="Mover seleccionado" />
+                <asp:Button ID="btnCortar" CssClass="btn btn-rounded btn-customWidth" 
+                    runat="server" Text="Cortar seleccionado" OnClick="enviar_a_portapapeles" />
+            </div>
+            <div class="form-group">
+                <asp:Button ID="btnCopiar" CssClass="btn btn-rounded btn-customWidth" 
+                    runat="server" Text="Copiar seleccionado" OnClick="enviar_a_portapapeles" />
+            </div>
+            <div class="form-group">
+                <asp:Button ID="btnPegar" CssClass="btn btn-rounded btn-customWidth" 
+                    runat="server" Text="Pegar desde portapapeles" OnClick="btnPegar_Click" />
             </div>
             <div class="form-group">
                 <asp:Button ID="btnEliminar" CssClass="btn btn-rounded btn-customWidth" 

@@ -10,6 +10,23 @@ namespace API
 
         private static WDriveApiService api = new WDriveApiService();
         public static bool currentlyLogged = false;
+        public static bool pastebinFull = false;
+        public static bool movingAction = false;
+
+        public static string pasteFile()
+        {
+            return api.pasteFile();
+        }
+
+        public static string copyFile(string filename)
+        {
+            return api.copyFile(filename);
+        }
+
+        public static string cutFile(string filename)
+        {
+            return api.cutFile(filename);
+        }
 
         public static string accessDir(string dirname)
         {
@@ -18,6 +35,10 @@ namespace API
 
         public static string loadAccount(string UserName, string Password)
         {
+            api = new WDriveApiService();
+            currentlyLogged = false;
+            pastebinFull = false;
+            movingAction = false;
             return api.loadAccount(UserName, Password);
         }
 
