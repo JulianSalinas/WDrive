@@ -42,6 +42,9 @@ video {
   display: inline-block;
 }
 
+.btn-customWidth {
+    width:250px;
+}
 audio:not([controls]) {
   display: none;
   height: 0;
@@ -2048,10 +2051,24 @@ fieldset[disabled] .btn {
           box-shadow: none;
 }
 
+.btn-rounded {
+    border-radius: 5px;
+}
+
 .btn-default {
   color: #333333;
   background-color: #ffffff;
   border-color: #cccccc;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.open .dropdown-toggle.btn {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
 }
 
 .btn-default:hover,
@@ -3230,6 +3247,14 @@ input[type="button"].btn-block {
 
 .dropdown-toggle:focus {
   outline: 0;
+}
+
+.bg-info {
+    background-color: #d9edf7;
+}
+
+a.bg-info:focus, a.bg-info:hover {
+    background-color: #afd9ee;
 }
 
 .dropdown-menu {

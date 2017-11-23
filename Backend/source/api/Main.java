@@ -80,11 +80,11 @@ public class Main {
         api.shareFile("documentos", "aquiles");
 
         // Se confirma que ;a carpeta este dentro de la carpeta compartida del usuario nuevo
-        // Como por defecto el directorio actual es drive se debe ingresar a la raiz y luego al directorio shared
         apiNuevoUsuario.accessDir("..");
-        System.out.println("\n" + apiNuevoUsuario.listFiles());
+
+        // Como por defecto el directorio actual es drive se debe ingresar a la raiz y luego al directorio shared
         System.out.println("\n" + apiNuevoUsuario.accessDir("shared"));
         System.out.println("\n" + apiNuevoUsuario.accessDir("documentos"));
-
+        System.out.println("\n" + apiNuevoUsuario.listFiles());
     }
 }

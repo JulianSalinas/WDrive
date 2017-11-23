@@ -47,13 +47,13 @@
                     <div class="col-md-10">
                         <asp:TextBox runat="server" ID="ByteAmount" TextMode="Number" CssClass="form-control" />
                         <asp:RegularExpressionValidator runat="server" ControlToValidate="ByteAmount"
-                            ValidationExpression="^[1-9]+$"
+                            ValidationExpression="^[0-9]+$"
                             CssClass="text-danger" ErrorMessage="Se requiere un número entero positivo." />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <asp:Button runat="server" OnClick="CreateUser_Click" Text="Registrarse" CssClass="btn btn-default" />
+                        <asp:Button runat="server" OnClick="CreateUser_Click" Text="Registrar" CssClass="btn btn-default" />
                     </div>
                 </div>
             </div>
