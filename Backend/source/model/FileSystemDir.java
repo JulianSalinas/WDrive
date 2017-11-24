@@ -22,6 +22,10 @@ public class FileSystemDir extends FileSystemFile {
         this.files = new ArrayList<>();
     }
 
+    public void setFiles(List<FileSystemFile> files) {
+        this.files = files;
+    }
+
     public List<FileSystemFile> getFiles() {
         return files;
     }
@@ -59,13 +63,17 @@ public class FileSystemDir extends FileSystemFile {
     @Override
     public FileSystemFile copy(FileSystemFile toDir) throws Exception{
         FileUtils.copyDirectoryToDirectory(filename, toDir.filename);
-        return new FileSystemDir(Paths.get(toDir.getAbsolutePath(), getName()).toString());
+        FileSystemDir dir = new FileSystemDir(Paths.get(toDir.getAbsolutePath(), getName()).toString());
+        dir.setFiles(getFiles());
+        return dir;
     }
 
     @Override
     public FileSystemFile move(FileSystemFile toDir) throws Exception{
         FileUtils.moveDirectoryToDirectory(filename, toDir.filename, true);
-        return new FileSystemDir(Paths.get(toDir.getAbsolutePath(), getName()).toString());
+        FileSystemDir dir = new FileSystemDir(Paths.get(toDir.getAbsolutePath(), getName()).toString());
+        dir.setFiles(getFiles());
+        return dir;
     }
 
     @Override
