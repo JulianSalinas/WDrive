@@ -82,10 +82,28 @@ public partial class _Default : Page
         if (filename.EndsWith(slash))
         {
             dirname = filename.TrimEnd(slash.ToCharArray()[0]);
-            stringResponse = APIHandler.accessDir(dirname);            
+            stringResponse = APIHandler.accessDir(dirname);
         }
         else
-            stringResponse = "";
+        {
+            stringResponse = APIHandler.openFile(filename);
+
+            XmlDocument xmlResponse2 = new XmlDocument();
+            xmlResponse2.LoadXml(stringResponse);
+
+            var contenido = xmlHandler.handle_FileContent(xmlResponse2);
+
+            if (contenido == null)
+            {
+                displayAlert("No se puedo abrir el archivo " + filename);
+                return;
+            }
+            else
+            {
+                mostrarEdit(filename, contenido);
+                return;
+            }
+        }
 
         XmlDocument xmlResponse = new XmlDocument();
         xmlResponse.LoadXml(stringResponse);
@@ -407,4 +425,15 @@ public partial class _Default : Page
         fillExplorer();
     }
 
+    protected void btnPopupEditar_Click(object sender, EventArgs e)
+    {
+        APIHandler.createFile(editArchivo.Text, editContent.Text);
+    }
+
+    protected void mostrarEdit(string filename, string content)
+    {
+        editArchivo.Text = filename;
+        editContent.Text = content;
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupEditarArchivo').modal('show');", true);
+    }
 }

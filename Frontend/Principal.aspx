@@ -31,12 +31,6 @@
                     runat="server" Text="Nuevo directorio" OnClick="btnNuevoDirectorio_Click"/>
             </div>
 
-          
-
-            <div class="form-group">
-                <asp:Button ID="btnEditar" CssClass="btn btn-rounded btn-customWidth" 
-                    runat="server" Text="Editar seleccionado"/>
-            </div>
             <div class="form-group">
                 <asp:Button ID="btnCortar" CssClass="btn btn-rounded btn-customWidth" 
                     runat="server" Text="Cortar seleccionado" OnClick="enviar_a_portapapeles" />
@@ -74,15 +68,16 @@
 
         </div>
         <div class="col-md-8">
-            <div id="ScrollList" style="height: 300px; overflow: auto">
+            <div id="ScrollList" style="height: 400px; overflow: auto">
                 <asp:GridView ID="tablaExplorador" CssClass="table table-hover" runat="server" EmptyDataText="Sin archivos..." HorizontalAlign="Center" ShowHeaderWhenEmpty="True" OnSelectedIndexChanged="tablaExplorador_SelectedIndexChanged" OnRowCommand="tablaExplorador_RowCommand">
                     <Columns>
                         <asp:CommandField HeaderText=".." SelectText="Marcar" ShowCancelButton="False" ShowSelectButton="True" />
                         <asp:ButtonField CommandName="Abrir" HeaderText=".." Text="Abrir" />
                     </Columns>
                 </asp:GridView>
-                    <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
+
             </div>
+            <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
         </div>
     </div>
 
@@ -201,5 +196,28 @@
             </div> 
         </div> 
     </div> 
+
+    <div id="popupEditarArchivo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Abrir archivo</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:Literal ID="editArchivo" runat="server" text="Nombre"/><br />
+                    <asp:TextBox ID="editContent" runat="server" placeholder="Contenido del archivo" class="form-control" TextMode="MultiLine"></asp:TextBox><br />
+                </div>
+
+                <div class="modal-footer">
+                    <asp:Button runat="server" Text="Cerrar" CssClass="btn btn-default"  data-dismiss="modal"/>
+                    <asp:Button runat="server" Text="Guardar" CssClass="btn btn-info" OnClick="btnPopupEditar_Click"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </asp:Content>
