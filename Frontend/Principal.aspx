@@ -53,6 +53,11 @@
             </div>
 
             <div class="form-group">
+                <asp:Button ID="btnSubir" CssClass="btn btn-info btn-rounded btn-customWidth"
+                    runat="server" Text="Subir archivo" OnClick="btnSubirArchivo_Click"/>
+            </div>
+
+            <div class="form-group">
                 <h3>
                     <asp:Label ID="labelEspacioTotal" CssClass="label label-default label-customWidth" 
                     runat="server" Text="Espacio total: " />
@@ -214,6 +219,29 @@
                 <div class="modal-footer">
                     <asp:Button runat="server" Text="Cerrar" CssClass="btn btn-default"  data-dismiss="modal"/>
                     <asp:Button runat="server" Text="Guardar" CssClass="btn btn-info" OnClick="btnPopupEditar_Click"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="popupSubirArchivo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Elige un archivo para subir</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:Literal runat="server" text="Ruta del archivo"/><br />
+                    <asp:FileUpload ID="fileUpload" runat="server"> </asp:FileUpload>
+                </div>
+
+                <div class="modal-footer">
+                    <asp:Button runat="server" Text="Cerrar" CssClass="btn btn-default"  data-dismiss="modal"/>
+                    <asp:Button runat="server" Text="Guardar" CssClass="btn btn-info" OnClick="btnPopupSubirArchivo_Click"/>
                 </div>
 
             </div>

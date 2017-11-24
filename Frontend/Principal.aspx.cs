@@ -1,6 +1,7 @@
 ﻿using API;
 using System;
 using System.Data;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
@@ -436,4 +437,28 @@ public partial class _Default : Page
         editContent.Text = content;
         ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupEditarArchivo').modal('show');", true);
     }
+
+    protected void btnSubirArchivo_Click(object sender, EventArgs e)
+    {
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupSubirArchivo').modal('show');", true);
+    }
+
+    protected void btnPopupSubirArchivo_Click(object sender, EventArgs e)
+    {
+        string archivo = Path.GetFileName(fileUpload.FileName);
+        string contenido = System.Text.Encoding.UTF8.GetString(fileUpload.FileBytes);
+
+        string stringResponse = APIHandler.createFile(archivo, contenido);
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK")) displayAlert("Archivo creado con éxito.");
+        else displayAlert(msg);
+
+        fillExplorer();
+
+    }
+
 }
