@@ -21,9 +21,8 @@ namespace XMLHndlr
 
         public static string handle_Space(XmlDocument xml)
         {
- 
-            return xml.SelectSingleNode(xpath).InnerText;
             string xpath = "controller.WDriveMessage/content";
+            return xml.SelectSingleNode(xpath).InnerText;
 
         }
 
@@ -32,14 +31,14 @@ namespace XMLHndlr
             string xpath_status = "controller.WDriveMessage/status";
             string xpath_result = "controller.WDriveMessage/content";
 
-
             string status = xml.SelectSingleNode(xpath_status).InnerText;
+
             if (status.Equals("OK"))
+                return xml.SelectSingleNode(xpath_result).InnerText;
             else
                 return xml.SelectSingleNode(xpath_result).InnerText;
-                return xml.SelectSingleNode(xpath_result).InnerText;
-
         }
+
         public static DataTable handle_FileList(XmlDocument xml)
         {
             DataTable data = new DataTable();
