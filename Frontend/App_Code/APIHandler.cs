@@ -15,6 +15,7 @@ namespace API
         public static string pastingFile = "";
         public static bool movingAction = false;
         public static int dirLevel = 1;
+        public static bool confirmation = false;
 
         public static string exists(string filename)
         {
@@ -51,6 +52,7 @@ namespace API
             api = new WDriveApiService();
             refresh = false;
             pastingFile = ""; dirLevel = 1;
+            confirmation = false;
             currentlyLogged = false;
             pastebinFull = false;
             movingAction = false;

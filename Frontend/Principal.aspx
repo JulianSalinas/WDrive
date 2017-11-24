@@ -12,12 +12,6 @@
                 </h4>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="text-danger">
-                <h4><asp:Literal ID="literalConfirmacion" runat="server" Text="Reemplazar archivos ya existentes?" />
-                <asp:CheckBox ID="checkReemplazo" runat="server" /></h4>
-            </div>
-        </div>
     </div>
 
     <hr />
@@ -103,5 +97,28 @@
         </div>
     </div>
 
+    <div id="popupConfirmacion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">¿Continuar?</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:Literal ID="literalConfirmacion" runat="server" text="¿Continuar?"/>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <asp:Button runat="server" Text="Si" CssClass="btn btn-success" OnClick="btnPopupConfirmacionSI_Click" />
+                        <asp:Button runat="server" Text="No" CssClass="btn btn-danger" OnClick="btnPopupConfirmacionNO_Click" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </asp:Content>

@@ -199,37 +199,27 @@ public partial class _Default : Page
         }
 
         bool existe = existe_archivo(APIHandler.pastingFile);
+
         if (existe)
         {
-            if(checkReemplazo.Checked)
-                displayAlert("El archivo ya existe y será reemplazado.");
-            else
-                displayAlert("El archivo ya existe pero no será reemplazado.");
+            desplegarConfirmacion("El archivo ya existe. ¿Desea reemplazarlo?");
+            return;
         }
 
-        if (!existe || checkReemplazo.Checked)
+        string stringResponse = APIHandler.pasteFile();
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
         {
-            
-            string stringResponse = APIHandler.pasteFile();
-
-            XmlDocument xmlResponse = new XmlDocument();
-            xmlResponse.LoadXml(stringResponse);
-
-            string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
-            if (msg.Equals("OK"))
-            {
-                displayAlert("Archivo pegado con éxito.");
-                if (APIHandler.movingAction)
-                    APIHandler.pastebinFull = false;
-            }
-            else
-                displayAlert(msg);
-        } 
+            displayAlert("Archivo pegado con éxito.");
+            if (APIHandler.movingAction)
+                APIHandler.pastebinFull = false;
+        }
         else
-        {
-            APIHandler.movingAction = false;
-            APIHandler.pastebinFull = false;            
-        }
+            displayAlert(msg);
 
     }
 
@@ -297,10 +287,40 @@ public partial class _Default : Page
         ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupCompartir').modal('show');", true);
     }
 
+    private void desplegarConfirmacion(string prompt)
+    {
+        literalConfirmacion.Text = prompt;
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupConfirmacion').modal('show');", true);
+    }
+
     protected void btnPopupCompartir_Click(object sender, EventArgs e)
     {
         String usuario = txtUsuario.Text; //Noimbre del usuario con el cual compartir
         // Aqui va el evento de compartir
     }
-    
+
+    protected void btnPopupConfirmacionSI_Click(object sender, EventArgs e)
+    {
+        string stringResponse = APIHandler.pasteFile();
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
+        {
+            displayAlert("Archivo pegado con éxito.");
+            if (APIHandler.movingAction)
+                APIHandler.pastebinFull = false;
+        }
+        else
+            displayAlert(msg);
+    }
+
+    protected void btnPopupConfirmacionNO_Click(object sender, EventArgs e)
+    {
+        APIHandler.movingAction = false;
+        APIHandler.pastebinFull = false;
+        APIHandler.confirmation = false;
+    }
 }
