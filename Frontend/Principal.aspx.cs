@@ -333,7 +333,6 @@ public partial class _Default : Page
             displayAlert(msg);
 
         showSpaceDetails();
-<<<<<<< Updated upstream
     }
 
 
@@ -360,8 +359,7 @@ public partial class _Default : Page
         APIHandler.movingAction = false;
         APIHandler.pastebinFull = false;
         APIHandler.confirmation = false;
-=======
->>>>>>> Stashed changes
+
     }
 
     protected void btnNuevoArchivo_Click(object sender, EventArgs e)

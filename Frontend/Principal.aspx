@@ -155,22 +155,12 @@
         </div>
     </div>
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     <div id="popupConfirmacion" class="modal fade" role="dialog">
-=======
-    <div id="popupAlerta" class="modal fade" role="dialog">
->>>>>>> Stashed changes
-=======
-    <div id="popupAlerta" class="modal fade" role="dialog">
->>>>>>> Stashed changes
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                     <h4 class="modal-title">¿Continuar?</h4>
                 </div>
 
@@ -183,28 +173,33 @@
                         <asp:Button runat="server" Text="Si" CssClass="btn btn-success" OnClick="btnPopupConfirmacionSI_Click" />
                         <asp:Button runat="server" Text="No" CssClass="btn btn-danger" OnClick="btnPopupConfirmacionNO_Click" />
                     </div>
-=======
-=======
->>>>>>> Stashed changes
-                    <h4 class="modal-title">Alerta</h4>
-                </div>
-
-                <div class="modal-body">
-                    <h3>
-                        <asp:Label ID="txtAlerta" CssClass="label" ForeColor="Black" runat="server" Text="Espacio total: " />
-                    </h3>
-                </div>
-
-                <div class="modal-footer">
-                    <asp:Button runat="server" Text="OK" CssClass="btn btn-default"  data-dismiss="modal"/>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                 </div>
 
             </div>
         </div>
     </div>
+
+    <div id="popupAlerta" class="modal fade" role="dialog"> 
+        <div class="modal-dialog"> 
+            <div class="modal-content"> 
+ 
+                <div class="modal-header"> 
+                    <button type="button" class="close" data-dismiss="modal">&times;</button> 
+                    <h4 class="modal-title">Alerta</h4> 
+                </div> 
+ 
+                <div class="modal-body"> 
+                    <h3> 
+                        <asp:Label ID="txtAlerta" CssClass="label" ForeColor="Black" runat="server" Text="Espacio total: " /> 
+                    </h3> 
+                </div> 
+ 
+                <div class="modal-footer"> 
+                    <asp:Button runat="server" Text="OK" CssClass="btn btn-default"  data-dismiss="modal"/> 
+                </div> 
+ 
+            </div> 
+        </div> 
+    </div> 
 
 </asp:Content>
