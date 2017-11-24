@@ -23,13 +23,10 @@ public class Loader {
 
     private List<String> generateTestUsernames(){
         List<String> usernames = new ArrayList<>();
-        usernames.add("julian");    usernames.add("benito");
-        usernames.add("maria");     usernames.add("marcelo");
-        usernames.add("jose");      usernames.add("josue");
+        usernames.add("julian");    usernames.add("maria");
         usernames.add("jesus");     usernames.add("judas");
-        usernames.add("aquiles");   usernames.add("david");
-        usernames.add("luna");      usernames.add("fabio");
-        usernames.add("karla");
+        usernames.add("david");     usernames.add("luna");
+        usernames.add("fabio");     usernames.add("karla");
         return usernames;
     }
 
