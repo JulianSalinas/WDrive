@@ -1,5 +1,6 @@
 package controller;
 
+import model.FileSystemDir;
 import model.FileSystemFile;
 import util.TimeConverter;
 
@@ -13,6 +14,7 @@ public class WDriveFile {
     private String creationTime;
     private String lastModifiedTime;
     private long size;
+    private boolean isDir;
 
     public WDriveFile(FileSystemFile file){
         name = file.getName();
@@ -20,6 +22,7 @@ public class WDriveFile {
         creationTime = TimeConverter.millisToString(file.getCreationTime());
         lastModifiedTime = TimeConverter.millisToString(file.getLastModifiedTime());
         size = file.getSize();
+        isDir = file instanceof FileSystemDir;
     }
 
     public String mapPath(String filename){

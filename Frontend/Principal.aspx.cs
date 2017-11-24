@@ -351,7 +351,7 @@ public partial class _Default : Page
         else
             displayAlert(msg);
 
-        showSpaceDetails();
+        fillExplorer();
     }
 
 
@@ -473,7 +473,7 @@ public partial class _Default : Page
         xmlResponse.LoadXml(stringResponse);
 
         string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
-        if (msg.Equals("OK")) displayAlert("Archivo creado con éxito.");
+        if (msg.Equals("OK")) displayAlert("Archivo subido con éxito.");
         else displayAlert(msg);
 
         fillExplorer();

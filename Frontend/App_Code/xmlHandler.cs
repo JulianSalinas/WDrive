@@ -70,7 +70,9 @@ namespace XMLHndlr
             foreach (XmlNode archivo in archivos)
             {
                 string nombre = archivo.SelectSingleNode("name").InnerText;
-                if (!nombre.EndsWith(".txt"))
+                bool esDir = archivo.SelectSingleNode("isDir").InnerText == "true";
+
+                if (esDir)
                     nombre += @"\";
 
                 data.Rows.Add(nombre,
