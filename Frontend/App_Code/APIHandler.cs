@@ -14,6 +14,7 @@ namespace API
         public static bool pastebinFull = false;
         public static string pastingFile = "";
         public static bool movingAction = false;
+        public static int dirLevel = 1;
 
         public static string exists(string filename)
         {
@@ -49,7 +50,7 @@ namespace API
         {
             api = new WDriveApiService();
             refresh = false;
-            pastingFile = "";
+            pastingFile = ""; dirLevel = 1;
             currentlyLogged = false;
             pastebinFull = false;
             movingAction = false;
@@ -84,10 +85,8 @@ namespace API
 
         public static string backDir()
         {
-            if (!getCurrentDir().EndsWith(@"\drive"))
-            {
+            if (dirLevel > 0)
                 return api.accessDir("..");
-            }
 
             return null;
         }

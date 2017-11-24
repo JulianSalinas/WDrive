@@ -80,7 +80,7 @@ public partial class _Default : Page
         if (filename.EndsWith(slash))
         {
             dirname = filename.TrimEnd(slash.ToCharArray()[0]);
-            stringResponse = APIHandler.accessDir(dirname);
+            stringResponse = APIHandler.accessDir(dirname);            
         }
         else
             stringResponse = "";
@@ -91,6 +91,8 @@ public partial class _Default : Page
         string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
         if (msg.Equals("OK"))
         {
+            if (filename.EndsWith(slash))
+                APIHandler.dirLevel += 1;
             page_refresh();
         }
         else
@@ -133,7 +135,10 @@ public partial class _Default : Page
         if (!msg.Equals("OK"))
             displayAlert(msg);
         else
+        {
+            APIHandler.dirLevel -= 1;
             page_refresh();
+        }      
     }
 
     protected void enviar_a_portapapeles(object sender, EventArgs e)
@@ -219,13 +224,11 @@ public partial class _Default : Page
             }
             else
                 displayAlert(msg);
-
-            page_refresh();
         } 
         else
         {
             APIHandler.movingAction = false;
-            APIHandler.pastebinFull = false;
+            APIHandler.pastebinFull = false;            
         }
 
     }
