@@ -24,10 +24,19 @@
 
     <div class="row">
         <div class="col-md-4">
+
             <div class="form-group">
-                <asp:Button ID="btnNuevo" CssClass="btn btn-rounded btn-customWidth"
-                    runat="server" Text="Nuevo"/>
+                <asp:Button ID="btnNuevoArchivo" CssClass="btn btn-rounded btn-customWidth"
+                    runat="server" Text="Nuevo archivo" OnClick="btnNuevoArchivo_Click"/>
             </div>
+
+            <div class="form-group">
+                <asp:Button ID="btnNuevoDirectorio" CssClass="btn btn-rounded btn-customWidth"
+                    runat="server" Text="Nuevo directorio" OnClick="btnNuevoDirectorio_Click"/>
+            </div>
+
+          
+
             <div class="form-group">
                 <asp:Button ID="btnEditar" CssClass="btn btn-rounded btn-customWidth" 
                     runat="server" Text="Editar seleccionado"/>
@@ -96,7 +105,53 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button runat="server" Text="Compartir" CssClass="btn btn-success" OnClick="btnPopupCompartir_Click"/>
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"/>
+                    <asp:Button runat="server" Text="Compartir" CssClass="btn btn-info" OnClick="btnPopupCompartir_Click"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="popupCrearDirectorio" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear directorio</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:TextBox ID="txtDirectorio" runat="server" placeholder="Nombre del directorio" class="form-control"></asp:TextBox><br />
+                </div>
+
+                <div class="modal-footer">
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"/>
+                    <asp:Button runat="server" Text="Crear" CssClass="btn btn-info" OnClick="btnPopupCrearDirectorio_Click"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="popupCrearArchivo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Crear archivo</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:TextBox ID="txtArchivo" runat="server" placeholder="Nombre del archivo" class="form-control"></asp:TextBox><br />
+                    <asp:TextBox ID="txtContenido" runat="server" placeholder="Contenido del archivo" class="form-control" TextMode="MultiLine"></asp:TextBox><br />
+                </div>
+
+                <div class="modal-footer">
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"/>
+                    <asp:Button runat="server" Text="Crear" CssClass="btn btn-info" OnClick="btnPopupCrearDirectorio_Click"/>
                 </div>
 
             </div>
