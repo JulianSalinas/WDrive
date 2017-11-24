@@ -23,8 +23,10 @@ public class FileSystemFile extends FileSystemNode{
     public FileSystemFile copy(FileSystemFile toDir) throws Exception{
         File file = Paths.get(toDir.getAbsolutePath(), getName()).toFile();
         String content = FileUtils.readFileToString(filename);
-        FileUtils.copyFileToDirectory(filename, toDir.filename,true);
-        return new FileSystemFile(file.getAbsolutePath(), content);
+        FileSystemFile newFile = new FileSystemFile(file.getAbsolutePath(), content);
+        if(!((FileSystemDir)toDir).getFiles().contains(newFile))
+            FileUtils.copyFileToDirectory(filename, toDir.filename,true);
+        return newFile;
     }
 
     public FileSystemFile move(FileSystemFile toDir) throws Exception{

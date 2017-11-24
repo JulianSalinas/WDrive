@@ -19,6 +19,13 @@ namespace XMLHndlr
                 return xml.SelectSingleNode(xpath_error).InnerText;
         }
 
+        public static string handle_Space(XmlDocument xml)
+        {
+            string xpath = "controller.WDriveMessage/content";
+            return xml.SelectSingleNode(xpath).InnerText;
+
+        }
+
         public static string handle_ExistMessage(XmlDocument xml)
         {
             string xpath_status = "controller.WDriveMessage/status";

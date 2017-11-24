@@ -22,12 +22,12 @@ public class FileSystemDir extends FileSystemFile {
         this.files = new ArrayList<>();
     }
 
-    public List<FileSystemFile> getFiles() {
-        return files;
-    }
-
     public void setFiles(List<FileSystemFile> files) {
         this.files = files;
+    }
+
+    public List<FileSystemFile> getFiles() {
+        return files;
     }
 
     public FileSystemFile add(FileSystemFile file){
