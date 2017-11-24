@@ -44,6 +44,21 @@
                 <asp:Button ID="btnCompartir" CssClass="btn btn-rounded btn-customWidth" 
                     runat="server" Text="Compartir seleccionados" />
             </div>
+
+            <div class="form-group">
+                <h3>
+                    <asp:Label ID="labelEspacioTotal" CssClass="label label-default label-customWidth" 
+                    runat="server" Text="Espacio total: " />
+                </h3>
+            </div>
+
+            <div class="form-group">
+                <h3>
+                    <asp:Label ID="labelEspacioDisponible" CssClass="label label-default label-customWidth" 
+                    runat="server" Text="Espacio disponible: " />
+                </h3>
+            </div>
+
         </div>
         <div class="col-md-8">
             <asp:GridView ID="tablaExplorador" CssClass="table table-hover" runat="server" EmptyDataText="Sin archivos..." HorizontalAlign="Center" ShowHeaderWhenEmpty="True" OnSelectedIndexChanged="tablaExplorador_SelectedIndexChanged" OnRowCommand="tablaExplorador_RowCommand">

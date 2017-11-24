@@ -35,6 +35,7 @@ public partial class _Default : Page
 
     private void fillExplorer()
     {
+        showSpaceDetails();
         string stringResponse = APIHandler.listFiles();
 
         XmlDocument xmlResponse = new XmlDocument();
@@ -49,6 +50,20 @@ public partial class _Default : Page
         }
         else
             displayAlert(msg);
+
+    }
+
+    private void showSpaceDetails()
+    {
+
+        XmlDocument xmlTotalSpace = new XmlDocument();
+        xmlTotalSpace.LoadXml(APIHandler.getTotalSpace());
+
+        XmlDocument xmlAvailableSpace = new XmlDocument();
+        xmlAvailableSpace.LoadXml(APIHandler.getAvailableSpace());
+
+        labelEspacioTotal.Text = "Espacio total: " + xmlHandler.handle_Space(xmlTotalSpace);
+        labelEspacioDisponible.Text = "Espacio disponible: " + xmlHandler.handle_Space(xmlAvailableSpace);
 
     }
 

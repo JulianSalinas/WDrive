@@ -80,5 +80,16 @@ namespace API
         {
             return api.listFiles();
         }
+
+        public static string getTotalSpace()
+        {
+            return api.getTotalSpace();
+        }
+
+        public static string getAvailableSpace()
+        {
+            return api.getAvailableSpace();
+        }
+
     }
 }
