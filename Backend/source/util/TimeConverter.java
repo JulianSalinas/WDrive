@@ -1,11 +1,12 @@
 package util;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class TimeConverter {
 
     public static String millisToString(long millis) {
-        return DateFormat.getDateInstance(DateFormat.SHORT).format(millis);
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yy:HH:mm:SS");
+        return DATE_FORMAT.format(millis);
     }
 
 }

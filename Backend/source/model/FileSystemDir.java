@@ -2,7 +2,6 @@ package model;
 
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -59,16 +58,14 @@ public class FileSystemDir extends FileSystemFile {
 
     @Override
     public FileSystemFile copy(FileSystemFile toDir) throws Exception{
-        File file = Paths.get(toDir.getAbsolutePath(), getName()).toFile();
-        FileUtils.copyDirectoryToDirectory(file, toDir.filename);
-        return this;
+        FileUtils.copyDirectoryToDirectory(filename, toDir.filename);
+        return new FileSystemDir(Paths.get(toDir.getAbsolutePath(), getName()).toString());
     }
 
     @Override
     public FileSystemFile move(FileSystemFile toDir) throws Exception{
-        filename = Paths.get(toDir.getAbsolutePath(), getName()).toFile();
         FileUtils.moveDirectoryToDirectory(filename, toDir.filename, true);
-        return this;
+        return new FileSystemDir(Paths.get(toDir.getAbsolutePath(), getName()).toString());
     }
 
     @Override
