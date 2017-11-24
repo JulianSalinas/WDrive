@@ -295,10 +295,11 @@ public partial class _Default : Page
 
     protected void btnPopupCompartir_Click(object sender, EventArgs e)
     {
-        String usuario = txtUsuario.Text; //Noimbre del usuario con el cual compartir
+        string usuario = txtUsuario.Text; //Noimbre del usuario con el cual compartir
         // Aqui va el evento de compartir
     }
 
+<<<<<<< HEAD
     protected void btnPopupConfirmacionSI_Click(object sender, EventArgs e)
     {
         string stringResponse = APIHandler.pasteFile();
@@ -323,4 +324,31 @@ public partial class _Default : Page
         APIHandler.pastebinFull = false;
         APIHandler.confirmation = false;
     }
+=======
+    protected void btnNuevoArchivo_Click(object sender, EventArgs e)
+    {
+        txtArchivo.Text = "";
+        txtContenido.Text = "";
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupCrearArchivo').modal('show');", true);
+    }
+
+    protected void btnPopupCrearArchivo_Click(object sender, EventArgs e)
+    {
+        string archivo = txtArchivo.Text;
+        string contenido = txtContenido.Text;
+    }
+
+    protected void btnNuevoDirectorio_Click(object sender, EventArgs e)
+    {
+        txtDirectorio.Text = "";
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupCrearDirectorio').modal('show');", true);
+    }
+
+    protected void btnPopupCrearDirectorio_Click(object sender, EventArgs e)
+    {
+        string directorio = txtDirectorio.Text; //Nombre del directorio a crear
+        // Aqui llamar a la funcion para crear el directorio
+    }
+
+>>>>>>> origin/master
 }
