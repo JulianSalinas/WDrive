@@ -69,12 +69,14 @@
 
         </div>
         <div class="col-md-8">
-            <asp:GridView ID="tablaExplorador" CssClass="table table-hover" runat="server" EmptyDataText="Sin archivos..." HorizontalAlign="Center" ShowHeaderWhenEmpty="True" OnSelectedIndexChanged="tablaExplorador_SelectedIndexChanged" OnRowCommand="tablaExplorador_RowCommand">
-                <Columns>
-                    <asp:CommandField HeaderText=".." SelectText="Marcar" ShowCancelButton="False" ShowSelectButton="True" />
-                    <asp:ButtonField CommandName="Abrir" HeaderText=".." Text="Abrir" />
-                </Columns>
-            </asp:GridView>
+            <div id="ScrollList" style="height: 300px; overflow: auto">
+                <asp:GridView ID="tablaExplorador" CssClass="table table-hover" runat="server" EmptyDataText="Sin archivos..." HorizontalAlign="Center" ShowHeaderWhenEmpty="True" OnSelectedIndexChanged="tablaExplorador_SelectedIndexChanged" OnRowCommand="tablaExplorador_RowCommand">
+                    <Columns>
+                        <asp:CommandField HeaderText=".." SelectText="Marcar" ShowCancelButton="False" ShowSelectButton="True" />
+                        <asp:ButtonField CommandName="Abrir" HeaderText=".." Text="Abrir" />
+                    </Columns>
+                </asp:GridView>
+            </div>
         </div>
     </div>
 </asp:Content>

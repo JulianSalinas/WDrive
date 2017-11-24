@@ -89,7 +89,7 @@ namespace API
                 return api.accessDir("..");
             }
 
-            return "OK";
+            return null;
         }
 
         public static string listFiles()

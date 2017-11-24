@@ -123,7 +123,10 @@ public partial class _Default : Page
     {
         string stringResponse = APIHandler.backDir();
 
-        XmlDocument xmlResponse = new XmlDocument();
+        if (stringResponse == null)
+            return;
+
+        XmlDocument xmlResponse = new XmlDocument();        
         xmlResponse.LoadXml(stringResponse);
 
         string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
