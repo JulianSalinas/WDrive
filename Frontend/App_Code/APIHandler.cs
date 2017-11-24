@@ -17,6 +17,11 @@ namespace API
         public static int dirLevel = 1;
         public static bool confirmation = false;
 
+        public static string openFile(string filename)
+        {
+            return api.openFile(filename);
+        }
+
         public static string exists(string filename)
         {
             return api.fileExists(filename);
