@@ -100,13 +100,13 @@ public partial class _Default : Page
         else
         {
             marca.Text = "Marcar";
-            tablaExplorador.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#E6E6FA");
+            tablaExplorador.SelectedRow.BackColor = System.Drawing.Color.White;
         }
     }
 
     protected void btnVolver_Click(object sender, EventArgs e)
     {
-        string stringResponse = APIHandler.accessDir("..");
+        string stringResponse = APIHandler.backDir();
 
         XmlDocument xmlResponse = new XmlDocument();
         xmlResponse.LoadXml(stringResponse);
@@ -175,43 +175,44 @@ public partial class _Default : Page
             return;
         }
 
-        if (existe_archivo(APIHandler.pastingFile))
+        bool existe = existe_archivo(APIHandler.pastingFile);
+        if (existe)
         {
-            literalConfirmacion.Text = "Ya existe el archivo. ¿Desea reemplazarlo?";
-            PopUp.Visible = true;
-            confirmar_wait();
-
-            while (APIHandler.confirmation.Equals("wait")) { }
-
-            if (APIHandler.confirmation.Equals("no"))
-                return;
+            if(checkReemplazo.Checked)
+                displayAlert("El archivo ya existe y será reemplazado.");
+            else
+                displayAlert("El archivo ya existe pero no será reemplazado.");
         }
 
-        string stringResponse = APIHandler.pasteFile();
-
-        XmlDocument xmlResponse = new XmlDocument();
-        xmlResponse.LoadXml(stringResponse);
-
-        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
-        if (msg.Equals("OK"))
+        if (!existe || checkReemplazo.Checked)
         {
-            displayAlert("Archivo pegado con éxito.");
-            if (APIHandler.movingAction)
-                APIHandler.pastebinFull = false;            
-        }
+            
+            string stringResponse = APIHandler.pasteFile();
+
+            XmlDocument xmlResponse = new XmlDocument();
+            xmlResponse.LoadXml(stringResponse);
+
+            string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+            if (msg.Equals("OK"))
+            {
+                displayAlert("Archivo pegado con éxito.");
+                if (APIHandler.movingAction)
+                    APIHandler.pastebinFull = false;
+            }
+            else
+                displayAlert(msg);
+
+            page_refresh();
+        } 
         else
-            displayAlert(msg);
+        {
+            APIHandler.movingAction = false;
+            APIHandler.pastebinFull = false;
+        }
 
-        page_refresh();
     }
 
     private void page_refresh() { Response.Redirect(Request.Url.ToString()); }
-
-    protected void confirmar_si(object sender, EventArgs e) { APIHandler.confirmation = "si"; PopUp.Visible = false; }
-
-    protected void confirmar_no(object sender, EventArgs e) { APIHandler.confirmation = "no"; PopUp.Visible = false; }
-
-    protected void confirmar_wait() { APIHandler.confirmation = "wait"; PopUp.Visible = false; }
 
     protected bool existe_archivo(string filename)
     {
@@ -228,5 +229,44 @@ public partial class _Default : Page
         else
             displayAlert("Error verificando existencia del archivo.");
         return true;
+    }
+
+    protected void btnEliminar_Click(object sender, EventArgs e)
+    {
+        var selectedIndex = -1;
+        bool sirvio = false;
+
+        for (int i = 0; i < tablaExplorador.Rows.Count; i++)
+        {
+            var marca = (LinkButton) tablaExplorador.Rows[i].Cells[0].Controls[0];
+            if (marca.Text.Equals("Desmarcar"))
+            {
+                selectedIndex = i;
+                string filename = fileData.Rows[selectedIndex].Field<string>("Nombre").TrimEnd(slash.ToCharArray()[0]);
+
+                string stringResponse = APIHandler.deleteFile(filename);
+
+                XmlDocument xmlResponse = new XmlDocument();
+                xmlResponse.LoadXml(stringResponse);
+
+                string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+                if (!msg.Equals("OK"))
+                {
+                    displayAlert(msg);
+                    return;
+                }
+                else
+                    sirvio = true;                    
+            }
+        }
+
+        if (selectedIndex == -1)
+        {
+            displayAlert("No se seleccionó un archivo.");
+            return;
+        }
+
+        if (sirvio)
+            page_refresh();
     }
 }

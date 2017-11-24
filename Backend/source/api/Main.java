@@ -3,7 +3,7 @@ package api;
 public class Main {
 
     public static void main(String[] args) {
-
+/*
         WDriveApi api = new WDriveApi();
 
         // Si es la primera vez que se corre, se debe descomentar la primera linea
@@ -103,10 +103,10 @@ public class Main {
         api.createDir("temporal");
         api.accessDir("temporal");
         api.pasteFile();
+*/
 
-
-//        Loader loader = new Loader();
-//        loader.generateTestData();
+        Loader loader = new Loader();
+        loader.generateTestData();
     }
 
 }

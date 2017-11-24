@@ -14,11 +14,8 @@
         </div>
         <div class="col-md-4">
             <div class="text-danger">
-                <asp:PlaceHolder ID="PopUp" runat="server" Visible="false">
-                    <h4><asp:Literal ID="literalConfirmacion" runat="server" Text="Ejemplo de confirmación?" /></h4>
-                    <asp:Button ID="btnAccept" runat="server" CssClass="btn-success btn-rounded" Text="Si" OnClick="confirmar_si"/>
-                    <asp:Button ID="btnCancel" runat="server" CssClass="btn-danger btn-rounded" Text="No" OnClick="confirmar_no" />
-                </asp:PlaceHolder>
+                <h4><asp:Literal ID="literalConfirmacion" runat="server" Text="Reemplazar archivos ya existentes?" />
+                <asp:CheckBox ID="checkReemplazo" runat="server" /></h4>
             </div>
         </div>
     </div>
@@ -49,7 +46,7 @@
             </div>
             <div class="form-group">
                 <asp:Button ID="btnEliminar" CssClass="btn btn-rounded btn-customWidth" 
-                    runat="server" Text="Eliminar seleccionados" />
+                    runat="server" Text="Eliminar seleccionados" OnClick="btnEliminar_Click" />
             </div>
             <div class="form-group">
                 <asp:Button ID="btnCompartir" CssClass="btn btn-rounded btn-customWidth" 

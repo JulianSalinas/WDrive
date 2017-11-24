@@ -29,8 +29,7 @@ public class Loader {
         usernames.add("jesus");     usernames.add("judas");
         usernames.add("aquiles");   usernames.add("david");
         usernames.add("luna");      usernames.add("fabio");
-        usernames.add("karla");     usernames.add("megaman");
-        usernames.add("erika");     usernames.add("esta");
+        usernames.add("karla");
         return usernames;
     }
 

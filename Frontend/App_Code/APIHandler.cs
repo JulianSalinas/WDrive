@@ -14,7 +14,6 @@ namespace API
         public static bool pastebinFull = false;
         public static string pastingFile = "";
         public static bool movingAction = false;
-        public static string confirmation = "si";
 
         public static string exists(string filename)
         {
@@ -24,6 +23,11 @@ namespace API
         public static string pasteFile()
         {
             return api.pasteFile();
+        }
+
+        public static string deleteFile(string filename)
+        {
+            return api.deleteFile(filename);
         }
 
         public static string copyFile(string filename)
@@ -45,7 +49,6 @@ namespace API
         {
             api = new WDriveApiService();
             refresh = false;
-            confirmation = "wait";
             pastingFile = "";
             currentlyLogged = false;
             pastebinFull = false;
@@ -79,12 +82,14 @@ namespace API
             return api.getCurrentDirname();
         }
 
-        public static void backDir()
+        public static string backDir()
         {
             if (!getCurrentDir().EndsWith(@"\drive"))
             {
-                api.accessDir("..");
+                return api.accessDir("..");
             }
+
+            return "OK";
         }
 
         public static string listFiles()
