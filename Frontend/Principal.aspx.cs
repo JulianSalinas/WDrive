@@ -299,7 +299,7 @@ public partial class _Default : Page
         // Aqui va el evento de compartir
     }
 
-<<<<<<< HEAD
+
     protected void btnPopupConfirmacionSI_Click(object sender, EventArgs e)
     {
         string stringResponse = APIHandler.pasteFile();
@@ -324,7 +324,7 @@ public partial class _Default : Page
         APIHandler.pastebinFull = false;
         APIHandler.confirmation = false;
     }
-=======
+
     protected void btnNuevoArchivo_Click(object sender, EventArgs e)
     {
         txtArchivo.Text = "";
@@ -350,5 +350,4 @@ public partial class _Default : Page
         // Aqui llamar a la funcion para crear el directorio
     }
 
->>>>>>> origin/master
 }
