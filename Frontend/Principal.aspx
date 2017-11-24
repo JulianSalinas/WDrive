@@ -214,6 +214,29 @@
                 <div class="modal-footer">
                     <asp:Button runat="server" Text="Cerrar" CssClass="btn btn-default"  data-dismiss="modal"/>
                     <asp:Button runat="server" Text="Guardar" CssClass="btn btn-info" OnClick="btnPopupEditar_Click"/>
+                    <asp:Button runat="server" Text="Descargar" CssClass="btn btn-warning" OnClick="mostrarPopupDescarga"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="popupDescargar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Descargar</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:TextBox ID="rutaDescarga" runat="server" placeholder="Carpeta de destino" class="form-control" /><br />
+                </div>
+
+                <div class="modal-footer">
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"  data-dismiss="modal"/>
+                    <asp:Button runat="server" Text="Descargar" CssClass="btn btn-info" OnClick="btnPopupDescargar_Click"/>
                 </div>
 
             </div>
