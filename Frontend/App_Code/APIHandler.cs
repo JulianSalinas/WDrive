@@ -108,5 +108,20 @@ namespace API
             return api.getAvailableSpace();
         }
 
+        public static string createFile(string filename, string content)
+        {
+            return api.createFile(filename, content);
+        }
+
+        public static string createDir(string dirname)
+        {
+            return api.createDir(dirname);
+        }
+
+        public static string shareFile(string filename, string username)
+        {
+            return api.shareFile(filename, username);
+        }
+
     }
 }

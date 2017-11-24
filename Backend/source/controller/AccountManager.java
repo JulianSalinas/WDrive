@@ -56,7 +56,7 @@ public class AccountManager implements ICloud {
         return account;
     }
 
-    private boolean exists(String username){
+    public boolean exists(String username){
         Path path = userInfoFilename(username);
         return path.toFile().exists();
     }

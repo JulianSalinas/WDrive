@@ -145,6 +145,8 @@ public class WDriveManager extends WDriveHelper {
     }
 
     public List<WDriveFile> shareFile(String filename, String username) throws Exception{
+        if(!accountManager.exists(username))
+            throw new Exception(msgAccountNotExists);
         FileSystemFile file = getCurrentDir().getFile(filename);
         WFileSystem target = fileSystemManager.load(username);
         fileSystem.share(file, target);

@@ -6,8 +6,10 @@
         <hr />        
         <div class="col-md-8">
             <div class="text-info">   
-                <h4> 
-                    <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
+
+                    <asp:Label CssClass="label label-default" runat="server" padding="100px" Text="Ruta actual: " />
+                    <h4> 
+                    <asp:Literal runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/> 
                     <asp:Literal runat="server" ID="literalRuta" Text="Ejemplo de ruta"/> 
                 </h4>
             </div>
@@ -79,6 +81,7 @@
                         <asp:ButtonField CommandName="Abrir" HeaderText=".." Text="Abrir" />
                     </Columns>
                 </asp:GridView>
+                    <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
             </div>
         </div>
     </div>

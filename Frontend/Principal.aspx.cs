@@ -1,10 +1,10 @@
-﻿using System;
+﻿using API;
+using System;
 using System.Data;
 using System.Web.UI;
-using API;
-using XMLHndlr;
-using System.Xml;
 using System.Web.UI.WebControls;
+using System.Xml;
+using XMLHndlr;
 
 
 public partial class _Default : Page
@@ -14,7 +14,9 @@ public partial class _Default : Page
 
     private void displayAlert(string alert)
     {
-        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atención!", "alert('" + alert + "')", true);
+        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atención!", "alert('" + alert + "')", true);
+        txtAlerta.Text = alert;
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupAlerta').modal('show');", true);
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -295,8 +297,42 @@ public partial class _Default : Page
 
     protected void btnPopupCompartir_Click(object sender, EventArgs e)
     {
-        string usuario = txtUsuario.Text; //Noimbre del usuario con el cual compartir
-        // Aqui va el evento de compartir
+
+        var selectedIndex = -1;
+
+        for (int i = 0; i < tablaExplorador.Rows.Count; i++)
+        {
+            var marca = (LinkButton) tablaExplorador.Rows[i].Cells[0].Controls[0];
+            if (marca.Text.Equals("Desmarcar"))
+            {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        if (selectedIndex == -1)
+        {
+            displayAlert("No se seleccionó un archivo.");
+            return;
+        }
+
+        string filename = fileData.Rows[selectedIndex].Field<string>("Nombre").TrimEnd(slash.ToCharArray()[0]);
+        string usuario = txtUsuario.Text;
+
+        string stringResponse = APIHandler.shareFile(filename, usuario);
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
+        {
+            displayAlert("Compartido con éxito");
+        }
+        else
+            displayAlert(msg);
+
+        showSpaceDetails();
     }
 
 
