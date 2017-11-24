@@ -438,6 +438,25 @@ public partial class _Default : Page
         ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupEditarArchivo').modal('show');", true);
     }
 
+    protected void mostrarPopupDescarga(object sender, EventArgs e)
+    {
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupDescargar').modal('show');", true);
+    }
+
+    protected void btnPopupDescargar_Click(object sender, EventArgs e)
+    {
+        string filename = editArchivo.Text;
+        string ruta = rutaDescarga.Text;
+        string content = editContent.Text;
+
+        if (ruta.EndsWith(@"\"))
+            System.IO.File.WriteAllText(@ruta + filename, content);
+        else
+            System.IO.File.WriteAllText(@ruta + @"\" + filename, content);
+
+        displayAlert("Archivo descargado.");
+    }
+
     protected void btnSubirArchivo_Click(object sender, EventArgs e)
     {
         ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupSubirArchivo').modal('show');", true);
