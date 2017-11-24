@@ -380,14 +380,8 @@ public partial class _Default : Page
         xmlResponse.LoadXml(stringResponse);
 
         string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
-        if (msg.Equals("OK"))
-        {
-            displayAlert("Archivo creado con éxito.");
-            if (APIHandler.movingAction)
-                APIHandler.pastebinFull = false;
-        }
-        else
-            displayAlert(msg);
+        if (msg.Equals("OK")) displayAlert("Archivo creado con éxito.");
+        else displayAlert(msg);
 
         fillExplorer();
 
@@ -401,8 +395,16 @@ public partial class _Default : Page
 
     protected void btnPopupCrearDirectorio_Click(object sender, EventArgs e)
     {
-        string directorio = txtDirectorio.Text; //Nombre del directorio a crear
-        // Aqui llamar a la funcion para crear el directorio
+        string directorio = txtDirectorio.Text;
+        string stringResponse = APIHandler.createDir(directorio);
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK")) displayAlert("Directorio creado con éxito.");
+        else displayAlert(msg);
+        fillExplorer();
     }
 
 }
