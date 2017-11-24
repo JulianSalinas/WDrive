@@ -4,11 +4,22 @@
 
     <div class="row">
         <hr />        
-        <div class="text-info">   
-            <h4> 
-                <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
-                <asp:Literal runat="server" ID="literalRuta" Text="Ejemplo de ruta"/> 
-            </h4>
+        <div class="col-md-8">
+            <div class="text-info">   
+                <h4> 
+                    <asp:Button runat="server" ID="btnVolver" Text="Regresar <<" CssClass="btn btn-rounded" OnClick="btnVolver_Click" />
+                    <asp:Literal runat="server" ID="literalRuta" Text="Ejemplo de ruta"/> 
+                </h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-danger">
+                <asp:PlaceHolder ID="PopUp" runat="server" Visible="false">
+                    <h4><asp:Literal ID="literalConfirmacion" runat="server" Text="Ejemplo de confirmación?" /></h4>
+                    <asp:Button ID="btnAccept" runat="server" CssClass="btn-success btn-rounded" Text="Si" OnClick="confirmar_si"/>
+                    <asp:Button ID="btnCancel" runat="server" CssClass="btn-danger btn-rounded" Text="No" OnClick="confirmar_no" />
+                </asp:PlaceHolder>
+            </div>
         </div>
     </div>
 
@@ -18,11 +29,11 @@
         <div class="col-md-4">
             <div class="form-group">
                 <asp:Button ID="btnNuevo" CssClass="btn btn-rounded btn-customWidth"
-                    runat="server" Text="Nuevo" OnClick="btnNuevo_Click" />
+                    runat="server" Text="Nuevo"/>
             </div>
             <div class="form-group">
                 <asp:Button ID="btnEditar" CssClass="btn btn-rounded btn-customWidth" 
-                    runat="server" Text="Editar seleccionado" />
+                    runat="server" Text="Editar seleccionado"/>
             </div>
             <div class="form-group">
                 <asp:Button ID="btnCortar" CssClass="btn btn-rounded btn-customWidth" 

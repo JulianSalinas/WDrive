@@ -7,11 +7,19 @@ namespace API
 {
     public static class APIHandler
     {
-
+        
         private static WDriveApiService api = new WDriveApiService();
         public static bool currentlyLogged = false;
+        public static bool refresh = false;
         public static bool pastebinFull = false;
+        public static string pastingFile = "";
         public static bool movingAction = false;
+        public static string confirmation = "si";
+
+        public static string exists(string filename)
+        {
+            return api.fileExists(filename);
+        }
 
         public static string pasteFile()
         {
@@ -36,6 +44,9 @@ namespace API
         public static string loadAccount(string UserName, string Password)
         {
             api = new WDriveApiService();
+            refresh = false;
+            confirmation = "wait";
+            pastingFile = "";
             currentlyLogged = false;
             pastebinFull = false;
             movingAction = false;

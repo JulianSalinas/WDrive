@@ -6,6 +6,7 @@ using XMLHndlr;
 using System.Xml;
 using System.Web.UI.WebControls;
 
+
 public partial class _Default : Page
 {
     static DataTable fileData;
@@ -23,8 +24,10 @@ public partial class _Default : Page
 
         literalRuta.Text = APIHandler.getCurrentDir();
 
-        if(!IsPostBack)
-            fillExplorer();
+        if (!IsPostBack || APIHandler.refresh)
+        {
+            fillExplorer(); APIHandler.refresh = false;
+        }
 
         if (APIHandler.pastebinFull)
             btnPegar.Visible = true;
@@ -67,11 +70,6 @@ public partial class _Default : Page
 
     }
 
-    protected void btnNuevo_Click(object sender, EventArgs e)
-    {
-        
-    }
-
     protected void abrir_archivo(GridViewCommandEventArgs args)
     {
         var index = Int32.Parse(args.CommandArgument.ToString());
@@ -91,14 +89,12 @@ public partial class _Default : Page
         xmlResponse.LoadXml(stringResponse);
 
         string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
-        if (msg.Equals("OK") && dirname.Equals(""))
+        if (msg.Equals("OK"))
         {
-            
+            page_refresh();
         }
         else
             displayAlert(msg);
-
-        page_refresh();
     }
 
     protected void tablaExplorador_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -125,7 +121,6 @@ public partial class _Default : Page
 
     protected void btnVolver_Click(object sender, EventArgs e)
     {
-
         string stringResponse = APIHandler.accessDir("..");
 
         XmlDocument xmlResponse = new XmlDocument();
@@ -134,11 +129,9 @@ public partial class _Default : Page
         string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
         if (!msg.Equals("OK"))
             displayAlert(msg);
-
-        page_refresh();
+        else
+            page_refresh();
     }
-
-    private void page_refresh() { Response.Redirect(Request.Url.ToString()); }
 
     protected void enviar_a_portapapeles(object sender, EventArgs e)
     {
@@ -160,15 +153,20 @@ public partial class _Default : Page
             return;
         }
 
-        string filename = fileData.Rows[selectedIndex].Field<string>("Nombre");
+        string filename = fileData.Rows[selectedIndex].Field<string>("Nombre").TrimEnd(slash.ToCharArray()[0]);
 
         string stringResponse = "";
 
         if (((Button)sender).ID.Equals("btnCortar"))
+        {
+            APIHandler.movingAction = true;
             stringResponse = APIHandler.cutFile(filename);
-
+        }
         else if (((Button)sender).ID.Equals("btnCopiar"))
+        {
+            APIHandler.movingAction = false;
             stringResponse = APIHandler.copyFile(filename);
+        }
 
         XmlDocument xmlResponse = new XmlDocument();
         xmlResponse.LoadXml(stringResponse);
@@ -177,13 +175,11 @@ public partial class _Default : Page
         if (msg.Equals("OK"))
         {
             APIHandler.pastebinFull = true;
+            APIHandler.pastingFile = filename;   
             displayAlert("Archivo movido a portapapeles");                   
         }
         else
             displayAlert(msg);
-
-        if (((Button)sender).ID.Equals("btnCortar"))
-            page_refresh();
     }
 
     protected void btnPegar_Click(object sender, EventArgs e)
@@ -192,6 +188,18 @@ public partial class _Default : Page
         {
             displayAlert("No hay archivos para pegar.");
             return;
+        }
+
+        if (existe_archivo(APIHandler.pastingFile))
+        {
+            literalConfirmacion.Text = "Ya existe el archivo. ¿Desea reemplazarlo?";
+            PopUp.Visible = true;
+            confirmar_wait();
+
+            while (APIHandler.confirmation.Equals("wait")) { }
+
+            if (APIHandler.confirmation.Equals("no"))
+                return;
         }
 
         string stringResponse = APIHandler.pasteFile();
@@ -203,10 +211,37 @@ public partial class _Default : Page
         if (msg.Equals("OK"))
         {
             displayAlert("Archivo pegado con éxito.");
+            if (APIHandler.movingAction)
+                APIHandler.pastebinFull = false;            
         }
         else
             displayAlert(msg);
 
         page_refresh();
+    }
+
+    private void page_refresh() { Response.Redirect(Request.Url.ToString()); }
+
+    protected void confirmar_si(object sender, EventArgs e) { APIHandler.confirmation = "si"; PopUp.Visible = false; }
+
+    protected void confirmar_no(object sender, EventArgs e) { APIHandler.confirmation = "no"; PopUp.Visible = false; }
+
+    protected void confirmar_wait() { APIHandler.confirmation = "wait"; PopUp.Visible = false; }
+
+    protected bool existe_archivo(string filename)
+    {
+        string stringResponse = APIHandler.exists(filename);
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_ExistMessage(xmlResponse);
+        if (msg.Equals("false"))
+            return false;
+        if (msg.Equals("true"))
+            return true;
+        else
+            displayAlert("Error verificando existencia del archivo.");
+        return true;
     }
 }

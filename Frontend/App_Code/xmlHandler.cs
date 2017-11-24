@@ -22,11 +22,24 @@ namespace XMLHndlr
         public static string handle_Space(XmlDocument xml)
         {
  
-            string xpath = "controller.WDriveMessage/content";
             return xml.SelectSingleNode(xpath).InnerText;
+            string xpath = "controller.WDriveMessage/content";
 
         }
 
+        public static string handle_ExistMessage(XmlDocument xml)
+        {
+            string xpath_status = "controller.WDriveMessage/status";
+            string xpath_result = "controller.WDriveMessage/content";
+
+
+            string status = xml.SelectSingleNode(xpath_status).InnerText;
+            if (status.Equals("OK"))
+            else
+                return xml.SelectSingleNode(xpath_result).InnerText;
+                return xml.SelectSingleNode(xpath_result).InnerText;
+
+        }
         public static DataTable handle_FileList(XmlDocument xml)
         {
             DataTable data = new DataTable();
@@ -37,7 +50,7 @@ namespace XMLHndlr
                 new DataColumn("Fecha de modificación", typeof(string)),
                 new DataColumn("Tamaño", typeof(string))
             });
-
+            
             string xpath = "controller.WDriveMessage/content/controller.WDriveFile";
 
             var archivos = xml.SelectNodes(xpath);
