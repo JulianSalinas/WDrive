@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"/>
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"  data-dismiss="modal"/>
                     <asp:Button runat="server" Text="Compartir" CssClass="btn btn-info" OnClick="btnPopupCompartir_Click"/>
                 </div>
 
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"/>
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"  data-dismiss="modal" />
                     <asp:Button runat="server" Text="Crear" CssClass="btn btn-info" OnClick="btnPopupCrearDirectorio_Click"/>
                 </div>
 
@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"/>
+                    <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"  data-dismiss="modal"/>
                     <asp:Button runat="server" Text="Crear" CssClass="btn btn-info" OnClick="btnPopupCrearDirectorio_Click"/>
                 </div>
 
