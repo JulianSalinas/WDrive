@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <asp:Button ID="btnCompartir" CssClass="btn btn-rounded btn-customWidth" 
-                    runat="server" Text="Compartir seleccionados" />
+                    runat="server" Text="Compartir seleccionado" OnClick="btnCompartir_Click" />
             </div>
 
             <div class="form-group">
@@ -79,4 +79,29 @@
             </div>
         </div>
     </div>
+
+
+
+     <div id="popupCompartir" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Compartir</h4>
+                </div>
+
+                <div class="modal-body">
+                    <asp:TextBox ID="txtUsuario" runat="server" placeholder="Usuario para compartir" class="form-control"></asp:TextBox><br />
+                </div>
+
+                <div class="modal-footer">
+                    <asp:Button runat="server" Text="Compartir" CssClass="btn btn-success" OnClick="btnPopupCompartir_Click"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 </asp:Content>

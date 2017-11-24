@@ -287,4 +287,17 @@ public partial class _Default : Page
         if (sirvio)
             page_refresh();
     }
+
+    protected void btnCompartir_Click(object sender, EventArgs e)
+    {
+        txtUsuario.Text = "";
+        ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "$('#popupCompartir').modal('show');", true);
+    }
+
+    protected void btnPopupCompartir_Click(object sender, EventArgs e)
+    {
+        String usuario = txtUsuario.Text; //Noimbre del usuario con el cual compartir
+        // Aqui va el evento de compartir
+    }
+    
 }
