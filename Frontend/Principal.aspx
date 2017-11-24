@@ -148,7 +148,7 @@
 
                 <div class="modal-footer">
                     <asp:Button runat="server" Text="Cancelar" CssClass="btn btn-default"  data-dismiss="modal"/>
-                    <asp:Button runat="server" Text="Crear" CssClass="btn btn-info" OnClick="btnPopupCrearDirectorio_Click"/>
+                    <asp:Button runat="server" Text="Crear" CssClass="btn btn-info" OnClick="btnPopupCrearArchivo_Click"/>
                 </div>
 
             </div>

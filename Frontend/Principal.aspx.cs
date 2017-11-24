@@ -373,6 +373,24 @@ public partial class _Default : Page
     {
         string archivo = txtArchivo.Text;
         string contenido = txtContenido.Text;
+
+        string stringResponse = APIHandler.createFile(archivo, contenido);
+
+        XmlDocument xmlResponse = new XmlDocument();
+        xmlResponse.LoadXml(stringResponse);
+
+        string msg = xmlHandler.handle_WDriveMessage(xmlResponse);
+        if (msg.Equals("OK"))
+        {
+            displayAlert("Archivo creado con éxito.");
+            if (APIHandler.movingAction)
+                APIHandler.pastebinFull = false;
+        }
+        else
+            displayAlert(msg);
+
+        fillExplorer();
+
     }
 
     protected void btnNuevoDirectorio_Click(object sender, EventArgs e)
